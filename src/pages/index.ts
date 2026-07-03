@@ -1,0 +1,14 @@
+export { HomePage } from './HomePage';
+export { ServicesPage } from './ServicesPage';
+export { PricingPage } from './PricingPage';
+export { GalleryPage } from './GalleryPage';
+export { AboutPage } from './AboutPage';
+export { TeamPage } from './TeamPage';
+export { ReviewsPage } from './ReviewsPage';
+export { BlogPage } from './BlogPage';
+export { PromotionsPage } from './PromotionsPage';
+export { ContactsPage } from './ContactsPage';
+export { BookPage } from './BookPage';
+export { PrivacyPage } from './PrivacyPage';
+export { TermsPage } from './TermsPage';
+export { NotFoundPage } from './NotFoundPage';
