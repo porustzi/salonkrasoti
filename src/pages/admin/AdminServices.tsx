@@ -1,5 +1,6 @@
 import { useData } from '../../context/DataContext'
-import { TextEditor, TextAreaEditor } from './AdminFormFields'
+import { TextEditor, TextAreaEditor, SectionCard } from './AdminFormFields'
+import { Scissors, Clock, DollarSign } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 export function AdminServices() {
@@ -20,25 +21,79 @@ export function AdminServices() {
   }
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
-      <h2 className="text-xl font-semibold text-neutral-900">Послуги та ціни</h2>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-5">
+      <div className="flex items-center justify-between">
+        <div>
+          <h2 className="text-lg font-heading font-semibold text-neutral-900">Послуги та ціни</h2>
+          <p className="text-sm text-neutral-500">Редагуйте категорії послуг, ціни та описи</p>
+        </div>
+        <div className="text-xs text-neutral-400 bg-white px-3 py-1.5 rounded-lg border border-neutral-200">
+          {cats.reduce((sum, c) => sum + c.services.length, 0)} послуг · {cats.length} категорій
+        </div>
+      </div>
+
       {cats.map((cat, ci) => (
-        <div key={cat.id} className="bg-white rounded-xl p-5 space-y-3 shadow-sm border border-neutral-100">
-          <TextEditor label="Назва категорії" value={cat.title} onChange={(v) => updateCatField(ci, 'title', v)} />
-          <TextAreaEditor label="Опис категорії" value={cat.description} onChange={(v) => updateCatField(ci, 'description', v)} />
-          <div className="space-y-3 pt-2">
+        <SectionCard
+          key={cat.id}
+          title={cat.title}
+          subtitle={`${cat.services.length} послуг`}
+          index={ci + 1}
+        >
+          <TextEditor
+            label="Назва категорії"
+            value={cat.title}
+            onChange={(v) => updateCatField(ci, 'title', v)}
+            icon={<Scissors className="w-3.5 h-3.5" />}
+          />
+          <TextAreaEditor
+            label="Опис категорії"
+            value={cat.description}
+            onChange={(v) => updateCatField(ci, 'description', v)}
+          />
+
+          <div className="pt-2 space-y-2.5">
+            <div className="flex items-center gap-2 text-[11px] font-medium text-neutral-400 uppercase tracking-wider">
+              <span className="w-5 h-px bg-neutral-200" />
+              Послуги
+              <span className="w-5 h-px bg-neutral-200" />
+            </div>
             {cat.services.map((svc, si) => (
-              <div key={si} className="bg-neutral-50 rounded-lg p-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <TextEditor label="Назва" value={svc.name} onChange={(v) => updateService(ci, si, 'name', v)} />
-                <TextEditor label="Тривалість" value={svc.duration} onChange={(v) => updateService(ci, si, 'duration', v)} />
-                <TextEditor label="Ціна" value={svc.price} onChange={(v) => updateService(ci, si, 'price', v)} />
-                <div className="sm:col-span-3">
-                  <TextAreaEditor label="Опис" value={svc.description} onChange={(v) => updateService(ci, si, 'description', v)} />
+              <motion.div
+                key={si}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: si * 0.03 }}
+                className="bg-neutral-50 rounded-xl p-4 grid grid-cols-1 md:grid-cols-3 gap-3 border border-neutral-100/50"
+              >
+                <TextEditor
+                  label="Назва"
+                  value={svc.name}
+                  onChange={(v) => updateService(ci, si, 'name', v)}
+                  icon={<Scissors className="w-3 h-3" />}
+                />
+                <TextEditor
+                  label="Тривалість"
+                  value={svc.duration}
+                  onChange={(v) => updateService(ci, si, 'duration', v)}
+                  icon={<Clock className="w-3 h-3" />}
+                />
+                <TextEditor
+                  label="Ціна (грн)"
+                  value={svc.price}
+                  onChange={(v) => updateService(ci, si, 'price', v)}
+                  icon={<DollarSign className="w-3 h-3" />}
+                />
+                <div className="md:col-span-3">
+                  <TextAreaEditor
+                    label="Опис"
+                    value={svc.description}
+                    onChange={(v) => updateService(ci, si, 'description', v)}
+                  />
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </SectionCard>
       ))}
     </motion.div>
   )
