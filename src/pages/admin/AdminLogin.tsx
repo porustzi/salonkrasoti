@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Eye, EyeOff, Lock, Sparkles } from 'lucide-react'
+import { Eye, EyeOff, Lock, Sparkles, Info, Copy } from 'lucide-react'
 
 const ADMIN_CREDENTIALS = {
   login: 'admin',
@@ -13,6 +13,7 @@ export function AdminLogin() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [showHint, setShowHint] = useState(false)
   const navigate = useNavigate()
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -21,10 +22,15 @@ export function AdminLogin() {
 
     if (login === ADMIN_CREDENTIALS.login && password === ADMIN_CREDENTIALS.password) {
       sessionStorage.setItem('admin_auth', 'true')
-      navigate('/admin/services')
+      navigate('/admin')
     } else {
       setError('Невірний логін або пароль')
     }
+  }
+
+  const fillCredentials = () => {
+    setLogin(ADMIN_CREDENTIALS.login)
+    setPassword(ADMIN_CREDENTIALS.password)
   }
 
   return (
@@ -50,7 +56,7 @@ export function AdminLogin() {
             </div>
             <div>
               <h1 className="text-2xl font-heading font-semibold text-neutral-900">Майстерня Краси</h1>
-              <p className="text-sm text-neutral-400 font-body">Адмін-панель</p>
+              <p className="text-sm text-neutral-400 font-body">Вхід в адмін-панель</p>
             </div>
           </div>
 
@@ -78,7 +84,7 @@ export function AdminLogin() {
                 value={login}
                 onChange={(e) => setLogin(e.target.value)}
                 className="w-full px-4 py-3 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 focus:border-champagne/50 focus:ring-2 focus:ring-champagne/10 outline-none transition-all font-body"
-                placeholder="admin"
+                placeholder="Введіть логін"
                 autoFocus
               />
             </div>
@@ -91,12 +97,13 @@ export function AdminLogin() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-4 py-3 pr-11 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 focus:border-champagne/50 focus:ring-2 focus:ring-champagne/10 outline-none transition-all font-body"
-                  placeholder="••••••••"
+                  placeholder="Введіть пароль"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3.5 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-600 transition-colors"
+                  title={showPassword ? 'Сховати пароль' : 'Показати пароль'}
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -107,13 +114,41 @@ export function AdminLogin() {
               type="submit"
               className="w-full py-3 bg-neutral-900 text-white font-medium rounded-xl text-sm hover:bg-neutral-800 transition-all duration-300 shadow-sm font-body"
             >
-              Увійти
+              Увійти в адмін-панель
             </button>
           </motion.form>
 
-          <div className="mt-6 flex items-center gap-2 justify-center text-neutral-300 text-xs font-body">
-            <Sparkles className="w-3 h-3" />
-            <span>Тільки для адміністратора</span>
+          <div className="mt-6 space-y-3">
+            <button
+              type="button"
+              onClick={() => setShowHint(!showHint)}
+              className="w-full flex items-center justify-center gap-2 text-xs text-neutral-400 hover:text-neutral-600 transition-colors font-body"
+            >
+              <Info className="w-3.5 h-3.5" />
+              {showHint ? 'Сховати підказку' : 'Забули логін або пароль?'}
+            </button>
+
+            {showHint && (
+              <motion.div
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-champagne/5 border border-champagne/20 rounded-xl p-4 text-center space-y-2"
+              >
+                <p className="text-xs text-neutral-600 font-body">
+                  <span className="font-semibold">Логін:</span> admin
+                  <br />
+                  <span className="font-semibold">Пароль:</span> admin@salon2024!
+                </p>
+                <button
+                  type="button"
+                  onClick={fillCredentials}
+                  className="inline-flex items-center gap-1.5 text-xs text-champagne hover:text-gold font-medium transition-colors"
+                >
+                  <Copy className="w-3 h-3" />
+                  Вставити дані автоматично
+                </button>
+              </motion.div>
+            )}
           </div>
         </div>
       </motion.div>

@@ -10,6 +10,7 @@ const AdminServices = lazy(() => import('./pages/admin/AdminServices').then(m =>
 const AdminGallery = lazy(() => import('./pages/admin/AdminGallery').then(m => ({ default: m.AdminGallery })))
 const AdminTeam = lazy(() => import('./pages/admin/AdminTeam').then(m => ({ default: m.AdminTeam })))
 const AdminReviews = lazy(() => import('./pages/admin/AdminReviews').then(m => ({ default: m.AdminReviews })))
+const AdminDashboard = lazy(() => import('./pages/admin/AdminDashboard').then(m => ({ default: m.AdminDashboard })))
 
 import {
   HomePage,
@@ -52,7 +53,7 @@ function App() {
             <Route path="/terms" element={<Layout><TermsPage /></Layout>} />
             <Route path="/admin/login" element={<SuspenseWrapper><AdminLogin /></SuspenseWrapper>} />
             <Route path="/admin" element={<SuspenseWrapper><AdminLayout /></SuspenseWrapper>}>
-              <Route index element={<Navigate to="services" replace />} />
+              <Route index element={<AdminDashboard />} />
               <Route path="services" element={<AdminServices />} />
               <Route path="gallery" element={<AdminGallery />} />
               <Route path="team" element={<AdminTeam />} />

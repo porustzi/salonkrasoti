@@ -23,6 +23,7 @@ const STATUS_ICONS: Record<SyncStatus, React.ReactNode> = {
 }
 
 const SIDEBAR = [
+  { path: '/admin', label: 'Головна', icon: LayoutDashboard },
   { path: '/admin/services', label: 'Послуги та ціни', icon: Scissors },
   { path: '/admin/gallery', label: 'Галерея', icon: Images },
   { path: '/admin/team', label: 'Команда', icon: Users },
@@ -30,6 +31,7 @@ const SIDEBAR = [
 ]
 
 const PAGE_TITLES: Record<string, string> = {
+  '': 'Головна',
   services: 'Послуги та ціни',
   gallery: 'Галерея',
   team: 'Команда',
