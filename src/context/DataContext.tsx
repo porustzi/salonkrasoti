@@ -96,26 +96,13 @@ export function DataProvider({ children }: { children: ReactNode }) {
     })
   }, [])
 
-  useEffect(() => {
-  // ❌ УДАЛИЛИ useEffect для localStorage
-  // Теперь все сохраняется через saveToSupabase
-}, [])
-
-const debouncedSave = useCallback((newData: SiteData) => {
-  if (debounceRef.current) clearTimeout(debounceRef.current)
-  debounceRef.current = setTimeout(() => {
-    console.log('Debounced save to Supabase...')
-    // saveToStorage(newData) // ❌ Удалено localStorage
-  }, 2000)
-}, [])
-
-const debouncedSave = useCallback((newData: SiteData) => {
-  if (debounceRef.current) clearTimeout(debounceRef.current)
-  debounceRef.current = setTimeout(() => {
-    console.log('Debounced save to Supabase...')
-    // saveToStorage(newData) // ❌ Удалено localStorage
-  }, 2000)
-}, [])
+  const debouncedSave = useCallback((newData: SiteData) => {
+    if (debounceRef.current) clearTimeout(debounceRef.current)
+    debounceRef.current = setTimeout(() => {
+      console.log('Debounced save to Supabase...')
+      // saveToStorage(newData) // ❌ Удалено localStorage
+    }, 2000)
+  }, [])
 
   const updateServices = useCallback((services: SiteData['services']) => {
     setData((prev) => { const next = { ...prev, services }; debouncedSave(next); return next })
