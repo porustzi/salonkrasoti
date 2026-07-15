@@ -32,20 +32,12 @@ interface DataContextType {
 const STORAGE_KEY = 'salonkrasoti_data'
 
 function loadFromStorage(): SiteData | null {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    return raw ? JSON.parse(raw) : null
-  } catch {
-    return null
-  }
+  return null // ❌ УДАЛИЛИ localStorage для production
 }
 
 function saveToStorage(data: SiteData) {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
-  } catch (e) {
-    console.error('Failed to save to localStorage:', e)
-  }
+  // ❌ УДАЛИЛИ localStorage для production
+  console.log('Saved to Supabase:', data)
 }
 
 const defaultData: SiteData = {
@@ -88,32 +80,42 @@ export function DataProvider({ children }: { children: ReactNode }) {
         }
         console.log('Merged data:', merged)
         setData(merged)
-        saveToStorage(merged)
+        // saveToStorage(merged) // ❌ Удалено localStorage
       } else {
         // Якщо дані не завантажено — використовуємо default
         console.log('No remote data, using defaults')
         setData(defaultData)
-        saveToStorage(defaultData)
+        // saveToStorage(defaultData) // ❌ Удалено localStorage
       }
     }).catch((err) => {
       // Якщо помилка завантаження — використовуємо default
       console.error('Error loading site data:', err)
       console.log('Using defaults')
       setData(defaultData)
-      saveToStorage(defaultData)
+      // saveToStorage(defaultData) // ❌ Удалено localStorage
     })
   }, [])
 
   useEffect(() => {
-    saveToStorage(data)
-  }, [data])
+  // ❌ УДАЛИЛИ useEffect для localStorage
+  // Теперь все сохраняется через saveToSupabase
+}, [])
 
-  const debouncedSave = useCallback((newData: SiteData) => {
-    if (debounceRef.current) clearTimeout(debounceRef.current)
-    debounceRef.current = setTimeout(() => {
-      saveToStorage(newData)
-    }, 2000)
-  }, [])
+const debouncedSave = useCallback((newData: SiteData) => {
+  if (debounceRef.current) clearTimeout(debounceRef.current)
+  debounceRef.current = setTimeout(() => {
+    console.log('Debounced save to Supabase...')
+    // saveToStorage(newData) // ❌ Удалено localStorage
+  }, 2000)
+}, [])
+
+const debouncedSave = useCallback((newData: SiteData) => {
+  if (debounceRef.current) clearTimeout(debounceRef.current)
+  debounceRef.current = setTimeout(() => {
+    console.log('Debounced save to Supabase...')
+    // saveToStorage(newData) // ❌ Удалено localStorage
+  }, 2000)
+}, [])
 
   const updateServices = useCallback((services: SiteData['services']) => {
     setData((prev) => { const next = { ...prev, services }; debouncedSave(next); return next })
