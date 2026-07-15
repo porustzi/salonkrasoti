@@ -66,7 +66,9 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
+    console.log('Loading site data from Supabase...')
     loadSiteData().then((remote) => {
+      console.log('Remote data:', remote)
       if (remote?.data) {
         const { services, gallery, team, reviews, content } = remote.data
         // Deep merge with defaults
@@ -84,15 +86,19 @@ export function DataProvider({ children }: { children: ReactNode }) {
           reviews: reviews || defaultReviews,
           content: mergedContent,
         }
+        console.log('Merged data:', merged)
         setData(merged)
         saveToStorage(merged)
       } else {
         // Якщо дані не завантажено — використовуємо default
+        console.log('No remote data, using defaults')
         setData(defaultData)
         saveToStorage(defaultData)
       }
-    }).catch(() => {
+    }).catch((err) => {
       // Якщо помилка завантаження — використовуємо default
+      console.error('Error loading site data:', err)
+      console.log('Using defaults')
       setData(defaultData)
       saveToStorage(defaultData)
     })
