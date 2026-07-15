@@ -1,0 +1,11 @@
+﻿export function HomePage() { return <div>Home</div> }
+export function PricingPage() { return <div>Pricing</div> }
+export function GalleryPage() { return <div>Gallery</div> }
+export function AboutPage() { return <div>About</div> }
+export function TeamPage() { return <div>Team</div> }
+export function ReviewsPage() { return <div>Reviews</div> }
+export function ContactsPage() { return <div>Contacts</div> }
+export function BookPage() { return <div>Book</div> }
+export function PrivacyPage() { return <div>Privacy</div> }
+export function TermsPage() { return <div>Terms</div> }
+export function NotFoundPage() { return <div>404</div> }

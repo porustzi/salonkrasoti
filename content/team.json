@@ -1,0 +1,28 @@
+﻿{
+  "members": [
+    {
+      "id": "team_1",
+      "name": "Олена",
+      "position": "Майстер-стиліст",
+      "experience": 10,
+      "photo": "/images/team/1.jpg",
+      "description": "10 років досвіду, спеціалізується на колоруванні"
+    },
+    {
+      "id": "team_2",
+      "name": "Марина",
+      "position": "Майстер манікюру",
+      "experience": 8,
+      "photo": "/images/team/2.jpg",
+      "description": "Експерт з нігтьового сервісу"
+    },
+    {
+      "id": "team_3",
+      "name": "Анна",
+      "position": "Косметолог",
+      "experience": 5,
+      "photo": "/images/team/3.jpg",
+      "description": "Професійна чистка та масаж обличчя"
+    }
+  ]
+}

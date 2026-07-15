@@ -1,0 +1,31 @@
+﻿{
+  "business": {
+    "name": "Майстерня Краси",
+    "tagline": "Салон краси без стереотипів",
+    "address": "Проспект Миру 49",
+    "city": "Чернігів",
+    "country": "Україна",
+    "location": "ЦУМ \"Чернігів\", 2 поверх",
+    "phone": "+380 (63) 844-77-25",
+    "email": "maysternya.krasy@gmail.com",
+    "instagram": "https://instagram.com/maysternya_krasy1",
+    "workingHours": [
+      {"day": "Понеділок", "hours": "10:00 - 21:00"},
+      {"day": "Вівторок", "hours": "10:00 - 21:00"},
+      {"day": "Середа", "hours": "10:00 - 21:00"},
+      {"day": "Четвер", "hours": "10:00 - 21:00"},
+      {"day": "П'ятниця", "hours": "10:00 - 21:00"},
+      {"day": "Субота", "hours": "10:00 - 21:00"},
+      {"day": "Неділя", "hours": "10:00 - 21:00"}
+    ],
+    "googleMapsUrl": "https://maps.google.com/?q=ЦУМ+Чернігів,+проспект+Миру+49,+Чернігів",
+    "googleRating": 4.4,
+    "reviewCount": 76
+  },
+  "seo": {
+    "siteName": "Майстерня Краси",
+    "siteUrl": "https://salonkrasoti.pages.dev",
+    "defaultTitle": "Майстерня Краси - Салон краси в Чернігові",
+    "defaultDescription": "Майстерня Краси - салон краси в Чернігові. Професійні послуги: стрижки, фарбування, манікюр, педикюр, візаж, масаж."
+  }
+}

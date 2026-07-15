@@ -1,0 +1,85 @@
+﻿{
+  "categories": [
+    {
+      "id": "hair",
+      "name": "Стрижки та фарбування",
+      "services": [
+        {
+          "id": "haircut_women",
+          "name": "Стрижка жіноча",
+          "price": 600,
+          "duration": 60,
+          "description": "Професійна стрижка з урахуванням форми обличчя"
+        },
+        {
+          "id": "haircut_men",
+          "name": "Стрижка чоловіча",
+          "price": 400,
+          "duration": 30,
+          "description": "Класична або сучасна стрижка"
+        },
+        {
+          "id": "coloring_complete",
+          "name": "Колорування волосся",
+          "price": 1200,
+          "duration": 120,
+          "description": "Повне фарбування волосся"
+        },
+        {
+          "id": "balayage",
+          "name": "Балаяж",
+          "price": 1800,
+          "duration": 150,
+          "description": "Техніка м'якого фарбування"
+        }
+      ]
+    },
+    {
+      "id": "nails",
+      "name": "Манікюр та педикюр",
+      "services": [
+        {
+          "id": "manicure_classic",
+          "name": "Класичний манікюр",
+          "price": 350,
+          "duration": 45,
+          "description": "Обробка рук та нігтів"
+        },
+        {
+          "id": "gel_manicure",
+          "name": "Гелевий манікюр",
+          "price": 500,
+          "duration": 60,
+          "description": "Нанесення гелевого покриття"
+        },
+        {
+          "id": "pedicure",
+          "name": "Педикюр",
+          "price": 600,
+          "duration": 90,
+          "description": "Комплексна обробка ніг"
+        }
+      ]
+    },
+    {
+      "id": "facial",
+      "name": "Косметологія",
+      "services": [
+        {
+          "id": "facial_cleaning",
+          "name": "Чистка обличчя",
+          "price": 800,
+          "duration": 60,
+          "description": "Глибока чистка та пілінг"
+        },
+        {
+          "id": "massage",
+          "name": "Масаж обличчя",
+          "price": 700,
+          "duration": 45,
+          "description": "Релаксуючий масаж"
+        }
+      ]
+    }
+  ]
+}
