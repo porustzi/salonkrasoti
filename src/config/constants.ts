@@ -2,30 +2,30 @@
 
 export const BUSINESS_INFO = {
   name: 'Майстерня Краси',
-  tagline: 'Створюємо красу, цінуємо індивідуальність',
+  tagline: 'Салон краси без стереотипів',
   address: 'Проспект Миру 49',
   city: 'Чернігів',
   country: 'Україна',
-  location: 'ЦУМ Чернігів',
-  phone: '+380 (XX) XXX-XX-XX',
-  email: 'info@maisternya-krasy.ua',
-  instagram: 'https://instagram.com/maisternya_krasy',
+  location: 'ЦУМ "Чернігів", 2 поверх',
+  phone: '+380 (63) 844-77-25',
+  email: 'maysternya.krasy@gmail.com',
+  instagram: 'https://instagram.com/maysternya_krasy1',
   workingHours: [
-    { day: 'Понеділок', hours: '09:00 - 19:00' },
-    { day: 'Вівторок', hours: '09:00 - 19:00' },
-    { day: 'Середа', hours: '09:00 - 19:00' },
-    { day: 'Четвер', hours: '09:00 - 19:00' },
-    { day: 'П\'ятниця', hours: '09:00 - 20:00' },
-    { day: 'Субота', hours: '10:00 - 18:00' },
-    { day: 'Неділя', hours: 'Вихідний' },
+    { day: 'Понеділок', hours: '10:00 - 21:00' },
+    { day: 'Вівторок', hours: '10:00 - 21:00' },
+    { day: 'Середа', hours: '10:00 - 21:00' },
+    { day: 'Четвер', hours: '10:00 - 21:00' },
+    { day: 'П\'ятниця', hours: '10:00 - 21:00' },
+    { day: 'Субота', hours: '10:00 - 21:00' },
+    { day: 'Неділя', hours: '10:00 - 21:00' },
   ],
-  googleMapsUrl: 'https://maps.google.com/?q=Проспект+Миру+49,+Чернігів',
-  googleRating: 4.8,
-  reviewCount: 409,
+  googleMapsUrl: 'https://maps.google.com/?q=ЦУМ+Чернігів,+проспект+Миру+49,+Чернігів',
+  googleRating: 4.4,
+  reviewCount: 76,
 } as const;
 
-// Booking URL - redirects to Beauty Pro Software
-export const BOOKING_URL = 'https://YOUR-BEAUTY-PRO-SOFTWARE-LINK';
+// Booking URL - redirects to Instagram Direct
+export const BOOKING_URL = 'https://instagram.com/maysternya_krasy1';
 
 // Social media links
 export const SOCIAL_LINKS = {
@@ -35,9 +35,9 @@ export const SOCIAL_LINKS = {
 // SEO defaults
 export const SEO_DEFAULTS = {
   siteName: BUSINESS_INFO.name,
-  siteUrl: 'https://maisternya-krasy.ua',
-  defaultTitle: 'Майстерня Краси - Преміум салон краси в Чернігові',
-  defaultDescription: 'Майстерня Краси - преміум салон краси в Чернігові. Професійні послуги: стрижки, фарбування, блонд, balayage, airtouch. Запишіться онлайн!',
+  siteUrl: 'https://salonkrasoti.pages.dev',
+  defaultTitle: 'Майстерня Краси - Салон краси в Чернігові | Стрижки, фарбування, манікюр',
+  defaultDescription: 'Майстерня Краси - салон краси в Чернігові. 14 майстрів, 10 років досвіду. Професійні послуги: стрижки, фарбування, манікюр, педикюр, візаж, масаж. Запишіться онлайн!',
   defaultImage: '/images/og-image.jpg',
 } as const;
 

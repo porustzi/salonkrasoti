@@ -30,13 +30,20 @@ export function SectionHeading({
       >
         {title}
       </motion.h2>
+      <motion.div
+        initial={{ opacity: 0, scaleX: 0 }}
+        whileInView={{ opacity: 1, scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className={`divider-gold mt-6 ${align === 'center' ? '' : align === 'right' ? 'ml-auto' : ''}`}
+      />
       {subtitle && (
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="mt-4 text-lg text-neutral-600 max-w-2xl"
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className={`mt-6 text-lg text-neutral-600 max-w-2xl ${align === 'center' ? 'mx-auto' : align === 'right' ? 'ml-auto' : ''}`}
         >
           {subtitle}
         </motion.p>

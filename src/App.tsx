@@ -1,8 +1,7 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from './components/layout';
 import {
   HomePage,
-  ServicesPage,
   PricingPage,
   GalleryPage,
   AboutPage,
@@ -22,7 +21,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout><HomePage /></Layout>} />
-        <Route path="/services" element={<Layout><ServicesPage /></Layout>} />
+        <Route path="/services" element={<Navigate to="/pricing" replace />} />
         <Route path="/pricing" element={<Layout><PricingPage /></Layout>} />
         <Route path="/gallery" element={<Layout><GalleryPage /></Layout>} />
         <Route path="/about" element={<Layout><AboutPage /></Layout>} />

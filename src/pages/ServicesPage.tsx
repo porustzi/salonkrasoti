@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 import { SEO, LocalBusinessSchema } from '../components/SEO';
-import { Breadcrumbs, SectionHeading, Button } from '../components/ui';
+import { Button, PageHero } from '../components/ui';
 import { BOOKING_URL } from '../config/constants';
 import { serviceCategories } from '../data/services';
-import { Clock, Tag } from 'lucide-react';
+import { Clock, Scissors } from 'lucide-react';
 
 export function ServicesPage() {
   return (
@@ -14,15 +14,12 @@ export function ServicesPage() {
       />
       <LocalBusinessSchema />
 
-      <div className="pt-28 pb-16 bg-cream">
-        <div className="container-custom">
-          <Breadcrumbs />
-          <SectionHeading
-            title="Наші послуги"
-            subtitle="Професійні послуги від досвідчених майстрів з використанням преміум матеріалів"
-          />
-        </div>
-      </div>
+      <PageHero
+        title="Наші послуги"
+        subtitle="Професійні послуги від досвідчених майстрів з використанням преміум матеріалів"
+        image="https://images.pexels.com/photos/3993451/pexels-photo-3993451.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        icon={Scissors}
+      />
 
       {/* Categories Grid */}
       <section className="section-padding bg-white">
@@ -49,12 +46,12 @@ export function ServicesPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className={`py-16 ${catIndex > 0 ? 'border-t border-neutral-100' : ''}`}
+              className={`py-10 md:py-16 ${catIndex > 0 ? 'border-t border-neutral-100' : ''}`}
             >
-              <div className="grid lg:grid-cols-2 gap-12 items-start">
+              <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-start">
                 {/* Category Image */}
-                <div className="relative">
-                  <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-medium sticky top-28">
+                <div className={`relative ${catIndex % 2 === 1 ? 'lg:order-2' : ''}`}>
+                  <div className="aspect-[4/3] rounded-3xl overflow-hidden shadow-medium lg:sticky lg:top-28">
                     <img
                       src={category.image}
                       alt={category.title}
@@ -78,12 +75,15 @@ export function ServicesPage() {
                       initial={{ opacity: 0, x: 20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                      className="bg-cream rounded-2xl p-6 hover:shadow-medium transition-all duration-300"
+                      transition={{ delay: index * 0.08 }}
+                      className="group relative bg-white rounded-2xl p-6 shadow-soft hover:shadow-large transition-all duration-300 border border-neutral-100 hover:border-champagne/40 overflow-hidden"
                     >
+                      {/* Gold accent bar */}
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-champagne scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-300" />
+
                       <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
                         <div className="flex-grow">
-                          <h3 className="text-lg font-semibold text-neutral-900 mb-2">
+                          <h3 className="text-lg font-semibold text-neutral-900 mb-2 group-hover:text-champagne transition-colors">
                             {service.name}
                           </h3>
                           <p className="text-neutral-600 text-sm mb-3">
@@ -92,19 +92,18 @@ export function ServicesPage() {
                           <div className="flex items-center gap-4 text-sm text-neutral-500">
                             {service.duration && (
                               <span className="flex items-center gap-1">
-                                <Clock className="w-4 h-4" />
+                                <Clock className="w-4 h-4 text-champagne" />
                                 {service.duration}
                               </span>
                             )}
                           </div>
                         </div>
-                        <div className="flex flex-col items-start sm:items-end gap-2">
-                          <div className="flex items-center gap-1">
-                            <Tag className="w-4 h-4 text-champagne" />
-                            <span className="text-2xl font-heading font-bold text-champagne">
+                        <div className="flex flex-col items-start sm:items-end gap-2 sm:min-w-[120px]">
+                          <div className="flex items-baseline gap-1">
+                            <span className="text-3xl font-heading font-bold text-champagne">
                               {service.price}
                             </span>
-                            <span className="text-neutral-500 text-sm">грн</span>
+                            <span className="text-neutral-400 text-sm">грн</span>
                           </div>
                           <Button
                             href={BOOKING_URL}

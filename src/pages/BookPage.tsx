@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { SEO } from '../components/SEO';
-import { Breadcrumbs, Button } from '../components/ui';
+import { Button, PageHero } from '../components/ui';
 import { BOOKING_URL } from '../config/constants';
 import { Calendar, ExternalLink } from 'lucide-react';
 
@@ -22,11 +22,12 @@ export function BookPage() {
         description="Запишіться на послугу в салон краси Майстерня Краси в Чернігові онлайн."
       />
 
-      <div className="pt-28 pb-16 bg-cream">
-        <div className="container-custom">
-          <Breadcrumbs />
-        </div>
-      </div>
+      <PageHero
+        title="Онлайн запис"
+        subtitle="Запишіться на послугу в зручний для вас час"
+        image="https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        icon={Calendar}
+      />
 
       <section className="section-padding bg-white">
         <div className="container-custom">

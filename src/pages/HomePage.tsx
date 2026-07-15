@@ -17,72 +17,108 @@ export function HomePage() {
       <LocalBusinessSchema />
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center bg-cream overflow-hidden">
+      <section className="relative min-h-[85vh] md:min-h-screen flex items-center overflow-hidden bg-neutral-900">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-cream via-cream/90 to-transparent z-10" />
           <img
-            src="https://images.pexels.com/photos/1522394/pexels-photo-1522394.jpeg?auto=compress&cs=tinysrgb&w=1920"
-            alt="Premium beauty salon"
-            className="w-full h-full object-cover opacity-40"
+            src="https://images.pexels.com/photos/2552130/pexels-photo-2552130.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-cover opacity-50"
           />
+          <div className="absolute inset-0 bg-gradient-to-r from-neutral-900/90 via-neutral-900/60 to-neutral-900/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-neutral-900/80 via-transparent to-neutral-900/40" />
         </div>
 
-        <div className="container-custom relative z-20 pt-20">
+        {/* Decorative elements */}
+        <div className="absolute -top-32 -right-32 w-80 h-80 rounded-full border border-champagne/20 z-0 hidden md:block" />
+        <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full border border-champagne/10 z-0 hidden md:block" />
+        <div className="absolute top-1/3 right-1/4 w-48 h-48 rounded-full border border-champagne/15 z-0 hidden md:block" />
+
+        <div className="container-custom relative z-20 pt-16 pb-12 md:pt-24 md:pb-20">
           <div className="max-w-2xl">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <span className="inline-block text-champagne text-sm font-medium tracking-widest uppercase mb-4">
-                Преміум салон краси в Чернігові
-              </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-neutral-900 mb-6 leading-tight">
+              {/* Eyebrow */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="flex items-center gap-3 mb-6"
+              >
+                <div className="h-px w-12 bg-champagne" />
+                <span className="text-champagne text-sm font-medium tracking-[0.25em] uppercase">
+                  Преміум салон краси в Чернігові
+                </span>
+              </motion.div>
+
+              {/* Title */}
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-heading font-bold text-white mb-6 leading-[1.05] tracking-tight"
+              >
                 {BUSINESS_INFO.name}
-              </h1>
-              <p className="text-lg text-neutral-600 mb-8 max-w-xl">
+              </motion.h1>
+
+              {/* Gold divider */}
+              <motion.div
+                initial={{ opacity: 0, scaleX: 0 }}
+                animate={{ opacity: 1, scaleX: 1 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="h-1 w-20 bg-gradient-to-r from-champagne to-transparent rounded-full mb-6 origin-left"
+              />
+
+              {/* Tagline */}
+              <motion.p
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.6 }}
+                className="text-xl text-white/70 mb-10 max-w-xl leading-relaxed"
+              >
                 {BUSINESS_INFO.tagline}. Професійні майстри, преміум матеріали,
                 індивідуальний підхід до кожного клієнта.
-              </p>
+              </motion.p>
 
-              <div className="flex flex-wrap gap-4">
+              {/* CTA Buttons */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="flex flex-wrap gap-4"
+              >
                 <Button href={BOOKING_URL} external showArrow>
                   Записатися онлайн
                 </Button>
-                <Button to="/services" variant="secondary">
+                <Button to="/pricing" variant="secondary" className="!border-white/40 !text-white hover:!bg-white hover:!text-neutral-900">
                   Наші послуги
                 </Button>
-              </div>
+              </motion.div>
 
-              {/* Quick Info */}
-              <div className="flex flex-wrap items-center gap-6 mt-12 text-sm text-neutral-600">
-                <div className="flex items-center gap-2">
+              {/* Stats */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1 }}
+                className="flex flex-wrap items-center gap-8 mt-14"
+              >
+                <div className="flex items-center gap-2 text-white/70">
                   <MapPin className="w-4 h-4 text-champagne" />
-                  <span>{BUSINESS_INFO.address}, {BUSINESS_INFO.city}</span>
+                  <span className="text-sm">{BUSINESS_INFO.address}, {BUSINESS_INFO.city}</span>
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="w-px h-4 bg-white/20" />
+                <div className="flex items-center gap-1.5 text-white/70">
                   <Star className="w-4 h-4 text-champagne fill-champagne" />
-                  <span className="font-semibold">{BUSINESS_INFO.googleRating}</span>
-                  <span>({BUSINESS_INFO.reviewCount}+ відгуків)</span>
+                  <span className="text-sm font-semibold text-white">{BUSINESS_INFO.googleRating}</span>
+                  <span className="text-sm">({BUSINESS_INFO.reviewCount}+ відгуків)</span>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
-
-          {/* Decorative */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="absolute right-0 top-1/2 -translate-y-1/2 hidden xl:block"
-          >
-            <div className="w-96 h-96 rounded-full border border-champagne/30 flex items-center justify-center">
-              <div className="w-64 h-64 rounded-full border border-champagne/20 flex items-center justify-center">
-                <div className="w-32 h-32 rounded-full bg-champagne/10" />
-              </div>
-            </div>
-          </motion.div>
         </div>
 
         {/* Scroll Indicator */}
@@ -90,14 +126,14 @@ export function HomePage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20"
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20"
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ repeat: Infinity, duration: 2 }}
-            className="w-6 h-10 rounded-full border-2 border-neutral-300 flex justify-center"
+            className="w-6 h-10 rounded-full border-2 border-white/30 flex justify-center"
           >
-            <div className="w-1.5 h-2 bg-neutral-400 rounded-full mt-2" />
+            <div className="w-1.5 h-2 bg-champagne rounded-full mt-2" />
           </motion.div>
         </motion.div>
       </section>
@@ -115,7 +151,7 @@ export function HomePage() {
             >
               <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-large">
                 <img
-                  src="https://images.pexels.com/photos/3993329/pexels-photo-3993329.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  src="https://images.pexels.com/photos/3993444/pexels-photo-3993444.jpeg?auto=compress&cs=tinysrgb&w=800"
                   alt="Our salon interior"
                   className="w-full h-full object-cover"
                 />
@@ -183,7 +219,7 @@ export function HomePage() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <Link
-                  to={`/services#${category.id}`}
+                  to={`/pricing#${category.id}`}
                   className="group block bg-white rounded-2xl overflow-hidden shadow-soft hover:shadow-medium transition-all duration-300"
                 >
                   <div className="aspect-[4/3] overflow-hidden">
@@ -215,7 +251,7 @@ export function HomePage() {
             viewport={{ once: true }}
             className="text-center mt-12"
           >
-            <Button to="/services" showArrow>
+            <Button to="/pricing" showArrow>
               Всі послуги
             </Button>
           </motion.div>

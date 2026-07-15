@@ -1,5 +1,6 @@
 export { Button } from './Button';
 export { SectionHeading } from './SectionHeading';
+export { PageHero } from './PageHero';
 export { Card, ServiceCard } from './BusinessCard';
 export { Breadcrumbs } from './Breadcrumbs';
 export { PricingTable } from './PricingTable';

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { SEO, LocalBusinessSchema } from '../components/SEO';
-import { Breadcrumbs, SectionHeading, Button } from '../components/ui';
+import { SectionHeading, Button, PageHero } from '../components/ui';
 import { BUSINESS_INFO, BOOKING_URL } from '../config/constants';
 import { MapPin, Phone, Mail, Clock, Instagram, Navigation } from 'lucide-react';
 
@@ -13,20 +13,17 @@ export function ContactsPage() {
       />
       <LocalBusinessSchema />
 
-      <div className="pt-28 pb-16 bg-cream">
-        <div className="container-custom">
-          <Breadcrumbs />
-          <SectionHeading
-            title="Контакти"
-            subtitle="Зв'яжіться з нами або відвідайте наш салон"
-          />
-        </div>
-      </div>
+      <PageHero
+        title="Контакти"
+        subtitle="Зв'яжіться з нами або відвідайте наш салон"
+        image="https://images.pexels.com/photos/8107441/pexels-photo-8107441.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        icon={MapPin}
+      />
 
       {/* Contact Info */}
       <section className="section-padding bg-white">
         <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-20">
             {/* Info */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -139,7 +136,7 @@ export function ContactsPage() {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="h-[400px] lg:h-full min-h-[400px] rounded-2xl overflow-hidden shadow-medium bg-neutral-100"
+              className="h-[300px] sm:h-[400px] lg:h-full min-h-[300px] rounded-2xl overflow-hidden shadow-medium bg-neutral-100"
             >
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.5!2d31.3!3d51.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDMwJzAwLjAiTiMzMcKwMTgnMDAuMCJF!5e0!3m2!1sen!2sua!4v1"

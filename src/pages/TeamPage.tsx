@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { SEO, LocalBusinessSchema } from '../components/SEO';
-import { Breadcrumbs, SectionHeading, TeamCard } from '../components/ui';
+import { TeamCard, PageHero } from '../components/ui';
 import { teamMembers } from '../data/services';
+import { Users } from 'lucide-react';
 
 export function TeamPage() {
   return (
@@ -12,21 +13,18 @@ export function TeamPage() {
       />
       <LocalBusinessSchema />
 
-      <div className="pt-28 pb-16 bg-cream">
-        <div className="container-custom">
-          <Breadcrumbs />
-          <SectionHeading
-            title="Наша команда"
-            subtitle="Професійні майстри, які створюють красу кожного дня"
-          />
-        </div>
-      </div>
+      <PageHero
+        title="Наша команда"
+        subtitle="Професійні майстри, які створюють красу кожного дня"
+        image="https://images.pexels.com/photos/8105035/pexels-photo-8105035.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        icon={Users}
+      />
 
       {/* Team Grid */}
       <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {teamMembers.map((member, index) => (
+            {teamMembers.map((member) => (
               <TeamCard
                 key={member.id}
                 name={member.name}

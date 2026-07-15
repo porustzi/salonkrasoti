@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { SEO } from '../components/SEO';
-import { Breadcrumbs, SectionHeading, GalleryGrid } from '../components/ui';
+import { GalleryGrid, PageHero } from '../components/ui';
 import { galleryImages, galleryCategories } from '../data/services';
+import { Images } from 'lucide-react';
 
 export function GalleryPage() {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -14,15 +15,12 @@ export function GalleryPage() {
         description="Галерея робіт салону краси Майстерня Краси в Чернігові. Портфоліо наших майстрів: фарбування, блонд, стрижки, укладки."
       />
 
-      <div className="pt-28 pb-16 bg-cream">
-        <div className="container-custom">
-          <Breadcrumbs />
-          <SectionHeading
-            title="Галерея робіт"
-            subtitle="Портфоліо наших майстрів — кожна робота унікальна"
-          />
-        </div>
-      </div>
+      <PageHero
+        title="Галерея робіт"
+        subtitle="Портфоліо наших майстрів — кожна робота унікальна"
+        image="https://images.pexels.com/photos/3622615/pexels-photo-3622615.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        icon={Images}
+      />
 
       <section className="section-padding bg-white">
         <div className="container-custom">

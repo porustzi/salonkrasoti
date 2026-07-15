@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { SEO, LocalBusinessSchema } from '../components/SEO';
-import { Breadcrumbs, SectionHeading, Button } from '../components/ui';
+import { SectionHeading, Button, PageHero } from '../components/ui';
 import { BOOKING_URL, BUSINESS_INFO } from '../config/constants';
 import { Heart, Award, Sparkles, Users } from 'lucide-react';
 
@@ -44,20 +44,17 @@ export function AboutPage() {
       />
       <LocalBusinessSchema />
 
-      <div className="pt-28 pb-16 bg-cream">
-        <div className="container-custom">
-          <Breadcrumbs />
-          <SectionHeading
-            title="Про нашу майстерню"
-            subtitle="Створюємо красу та задоволення вже понад 14 років"
-          />
-        </div>
-      </div>
+      <PageHero
+        title="Про нашу майстерню"
+        subtitle="Створюємо красу та задоволення вже понад 14 років"
+        image="https://images.pexels.com/photos/3681089/pexels-photo-3681089.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        icon={Sparkles}
+      />
 
       {/* Main Story */}
       <section className="section-padding bg-white">
         <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -66,7 +63,7 @@ export function AboutPage() {
             >
               <div className="aspect-[3/4] rounded-3xl overflow-hidden">
                 <img
-                  src="https://images.pexels.com/photos/5632402/pexels-photo-5632402.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  src="https://images.pexels.com/photos/3993452/pexels-photo-3993452.jpeg?auto=compress&cs=tinysrgb&w=800"
                   alt="Salon interior"
                   className="w-full h-full object-cover"
                 />
@@ -189,17 +186,17 @@ export function AboutPage() {
               {
                 title: 'Сучасне обладнання',
                 description: 'Ми використовуємо професійне обладнання від провідних виробників. Ультрасучасні фени, стайлери, крісла.',
-                image: 'https://images.pexels.com/photos/3293148/pexels-photo-3293148.jpeg?auto=compress&cs=tinysrgb&w=600',
+                image: 'https://images.pexels.com/photos/3993445/pexels-photo-3993445.jpeg?auto=compress&cs=tinysrgb&w=600',
               },
               {
                 title: 'Преміум продукція',
                 description: 'Тільки якісні фарби та доглядові засоби від Wella, L\'Oreal, Olapex, Schwarzkopf.',
-                image: 'https://images.pexels.com/photos/5632406/pexels-photo-5632406.jpeg?auto=compress&cs=tinysrgb&w=600',
+                image: 'https://images.pexels.com/photos/3993443/pexels-photo-3993443.jpeg?auto=compress&cs=tinysrgb&w=600',
               },
               {
                 title: 'Професійне навчання',
                 description: 'Наші майстри постійно навчаються, відвідують майстер-класи та семінари.',
-                image: 'https://images.pexels.com/photos/1522394/pexels-photo-1522394.jpeg?auto=compress&cs=tinysrgb&w=600',
+                image: 'https://images.pexels.com/photos/3293148/pexels-photo-3293148.jpeg?auto=compress&cs=tinysrgb&w=600',
               },
             ].map((item, index) => (
               <motion.div

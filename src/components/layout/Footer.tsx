@@ -1,24 +1,28 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Instagram, MapPin, Phone, Mail, Clock, ArrowRight } from 'lucide-react';
-import { BUSINESS_INFO, BOOKING_URL, SOCIAL_LINKS } from '../../config/constants';
+import { Instagram, MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { BUSINESS_INFO, SOCIAL_LINKS } from '../../config/constants';
 
 const quickLinks = [
-  { path: '/services', label: 'Послуги' },
   { path: '/pricing', label: 'Ціни' },
   { path: '/gallery', label: 'Галерея' },
   { path: '/about', label: 'Про салон' },
+  { path: '/contacts', label: 'Контакти' },
+];
+
+const moreLinks = [
   { path: '/team', label: 'Команда' },
   { path: '/reviews', label: 'Відгуки' },
+  { path: '/blog', label: 'Блог' },
+  { path: '/promotions', label: 'Акції' },
 ];
 
 const serviceLinks = [
-  { path: '/services#womens-haircuts', label: "Жіночі стрижки" },
-  { path: '/services#mens-haircuts', label: "Чоловічі стрижки" },
-  { path: '/services#coloring', label: "Фарбування" },
-  { path: '/services#blonde', label: "Блонд" },
-  { path: '/services#balayage', label: "Balayage" },
-  { path: '/services#airtouch', label: "Airtouch" },
+  { path: '/pricing#womens-haircuts', label: "Жіночі стрижки" },
+  { path: '/pricing#mens-haircuts', label: "Чоловічі стрижки" },
+  { path: '/pricing#coloring', label: "Фарбування" },
+  { path: '/pricing#blonde', label: "Блонд" },
+  { path: '/pricing#balayage', label: "Balayage" },
+  { path: '/pricing#airtouch', label: "Airtouch" },
 ];
 
 export function Footer() {
@@ -26,38 +30,8 @@ export function Footer() {
 
   return (
     <footer className="bg-neutral-900 text-white">
-      {/* CTA Section */}
-      <div className="bg-champagne">
-        <div className="container-custom py-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col md:flex-row items-center justify-between gap-6"
-          >
-            <div>
-              <h3 className="text-2xl font-heading font-bold text-neutral-900">
-                Готові до перетворення?
-              </h3>
-              <p className="text-neutral-700 mt-1">
-                Запишіться на консультацію вже сьогодні
-              </p>
-            </div>
-            <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary inline-flex items-center gap-2"
-            >
-              Записатися онлайн
-              <ArrowRight className="w-4 h-4" />
-            </a>
-          </motion.div>
-        </div>
-      </div>
-
       {/* Main Footer */}
-      <div className="container-custom py-16">
+      <div className="container-custom py-10 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div className="lg:col-span-1">
@@ -84,13 +58,28 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
+          {/* Navigation */}
           <div>
             <h4 className="text-sm font-semibold uppercase tracking-wider mb-6">
-              Швидкі посилання
+              Навігація
             </h4>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
+                <li key={link.path}>
+                  <Link
+                    to={link.path}
+                    className="text-neutral-400 hover:text-white transition-colors text-sm"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <h4 className="text-sm font-semibold uppercase tracking-wider mt-8 mb-4">
+              Більше
+            </h4>
+            <ul className="space-y-3">
+              {moreLinks.map((link) => (
                 <li key={link.path}>
                   <Link
                     to={link.path}

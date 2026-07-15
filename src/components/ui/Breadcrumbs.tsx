@@ -22,7 +22,7 @@ const routeLabels: Record<string, string> = {
   '/terms': 'Умови використання',
 };
 
-export function Breadcrumbs() {
+export function Breadcrumbs({ variant = 'dark' }: { variant?: 'dark' | 'light' }) {
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter((x) => x);
 
@@ -39,6 +39,11 @@ export function Breadcrumbs() {
 
   if (breadcrumbs.length <= 1) return null;
 
+  const muted = variant === 'light' ? 'text-white/60' : 'text-neutral-400';
+  const dim = variant === 'light' ? 'text-white/80' : 'text-neutral-500';
+  const active = variant === 'light' ? 'text-white' : 'text-neutral-900';
+  const hover = variant === 'light' ? 'hover:text-white' : 'hover:text-neutral-900';
+
   return (
     <nav aria-label="Breadcrumb" className="py-4">
       <ol className="flex items-center gap-2 text-sm">
@@ -48,20 +53,20 @@ export function Breadcrumbs() {
           return (
             <li key={item.path || index} className="flex items-center gap-2">
               {index > 0 && (
-                <ChevronRight className="w-4 h-4 text-neutral-400" />
+                <ChevronRight className={`w-4 h-4 ${muted}`} />
               )}
               {index === 0 && (
-                <Home className="w-4 h-4 text-neutral-500" />
+                <Home className={`w-4 h-4 ${dim}`} />
               )}
               {!isLast && item.path ? (
                 <Link
                   to={item.path}
-                  className="text-neutral-500 hover:text-neutral-900 transition-colors"
+                  className={`${dim} ${hover} transition-colors`}
                 >
                   {item.label}
                 </Link>
               ) : (
-                <span className="text-neutral-900 font-medium">
+                <span className={`${active} font-medium`}>
                   {item.label}
                 </span>
               )}

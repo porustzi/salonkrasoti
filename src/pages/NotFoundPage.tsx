@@ -24,7 +24,7 @@ export function NotFoundPage() {
               transition={{ type: 'spring', stiffness: 200, delay: 0.2 }}
               className="mb-8"
             >
-              <span className="text-[150px] md:text-[200px] font-heading font-bold text-champagne/20 select-none">
+              <span className="text-[100px] sm:text-[150px] md:text-[200px] font-heading font-bold text-champagne/20 select-none">
                 404
               </span>
             </motion.div>

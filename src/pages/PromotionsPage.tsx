@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { SEO } from '../components/SEO';
-import { Breadcrumbs, SectionHeading, Button } from '../components/ui';
+import { Button, PageHero } from '../components/ui';
 import { BOOKING_URL } from '../config/constants';
 import { promotions } from '../data/services';
 import { Tag, Gift, Percent } from 'lucide-react';
@@ -13,15 +13,12 @@ export function PromotionsPage() {
         description="Акції та спеціальні пропозиції від салону краси Майстерня Краси в Чернігові. Знижки, подарункові сертифікати."
       />
 
-      <div className="pt-28 pb-16 bg-cream">
-        <div className="container-custom">
-          <Breadcrumbs />
-          <SectionHeading
-            title="Акції та пропозиції"
-            subtitle="Спеціальні умови для наших клієнтів"
-          />
-        </div>
-      </div>
+      <PageHero
+        title="Акції та пропозиції"
+        subtitle="Спеціальні умови для наших клієнтів"
+        image="https://images.pexels.com/photos/3075530/pexels-photo-3075530.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        icon={Percent}
+      />
 
       {/* Gift Certificates */}
       <section className="py-12 bg-champagne">

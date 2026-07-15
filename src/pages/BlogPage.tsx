@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { SEO } from '../components/SEO';
-import { Breadcrumbs, SectionHeading, BlogCard } from '../components/ui';
+import { BlogCard, PageHero } from '../components/ui';
 import { blogPosts } from '../data/services';
+import { BookOpen } from 'lucide-react';
 
 export function BlogPage() {
   return (
@@ -11,15 +12,12 @@ export function BlogPage() {
         description="Блог салону краси Майстерня Краси в Чернігові. Поради щодо догляду за волоссям, трендові стрижки та фарбування."
       />
 
-      <div className="pt-28 pb-16 bg-cream">
-        <div className="container-custom">
-          <Breadcrumbs />
-          <SectionHeading
-            title="Краса та стиль"
-            subtitle="Корисні статті про догляд за волоссям та трендові рішення"
-          />
-        </div>
-      </div>
+      <PageHero
+        title="Краса та стиль"
+        subtitle="Корисні статті про догляд за волоссям та трендові рішення"
+        image="https://images.pexels.com/photos/3993456/pexels-photo-3993456.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        icon={BookOpen}
+      />
 
       {/* Featured Post */}
       <section className="section-padding bg-white">
@@ -28,7 +26,7 @@ export function BlogPage() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mb-16"
+            className="mb-8 md:mb-16"
           >
             <div className="bg-cream rounded-3xl overflow-hidden grid lg:grid-cols-2">
               <div className="aspect-[16/10] lg:aspect-auto">

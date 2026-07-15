@@ -78,6 +78,16 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  /* Decorative gold divider */
+  .divider-gold {
+    @apply relative mx-auto h-px w-24 bg-gradient-to-r from-transparent via-champagne to-transparent;
+  }
+
+  /* Subtle gold underline on hover for inline links */
+  .link-underline {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-champagne after:transition-all after:duration-300 hover:after:w-full;
+  }
 }
 
 /* Lightbox styles */
@@ -96,7 +106,7 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply rounded-full bg-neutral-300 transition-colors hover:bg-neutral-400;
+  @apply rounded-full bg-neutral-300 transition-colors hover:bg-champagne;
 }
 
 /* Google Maps iframe fix */

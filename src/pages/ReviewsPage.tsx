@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { SEO, LocalBusinessSchema } from '../components/SEO';
-import { Breadcrumbs, SectionHeading, ReviewCard, Button } from '../components/ui';
+import { ReviewCard, Button, PageHero } from '../components/ui';
 import { BUSINESS_INFO, BOOKING_URL } from '../config/constants';
 import { reviews } from '../data/services';
 import { Star } from 'lucide-react';
@@ -28,15 +28,12 @@ export function ReviewsPage() {
       />
       <LocalBusinessSchema />
 
-      <div className="pt-28 pb-16 bg-cream">
-        <div className="container-custom">
-          <Breadcrumbs />
-          <SectionHeading
-            title="Відгуки клієнтів"
-            subtitle="Думки наших клієнтів про роботу салону"
-          />
-        </div>
-      </div>
+      <PageHero
+        title="Відгуки клієнтів"
+        subtitle="Думки наших клієнтів про роботу салону"
+        image="https://images.pexels.com/photos/1462630/pexels-photo-1462630.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        icon={Star}
+      />
 
       {/* Rating Summary */}
       <section className="py-12 bg-white">
@@ -61,19 +58,19 @@ export function ReviewsPage() {
                     />
                   ))}
                 </div>
-                <p className="text-5xl font-heading font-bold text-neutral-900">
+                <p className="text-4xl sm:text-5xl font-heading font-bold text-neutral-900">
                   {BUSINESS_INFO.googleRating}
                 </p>
                 <p className="text-neutral-600 mt-1">Середній рейтинг</p>
               </div>
               <div className="md:border-l md:border-r border-neutral-200">
-                <p className="text-5xl font-heading font-bold text-champagne mb-2">
+                <p className="text-4xl sm:text-5xl font-heading font-bold text-champagne mb-2">
                   {BUSINESS_INFO.reviewCount}+
                 </p>
                 <p className="text-neutral-600">Відгуків на Google</p>
               </div>
               <div>
-                <p className="text-5xl font-heading font-bold text-neutral-900 mb-2">98%</p>
+                <p className="text-4xl sm:text-5xl font-heading font-bold text-neutral-900 mb-2">98%</p>
                 <p className="text-neutral-600">Рекомендують нас</p>
               </div>
             </div>
@@ -106,7 +103,7 @@ export function ReviewsPage() {
       <section className="section-padding bg-cream">
         <div className="container-custom">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredReviews.map((review, index) => (
+            {filteredReviews.map((review) => (
               <ReviewCard
                 key={review.id}
                 author={review.author}
