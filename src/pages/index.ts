@@ -5,8 +5,6 @@ export { GalleryPage } from './GalleryPage';
 export { AboutPage } from './AboutPage';
 export { TeamPage } from './TeamPage';
 export { ReviewsPage } from './ReviewsPage';
-export { BlogPage } from './BlogPage';
-export { PromotionsPage } from './PromotionsPage';
 export { ContactsPage } from './ContactsPage';
 export { BookPage } from './BookPage';
 export { PrivacyPage } from './PrivacyPage';

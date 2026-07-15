@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Star, Instagram, MapPin } from 'lucide-react';
 import { SEO, LocalBusinessSchema } from '../components/SEO';
 import { Button, SectionHeading } from '../components/ui';
-import { BUSINESS_INFO, BOOKING_URL } from '../config/constants';
+import { BUSINESS_INFO } from '../config/constants';
+import { useBooking } from '../context/BookingContext';
 import { serviceCategories, galleryImages, reviews } from '../data/services';
 
 export function HomePage() {
+  const { openBooking } = useBooking();
   const popularServices = serviceCategories.slice(0, 4);
   const previewImages = galleryImages.slice(0, 8);
   const previewReviews = reviews.slice(0, 3);
@@ -91,7 +93,7 @@ export function HomePage() {
                 transition={{ duration: 0.6, delay: 0.8 }}
                 className="flex flex-wrap gap-4"
               >
-                <Button href={BOOKING_URL} external showArrow>
+                <Button onClick={openBooking} showArrow>
                   Записатися онлайн
                 </Button>
                 <Button to="/pricing" variant="secondary" className="!border-white/40 !text-white hover:!bg-white hover:!text-neutral-900">
@@ -454,7 +456,7 @@ export function HomePage() {
               Наші майстри допоможуть створити ваш ідеальний образ.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Button href={BOOKING_URL} external variant="gold" showArrow>
+              <Button onClick={openBooking} variant="gold" showArrow>
                 Записатися онлайн
               </Button>
               <Button to="/contacts" variant="ghost">

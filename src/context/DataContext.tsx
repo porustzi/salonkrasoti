@@ -5,8 +5,6 @@ import {
   galleryImages as defaultGallery,
   teamMembers as defaultTeam,
   reviews as defaultReviews,
-  blogPosts as defaultBlog,
-  promotions as defaultPromotions,
 } from '../data/services'
 
 type SyncStatus = 'idle' | 'saving' | 'saved' | 'error'
@@ -16,8 +14,6 @@ interface SiteData {
   gallery: typeof defaultGallery
   team: typeof defaultTeam
   reviews: typeof defaultReviews
-  blog: typeof defaultBlog
-  promotions: typeof defaultPromotions
 }
 
 interface DataContextType {
@@ -27,8 +23,6 @@ interface DataContextType {
   updateGallery: (gallery: SiteData['gallery']) => void
   updateTeam: (team: SiteData['team']) => void
   updateReviews: (reviews: SiteData['reviews']) => void
-  updateBlog: (blog: SiteData['blog']) => void
-  updatePromotions: (promotions: SiteData['promotions']) => void
   saveToSupabase: () => Promise<void>
 }
 
@@ -56,8 +50,6 @@ const defaultData: SiteData = {
   gallery: defaultGallery,
   team: defaultTeam,
   reviews: defaultReviews,
-  blog: defaultBlog,
-  promotions: defaultPromotions,
 }
 
 const DataContext = createContext<DataContextType | null>(null)
@@ -124,22 +116,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
     })
   }, [debouncedSave])
 
-  const updateBlog = useCallback((blog: SiteData['blog']) => {
-    setData((prev) => {
-      const next = { ...prev, blog }
-      debouncedSave(next)
-      return next
-    })
-  }, [debouncedSave])
-
-  const updatePromotions = useCallback((promotions: SiteData['promotions']) => {
-    setData((prev) => {
-      const next = { ...prev, promotions }
-      debouncedSave(next)
-      return next
-    })
-  }, [debouncedSave])
-
   const saveToSupabase = useCallback(async () => {
     setSyncStatus('saving')
     const ok = await saveSiteData(data as unknown as Record<string, unknown>)
@@ -156,8 +132,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
         updateGallery,
         updateTeam,
         updateReviews,
-        updateBlog,
-        updatePromotions,
         saveToSupabase,
       }}
     >

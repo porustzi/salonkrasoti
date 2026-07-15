@@ -12,8 +12,6 @@ const quickLinks = [
 const moreLinks = [
   { path: '/team', label: 'Команда' },
   { path: '/reviews', label: 'Відгуки' },
-  { path: '/blog', label: 'Блог' },
-  { path: '/promotions', label: 'Акції' },
 ];
 
 const serviceLinks = [

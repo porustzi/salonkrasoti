@@ -1,19 +1,11 @@
-import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { SEO } from '../components/SEO';
 import { Button, PageHero } from '../components/ui';
-import { BOOKING_URL } from '../config/constants';
+import { useBooking } from '../context/BookingContext';
 import { Calendar, ExternalLink } from 'lucide-react';
 
 export function BookPage() {
-  useEffect(() => {
-    // Auto-redirect after 5 seconds
-    const timer = setTimeout(() => {
-      window.location.href = BOOKING_URL;
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const { openBooking } = useBooking();
 
   return (
     <>
@@ -49,7 +41,7 @@ export function BookPage() {
               Якщо перенаправлення не відбулося, натисніть кнопку нижче.
             </p>
 
-            <Button href={BOOKING_URL} external showArrow>
+            <Button onClick={openBooking} showArrow>
               <ExternalLink className="w-4 h-4" />
               Перейти до запису
             </Button>

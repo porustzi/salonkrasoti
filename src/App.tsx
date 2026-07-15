@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Layout } from './components/layout'
 import { DataProvider } from './context/DataContext'
+import { BookingProvider } from './context/BookingContext'
 
 const AdminLogin = lazy(() => import('./pages/admin/AdminLogin').then(m => ({ default: m.AdminLogin })))
 const AdminLayout = lazy(() => import('./pages/admin/AdminLayout').then(m => ({ default: m.AdminLayout })))
@@ -9,8 +10,6 @@ const AdminServices = lazy(() => import('./pages/admin/AdminServices').then(m =>
 const AdminGallery = lazy(() => import('./pages/admin/AdminGallery').then(m => ({ default: m.AdminGallery })))
 const AdminTeam = lazy(() => import('./pages/admin/AdminTeam').then(m => ({ default: m.AdminTeam })))
 const AdminReviews = lazy(() => import('./pages/admin/AdminReviews').then(m => ({ default: m.AdminReviews })))
-const AdminBlog = lazy(() => import('./pages/admin/AdminBlog').then(m => ({ default: m.AdminBlog })))
-const AdminPromotions = lazy(() => import('./pages/admin/AdminPromotions').then(m => ({ default: m.AdminPromotions })))
 
 import {
   HomePage,
@@ -19,8 +18,6 @@ import {
   AboutPage,
   TeamPage,
   ReviewsPage,
-  BlogPage,
-  PromotionsPage,
   ContactsPage,
   BookPage,
   PrivacyPage,
@@ -39,35 +36,32 @@ function SuspenseWrapper({ children }: { children: React.ReactNode }) {
 function App() {
   return (
     <DataProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout><HomePage /></Layout>} />
-          <Route path="/services" element={<Navigate to="/pricing" replace />} />
-          <Route path="/pricing" element={<Layout><PricingPage /></Layout>} />
-          <Route path="/gallery" element={<Layout><GalleryPage /></Layout>} />
-          <Route path="/about" element={<Layout><AboutPage /></Layout>} />
-          <Route path="/team" element={<Layout><TeamPage /></Layout>} />
-          <Route path="/reviews" element={<Layout><ReviewsPage /></Layout>} />
-          <Route path="/blog" element={<Layout><BlogPage /></Layout>} />
-          <Route path="/promotions" element={<Layout><PromotionsPage /></Layout>} />
-          <Route path="/contacts" element={<Layout><ContactsPage /></Layout>} />
-          <Route path="/book" element={<Layout><BookPage /></Layout>} />
-          <Route path="/privacy" element={<Layout><PrivacyPage /></Layout>} />
-          <Route path="/terms" element={<Layout><TermsPage /></Layout>} />
-          <Route path="/admin/login" element={<SuspenseWrapper><AdminLogin /></SuspenseWrapper>} />
-          <Route path="/admin" element={<Navigate to="/admin/services" replace />} />
-          <Route path="/admin" element={<SuspenseWrapper><AdminLayout /></SuspenseWrapper>}>
-            <Route index element={<Navigate to="services" replace />} />
-            <Route path="services" element={<AdminServices />} />
-            <Route path="gallery" element={<AdminGallery />} />
-            <Route path="team" element={<AdminTeam />} />
-            <Route path="reviews" element={<AdminReviews />} />
-            <Route path="blog" element={<AdminBlog />} />
-            <Route path="promotions" element={<AdminPromotions />} />
-          </Route>
-          <Route path="*" element={<Layout><NotFoundPage /></Layout>} />
-        </Routes>
-      </BrowserRouter>
+      <BookingProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout><HomePage /></Layout>} />
+            <Route path="/services" element={<Navigate to="/pricing" replace />} />
+            <Route path="/pricing" element={<Layout><PricingPage /></Layout>} />
+            <Route path="/gallery" element={<Layout><GalleryPage /></Layout>} />
+            <Route path="/about" element={<Layout><AboutPage /></Layout>} />
+            <Route path="/team" element={<Layout><TeamPage /></Layout>} />
+            <Route path="/reviews" element={<Layout><ReviewsPage /></Layout>} />
+            <Route path="/contacts" element={<Layout><ContactsPage /></Layout>} />
+            <Route path="/book" element={<Layout><BookPage /></Layout>} />
+            <Route path="/privacy" element={<Layout><PrivacyPage /></Layout>} />
+            <Route path="/terms" element={<Layout><TermsPage /></Layout>} />
+            <Route path="/admin/login" element={<SuspenseWrapper><AdminLogin /></SuspenseWrapper>} />
+            <Route path="/admin" element={<SuspenseWrapper><AdminLayout /></SuspenseWrapper>}>
+              <Route index element={<Navigate to="services" replace />} />
+              <Route path="services" element={<AdminServices />} />
+              <Route path="gallery" element={<AdminGallery />} />
+              <Route path="team" element={<AdminTeam />} />
+              <Route path="reviews" element={<AdminReviews />} />
+            </Route>
+            <Route path="*" element={<Layout><NotFoundPage /></Layout>} />
+          </Routes>
+        </BrowserRouter>
+      </BookingProvider>
     </DataProvider>
   )
 }

@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { SEO, LocalBusinessSchema } from '../components/SEO';
 import { SectionHeading, Button, PageHero } from '../components/ui';
-import { BOOKING_URL, BUSINESS_INFO } from '../config/constants';
+import { BUSINESS_INFO } from '../config/constants';
+import { useBooking } from '../context/BookingContext';
 import { Heart, Award, Sparkles, Users } from 'lucide-react';
 
 const timeline = [
@@ -36,6 +37,7 @@ const values = [
 ];
 
 export function AboutPage() {
+  const { openBooking } = useBooking();
   return (
     <>
       <SEO
@@ -235,7 +237,7 @@ export function AboutPage() {
           <p className="text-neutral-400 mb-6 max-w-md mx-auto">
             Переконайтеся особисто в якості нашого сервісу
           </p>
-          <Button href={BOOKING_URL} external variant="gold" showArrow>
+          <Button onClick={openBooking} variant="gold" showArrow>
             Записатися онлайн
           </Button>
         </div>

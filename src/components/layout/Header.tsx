@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Phone, Calendar, ChevronDown } from 'lucide-react';
-import { BUSINESS_INFO, BOOKING_URL } from '../../config/constants';
+import { BUSINESS_INFO } from '../../config/constants';
+import { useBooking } from '../../context/BookingContext';
 
 interface NavItem {
   path: string;
@@ -37,6 +38,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+  const { openBooking } = useBooking();
   const location = useLocation();
   const dropdownTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -201,15 +203,13 @@ export function Header() {
                 <Phone className="w-4 h-4" />
                 <span>{BUSINESS_INFO.phone}</span>
               </a>
-              <a
-                href={BOOKING_URL}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                onClick={openBooking}
                 className="btn-primary text-xs py-3"
               >
                 <Calendar className="w-4 h-4" />
                 Запис онлайн
-              </a>
+              </button>
             </div>
 
             {/* Mobile Menu Toggle */}
@@ -300,20 +300,19 @@ export function Header() {
                   <span>{BUSINESS_INFO.phone}</span>
                 </a>
 
-                <a
-                  href={BOOKING_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  onClick={() => { openBooking(); setIsMobileMenuOpen(false); }}
                   className="btn-primary w-full justify-center"
                 >
                   <Calendar className="w-4 h-4" />
                   Записатися онлайн
-                </a>
+                </button>
               </div>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
     </>
   );
 }

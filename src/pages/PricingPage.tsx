@@ -1,11 +1,12 @@
 import { motion } from 'framer-motion';
 import { SEO, LocalBusinessSchema } from '../components/SEO';
 import { Button, PageHero } from '../components/ui';
-import { BOOKING_URL } from '../config/constants';
+import { useBooking } from '../context/BookingContext';
 import { serviceCategories } from '../data/services';
 import { Clock, Tag, Info } from 'lucide-react';
 
 export function PricingPage() {
+  const { openBooking } = useBooking();
   return (
     <>
       <SEO
@@ -108,8 +109,7 @@ export function PricingPage() {
                             <span className="text-neutral-400 text-sm">грн</span>
                           </div>
                           <Button
-                            href={BOOKING_URL}
-                            external
+                            onClick={openBooking}
                             size="sm"
                             variant="primary"
                           >
@@ -180,7 +180,7 @@ export function PricingPage() {
             <p className="text-neutral-700 mb-6 max-w-md mx-auto">
               Запишіться на безкоштовну консультацію, і наш майстер допоможе визначитися
             </p>
-            <Button href={BOOKING_URL} external variant="primary" showArrow>
+            <Button onClick={openBooking} variant="primary" showArrow>
               Записатися на консультацію
             </Button>
           </motion.div>

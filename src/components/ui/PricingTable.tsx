@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Button } from './Button';
-import { BOOKING_URL } from '../../config/constants';
+import { useBooking } from '../../context/BookingContext';
 
 interface PriceItem {
   service: string;
@@ -16,6 +16,7 @@ interface PricingCategoryProps {
 }
 
 export function PricingTable({ title, description, items }: PricingCategoryProps) {
+  const { openBooking } = useBooking();
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -75,7 +76,7 @@ export function PricingTable({ title, description, items }: PricingCategoryProps
       </div>
 
       <div className="mt-6 flex justify-center">
-        <Button href={BOOKING_URL} external showArrow>
+        <Button onClick={openBooking} showArrow>
           Записатися онлайн
         </Button>
       </div>

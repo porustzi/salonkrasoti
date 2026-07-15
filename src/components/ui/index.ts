@@ -6,6 +6,7 @@ export { Breadcrumbs } from './Breadcrumbs';
 export { PricingTable } from './PricingTable';
 export { ReviewCard } from './ReviewCard';
 export { TeamCard } from './TeamCard';
-export { BlogCard } from './BlogCard';
+export { BookingModal } from './BookingModal';
+export { BookingButton } from './BookingButton';
 export { GalleryGrid } from './GalleryGrid';
 export type { GalleryImage } from './GalleryGrid';

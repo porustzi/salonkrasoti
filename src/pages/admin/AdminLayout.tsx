@@ -3,7 +3,7 @@ import { Outlet, useNavigate, useLocation, Link } from 'react-router-dom'
 import { useData, SyncStatus } from '../../context/DataContext'
 import { BUSINESS_INFO } from '../../config/constants'
 import {
-  Scissors, Images, Users, MessageSquare, FileText, Tag,
+  Scissors, Images, Users, MessageSquare,
   LogOut, LayoutDashboard, CheckCircle, AlertCircle, Loader2, Save,
   ChevronRight, Sparkles, Clock
 } from 'lucide-react'
@@ -27,8 +27,6 @@ const SIDEBAR = [
   { path: '/admin/gallery', label: 'Галерея', icon: Images },
   { path: '/admin/team', label: 'Команда', icon: Users },
   { path: '/admin/reviews', label: 'Відгуки', icon: MessageSquare },
-  { path: '/admin/blog', label: 'Блог', icon: FileText },
-  { path: '/admin/promotions', label: 'Акції', icon: Tag },
 ]
 
 const PAGE_TITLES: Record<string, string> = {
@@ -36,8 +34,6 @@ const PAGE_TITLES: Record<string, string> = {
   gallery: 'Галерея',
   team: 'Команда',
   reviews: 'Відгуки',
-  blog: 'Блог',
-  promotions: 'Акції',
 }
 
 export function AdminLayout() {

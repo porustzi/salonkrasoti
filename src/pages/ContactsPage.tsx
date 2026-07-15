@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion';
 import { SEO, LocalBusinessSchema } from '../components/SEO';
 import { SectionHeading, Button, PageHero } from '../components/ui';
-import { BUSINESS_INFO, BOOKING_URL } from '../config/constants';
+import { BUSINESS_INFO } from '../config/constants';
+import { useBooking } from '../context/BookingContext';
 import { MapPin, Phone, Mail, Clock, Instagram, Navigation } from 'lucide-react';
 
 export function ContactsPage() {
+  const { openBooking } = useBooking();
   return (
     <>
       <SEO
@@ -117,7 +119,7 @@ export function ContactsPage() {
 
               {/* Buttons */}
               <div className="flex flex-wrap gap-4 mt-10">
-                <Button href={BOOKING_URL} external showArrow>
+                <Button onClick={openBooking} showArrow>
                   Записатися онлайн
                 </Button>
                 <Button

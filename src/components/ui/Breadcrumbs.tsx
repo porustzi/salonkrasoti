@@ -14,8 +14,7 @@ const routeLabels: Record<string, string> = {
   '/about': 'Про салон',
   '/team': 'Наша команда',
   '/reviews': 'Відгуки',
-  '/blog': 'Блог',
-  '/promotions': 'Акції',
+
   '/contacts': 'Контакти',
   '/book': 'Онлайн запис',
   '/privacy': 'Політика конфіденційності',

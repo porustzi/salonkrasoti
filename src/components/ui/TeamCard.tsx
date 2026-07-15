@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Instagram, Award } from 'lucide-react';
 import { Button } from './Button';
-import { BOOKING_URL } from '../../config/constants';
+import { useBooking } from '../../context/BookingContext';
 
 interface TeamCardProps {
   name: string;
@@ -22,6 +22,7 @@ export function TeamCard({
   instagram,
   image,
 }: TeamCardProps) {
+  const { openBooking } = useBooking();
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -85,7 +86,7 @@ export function TeamCard({
           </div>
         )}
 
-        <Button href={BOOKING_URL} external size="sm" className="w-full">
+        <Button onClick={openBooking} size="sm" className="w-full">
           Записатися
         </Button>
       </div>

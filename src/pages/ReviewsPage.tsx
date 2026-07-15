@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { SEO, LocalBusinessSchema } from '../components/SEO';
 import { ReviewCard, Button, PageHero } from '../components/ui';
-import { BUSINESS_INFO, BOOKING_URL } from '../config/constants';
+import { BUSINESS_INFO } from '../config/constants';
+import { useBooking } from '../context/BookingContext';
 import { reviews } from '../data/services';
 import { Star } from 'lucide-react';
 
@@ -13,6 +14,7 @@ const filterOptions = [
 ];
 
 export function ReviewsPage() {
+  const { openBooking } = useBooking();
   const [activeFilter, setActiveFilter] = useState('all');
 
   const filteredReviews =
@@ -137,7 +139,7 @@ export function ReviewsPage() {
             <p className="text-neutral-700 mb-6 max-w-md mx-auto">
               Спробуйте наш сервіс і залиште свій відгук
             </p>
-            <Button href={BOOKING_URL} external variant="primary" showArrow>
+            <Button onClick={openBooking} variant="primary" showArrow>
               Записатися на послугу
             </Button>
           </motion.div>
