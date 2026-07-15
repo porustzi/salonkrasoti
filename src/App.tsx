@@ -1,9 +1,17 @@
 import { lazy, Suspense } from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { Layout } from './components/layout';
-import { DataProvider } from './context/DataContext';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { Layout } from './components/layout'
+import { DataProvider } from './context/DataContext'
 
-const AdminPage = lazy(() => import('./pages/admin/AdminPage').then(m => ({ default: m.AdminPage })));
+const AdminLogin = lazy(() => import('./pages/admin/AdminLogin').then(m => ({ default: m.AdminLogin })))
+const AdminLayout = lazy(() => import('./pages/admin/AdminLayout').then(m => ({ default: m.AdminLayout })))
+const AdminServices = lazy(() => import('./pages/admin/AdminServices').then(m => ({ default: m.AdminServices })))
+const AdminGallery = lazy(() => import('./pages/admin/AdminGallery').then(m => ({ default: m.AdminGallery })))
+const AdminTeam = lazy(() => import('./pages/admin/AdminTeam').then(m => ({ default: m.AdminTeam })))
+const AdminReviews = lazy(() => import('./pages/admin/AdminReviews').then(m => ({ default: m.AdminReviews })))
+const AdminBlog = lazy(() => import('./pages/admin/AdminBlog').then(m => ({ default: m.AdminBlog })))
+const AdminPromotions = lazy(() => import('./pages/admin/AdminPromotions').then(m => ({ default: m.AdminPromotions })))
+
 import {
   HomePage,
   PricingPage,
@@ -18,7 +26,15 @@ import {
   PrivacyPage,
   TermsPage,
   NotFoundPage,
-} from './pages';
+} from './pages'
+
+function SuspenseWrapper({ children }: { children: React.ReactNode }) {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-neutral-500 text-sm">Завантаження...</div>}>
+      {children}
+    </Suspense>
+  )
+}
 
 function App() {
   return (
@@ -38,12 +54,22 @@ function App() {
           <Route path="/book" element={<Layout><BookPage /></Layout>} />
           <Route path="/privacy" element={<Layout><PrivacyPage /></Layout>} />
           <Route path="/terms" element={<Layout><TermsPage /></Layout>} />
-          <Route path="/admin" element={<Suspense fallback={<div className="min-h-screen flex items-center justify-center text-neutral-500">Завантаження...</div>}><AdminPage /></Suspense>} />
+          <Route path="/admin/login" element={<SuspenseWrapper><AdminLogin /></SuspenseWrapper>} />
+          <Route path="/admin" element={<Navigate to="/admin/services" replace />} />
+          <Route path="/admin" element={<SuspenseWrapper><AdminLayout /></SuspenseWrapper>}>
+            <Route index element={<Navigate to="services" replace />} />
+            <Route path="services" element={<AdminServices />} />
+            <Route path="gallery" element={<AdminGallery />} />
+            <Route path="team" element={<AdminTeam />} />
+            <Route path="reviews" element={<AdminReviews />} />
+            <Route path="blog" element={<AdminBlog />} />
+            <Route path="promotions" element={<AdminPromotions />} />
+          </Route>
           <Route path="*" element={<Layout><NotFoundPage /></Layout>} />
         </Routes>
       </BrowserRouter>
     </DataProvider>
-  );
+  )
 }
 
-export default App;
+export default App

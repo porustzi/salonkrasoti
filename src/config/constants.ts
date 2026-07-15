@@ -24,8 +24,8 @@ export const BUSINESS_INFO = {
   reviewCount: 76,
 } as const;
 
-// Booking URL - redirects to Instagram Direct
-export const BOOKING_URL = 'https://instagram.com/maysternya_krasy1';
+// Booking URL - redirects to Beauty Pro Software
+export const BOOKING_URL = 'https://beautyprosoftware.com/b/943791/order/details';
 
 // Social media links
 export const SOCIAL_LINKS = {
