@@ -67,10 +67,14 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     loadSiteData().then((remote) => {
-      if (remote) {
-        const merged = { ...defaultData, ...remote }
-        if (remote.content) {
-          merged.content = { ...defaultSiteContent, ...remote.content }
+      if (remote?.data) {
+        const { services, gallery, team, reviews, content } = remote.data
+        const merged = {
+          services: services || defaultServices,
+          gallery: gallery || defaultGallery,
+          team: team || defaultTeam,
+          reviews: reviews || defaultReviews,
+          content: content || defaultSiteContent,
         }
         setData(merged)
         saveToStorage(merged)
