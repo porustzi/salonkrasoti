@@ -132,7 +132,7 @@ export function AdminDashboard() {
           </div>
           <div className="flex items-center gap-3 text-neutral-500">
             <Clock className="w-4 h-4 text-champagne" />
-            {BUSINESS_INFO.workingHours}
+            Щодня 10:00 – 21:00
           </div>
           <div className="flex items-center gap-3 text-neutral-500">
             <Globe className="w-4 h-4 text-champagne" />
