@@ -1,5 +1,5 @@
 import { useData } from '../../context/DataContext'
-import { TextEditor, SectionCard } from './AdminFormFields'
+import { TextEditor, SectionCard, ImageUpload } from './AdminFormFields'
 import { motion } from 'framer-motion'
 import { User, Plus, Trash2, GripVertical } from 'lucide-react'
 
@@ -85,7 +85,7 @@ export function AdminTeam() {
                 <TextEditor label="Досвід" value={m.experience} onChange={(v) => updateMember(i, 'experience', v)} />
                 <TextEditor label="Instagram" value={m.instagram} onChange={(v) => updateMember(i, 'instagram', v)} />
               </div>
-              <TextEditor label="Фото URL" value={m.image} onChange={(v) => updateMember(i, 'image', v)} />
+              <ImageUpload label="Фото" value={m.image} onChange={(v) => updateMember(i, 'image', v)} />
               <div className="flex justify-end pt-2">
                 <button
                   onClick={() => removeMember(i)}

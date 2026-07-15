@@ -34,21 +34,23 @@ export function AdminReviews() {
           transition={{ delay: i * 0.04 }}
         >
           <SectionCard title={`Відгук #${i + 1}`}>
-            <div className="flex items-center gap-3">
-              <div className="flex-1">
-                <TextEditor label="Автор" value={r.author} onChange={(v) => updateReview(i, 'author', v)} />
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                <div className="flex-1 w-full">
+                  <TextEditor label="Автор" value={r.author} onChange={(v) => updateReview(i, 'author', v)} />
+                </div>
+                <div className="flex items-center gap-3 w-full sm:w-auto">
+                  <div className="w-24">
+                    <TextEditor label="Рейтинг" value={String(r.rating)} onChange={(v) => updateReview(i, 'rating', Number(v) || 5)} />
+                  </div>
+                  <div className="flex items-center gap-0.5">
+                    {Array.from({ length: r.rating }, (_, k) => (
+                      <Star key={k} className="w-3.5 h-3.5 fill-champagne text-champagne" />
+                    ))}
+                  </div>
+                </div>
               </div>
-              <div className="w-24">
-                <TextEditor label="Рейтинг" value={String(r.rating)} onChange={(v) => updateReview(i, 'rating', Number(v) || 5)} />
-              </div>
-              <div className="flex items-center gap-0.5 mt-5">
-                {Array.from({ length: r.rating }, (_, k) => (
-                  <Star key={k} className="w-3.5 h-3.5 fill-champagne text-champagne" />
-                ))}
-              </div>
-            </div>
             <TextAreaEditor label="Текст відгуку" value={r.text} onChange={(v) => updateReview(i, 'text', v)} />
-            <div className="flex gap-3">
+            <div className="flex flex-col sm:flex-row gap-3">
               <TextEditor label="Дата" value={r.date} onChange={(v) => updateReview(i, 'date', v)} hint="Напр: 2 тижні тому" />
               <div className="flex-1 space-y-1.5">
                 <label className="block text-xs font-medium text-neutral-500 uppercase tracking-wider">Джерело</label>

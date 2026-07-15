@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { useData } from '../../context/DataContext'
-import { TextEditor, TextAreaEditor, SectionCard } from './AdminFormFields'
-import { Image, Plus, Trash2 } from 'lucide-react'
+import { TextEditor, TextAreaEditor, SectionCard, ImageUpload } from './AdminFormFields'
+import { Plus, Trash2 } from 'lucide-react'
 
 export function AdminAbout() {
   const { data, updateContent } = useData()
@@ -77,7 +77,7 @@ export function AdminAbout() {
           <TextEditor label="Статистика: число" value={c.story.statNumber} onChange={(v) => setStory('statNumber', v)} />
           <TextEditor label="Статистика: підпис" value={c.story.statLabel} onChange={(v) => setStory('statLabel', v)} />
         </div>
-        <TextEditor label="Фото" value={c.story.image} onChange={(v) => setStory('image', v)} icon={<Image className="w-3 h-3" />} />
+        <ImageUpload label="Фото" value={c.story.image} onChange={(v) => setStory('image', v)} />
       </SectionCard>
 
       {/* Values */}
@@ -128,7 +128,7 @@ export function AdminAbout() {
             <span className="text-xs font-medium text-neutral-400">Картка #{i + 1}</span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <TextEditor label="Заголовок" value={f.title} onChange={(v) => updateFeature(i, 'title', v)} />
-              <TextEditor label="URL фото" value={f.image} onChange={(v) => updateFeature(i, 'image', v)} icon={<Image className="w-3 h-3" />} />
+              <ImageUpload label="Фото" value={f.image} onChange={(v) => updateFeature(i, 'image', v)} />
             </div>
             <TextAreaEditor label="Опис" value={f.description} onChange={(v) => updateFeature(i, 'description', v)} rows={2} />
           </div>

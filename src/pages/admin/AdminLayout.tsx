@@ -183,8 +183,8 @@ export function AdminLayout() {
 
       {mobileOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
-          <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
-          <div className="absolute left-0 top-0 bottom-0 w-72 bg-white shadow-2xl animate-slide-up">
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
+          <div className="absolute left-0 top-0 bottom-0 w-80 max-w-[85vw] bg-white shadow-2xl animate-slide-up">
             {sidebarContent}
           </div>
         </div>
@@ -192,20 +192,20 @@ export function AdminLayout() {
 
       <div className="lg:ml-64 flex-1 flex flex-col min-h-screen">
         <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-neutral-200/60">
-          <div className="px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <button onClick={() => setMobileOpen(true)} className="lg:hidden w-9 h-9 rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-500 hover:bg-neutral-200 transition-colors">
+          <div className="px-3 sm:px-6 py-2 sm:py-4 flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 min-w-0">
+              <button onClick={() => setMobileOpen(true)} className="lg:hidden w-9 h-9 rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-500 hover:bg-neutral-200 transition-colors flex-shrink-0">
                 <Menu className="w-4 h-4" />
               </button>
-              <div>
-                <h2 className="text-lg sm:text-xl font-heading font-semibold text-neutral-900">{pageTitle}</h2>
-                <div className="flex items-center gap-1.5 text-xs text-neutral-400">
+              <div className="min-w-0">
+                <h2 className="text-base sm:text-xl font-heading font-semibold text-neutral-900 truncate">{pageTitle}</h2>
+                <div className="hidden sm:flex items-center gap-1.5 text-xs text-neutral-400">
                   <ChevronRight className="w-3 h-3" />
                   <span>{BUSINESS_INFO.name}</span>
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 flex-shrink-0">
               <div className={`hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${STATUS_LABELS[syncStatus].bg} ${STATUS_LABELS[syncStatus].color}`}>
                 {STATUS_ICONS[syncStatus]}
                 <span>{STATUS_LABELS[syncStatus].label}</span>
@@ -213,7 +213,7 @@ export function AdminLayout() {
                   <span className="text-neutral-400 flex items-center gap-1 ml-1"><Clock className="w-3 h-3" />{lastSaved}</span>
                 )}
               </div>
-              <button onClick={saveToSupabase} disabled={syncStatus === 'saving'} className="inline-flex items-center gap-2 px-4 py-2.5 bg-neutral-900 text-white rounded-xl text-sm font-medium hover:bg-neutral-800 disabled:opacity-50 transition-all shadow-sm">
+              <button onClick={saveToSupabase} disabled={syncStatus === 'saving'} className="inline-flex items-center gap-2 px-3 sm:px-4 py-2.5 bg-neutral-900 text-white rounded-xl text-sm font-medium hover:bg-neutral-800 disabled:opacity-50 transition-all shadow-sm">
                 {syncStatus === 'saving' ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                 <span className="hidden sm:inline">Зберегти</span>
               </button>
@@ -221,7 +221,7 @@ export function AdminLayout() {
           </div>
         </header>
 
-        <main className="flex-1 p-4 sm:p-6 lg:p-8">
+        <main className="flex-1 p-3 sm:p-6 lg:p-8">
           <Outlet />
         </main>
       </div>

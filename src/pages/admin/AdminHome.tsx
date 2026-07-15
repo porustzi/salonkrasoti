@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { useData } from '../../context/DataContext'
-import { TextEditor, TextAreaEditor, SectionCard } from './AdminFormFields'
-import { Image, Type, Plus, Trash2 } from 'lucide-react'
+import { TextEditor, TextAreaEditor, SectionCard, ImageUpload } from './AdminFormFields'
+import { Type, Plus, Trash2 } from 'lucide-react'
 
 export function AdminHome() {
   const { data, updateContent } = useData()
@@ -52,7 +52,7 @@ export function AdminHome() {
           <TextEditor label="Текст кнопки 1" value={c.hero.ctaText} onChange={(v) => setHero('ctaText', v)} />
           <TextEditor label="Текст кнопки 2" value={c.hero.secondaryCtaText} onChange={(v) => setHero('secondaryCtaText', v)} />
         </div>
-        <TextEditor label="URL зображення фону" value={c.hero.backgroundImage} onChange={(v) => setHero('backgroundImage', v)} icon={<Image className="w-3 h-3" />} />
+        <ImageUpload label="Фонове зображення" value={c.hero.backgroundImage} onChange={(v) => setHero('backgroundImage', v)} />
       </SectionCard>
 
       {/* About Preview */}
@@ -80,7 +80,7 @@ export function AdminHome() {
           <TextEditor label="Статистика: число" value={c.aboutPreview.statNumber} onChange={(v) => setAbout('statNumber', v)} />
           <TextEditor label="Статистика: підпис" value={c.aboutPreview.statLabel} onChange={(v) => setAbout('statLabel', v)} />
         </div>
-        <TextEditor label="Фото" value={c.aboutPreview.image} onChange={(v) => setAbout('image', v)} icon={<Image className="w-3 h-3" />} />
+        <ImageUpload label="Фото" value={c.aboutPreview.image} onChange={(v) => setAbout('image', v)} />
       </SectionCard>
 
       {/* CTA */}

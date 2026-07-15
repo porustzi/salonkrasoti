@@ -1,4 +1,6 @@
+import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
+import { Upload } from 'lucide-react'
 
 export function TextEditor({
   label,
@@ -26,7 +28,7 @@ export function TextEditor({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 focus:border-champagne/40 focus:ring-2 focus:ring-champagne/10 outline-none transition-all hover:border-neutral-300"
+        className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 focus:border-champagne/40 focus:ring-2 focus:ring-champagne/10 outline-none transition-all hover:border-neutral-300 min-h-[42px]"
       />
       {hint && <p className="text-[11px] text-neutral-400">{hint}</p>}
     </div>
@@ -54,7 +56,7 @@ export function TextAreaEditor({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         rows={rows}
-        className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 focus:border-champagne/40 focus:ring-2 focus:ring-champagne/10 outline-none transition-all hover:border-neutral-300 resize-y"
+        className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 focus:border-champagne/40 focus:ring-2 focus:ring-champagne/10 outline-none transition-all hover:border-neutral-300 resize-y min-h-[42px]"
       />
     </div>
   )
@@ -92,6 +94,53 @@ export function SectionCard({
         {children}
       </div>
     </motion.div>
+  )
+}
+
+export function ImageUpload({ value, onChange, label }: { value: string; onChange: (v: string) => void; label?: string }) {
+  const fileInputRef = useRef<HTMLInputElement>(null)
+  const [uploading, setUploading] = useState(false)
+
+  const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploading(true)
+    const dataUrl = await new Promise<string>((resolve) => {
+      const reader = new FileReader()
+      reader.onload = () => resolve(reader.result as string)
+      reader.readAsDataURL(file)
+    })
+    onChange(dataUrl)
+    setUploading(false)
+    if (fileInputRef.current) fileInputRef.current.value = ''
+  }
+
+  return (
+    <div className="space-y-1.5">
+      {label && <label className="block text-xs font-medium text-neutral-500 uppercase tracking-wider">{label}</label>}
+      <div className="flex items-center gap-2">
+        <input
+          type="text"
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder="URL або завантажте файл"
+          className="flex-1 px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 focus:border-champagne/40 focus:ring-2 focus:ring-champagne/10 outline-none transition-all"
+        />
+        <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFile} className="hidden" />
+        <button
+          type="button"
+          onClick={() => fileInputRef.current?.click()}
+          disabled={uploading}
+          className="flex items-center gap-2 px-3 py-2.5 bg-neutral-100 text-neutral-600 rounded-xl text-sm font-medium hover:bg-neutral-200 disabled:opacity-50 transition-all flex-shrink-0"
+        >
+          {uploading ? (
+            <span className="w-4 h-4 border-2 border-neutral-400 border-t-neutral-600 rounded-full animate-spin" />
+          ) : (
+            <Upload className="w-4 h-4" />
+          )}
+        </button>
+      </div>
+    </div>
   )
 }
 

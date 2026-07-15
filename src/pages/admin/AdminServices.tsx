@@ -1,5 +1,5 @@
 import { useData } from '../../context/DataContext'
-import { TextEditor, TextAreaEditor, SectionCard } from './AdminFormFields'
+import { TextEditor, TextAreaEditor, SectionCard, ImageUpload } from './AdminFormFields'
 import { Scissors, Clock, DollarSign, Image as ImageIcon, Plus, Trash2 } from 'lucide-react'
 import { motion } from 'framer-motion'
 
@@ -57,23 +57,23 @@ export function AdminServices() {
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-5">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-lg font-heading font-semibold text-neutral-900">Послуги та ціни</h2>
-          <p className="text-sm text-neutral-500">Редагуйте категорії послуг, ціни та описи</p>
-        </div>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={addCategory}
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-neutral-900 text-white rounded-xl text-sm font-medium hover:bg-neutral-800 transition-all shadow-sm"
-          >
-            <Plus className="w-4 h-4" /> Додати категорію
-          </button>
-          <div className="text-xs text-neutral-400 bg-white px-3 py-1.5 rounded-lg border border-neutral-200">
-            {cats.reduce((sum, c) => sum + c.services.length, 0)} послуг · {cats.length} категорій
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <h2 className="text-lg sm:text-xl font-heading font-semibold text-neutral-900">Послуги та ціни</h2>
+            <p className="text-sm text-neutral-500">Редагуйте категорії послуг, ціни та описи</p>
+          </div>
+          <div className="flex items-center gap-3 flex-wrap">
+            <button
+              onClick={addCategory}
+              className="inline-flex items-center gap-2 px-4 py-2.5 bg-neutral-900 text-white rounded-xl text-sm font-medium hover:bg-neutral-800 transition-all shadow-sm"
+            >
+              <Plus className="w-4 h-4" /> Додати категорію
+            </button>
+            <div className="text-xs text-neutral-400 bg-white px-3 py-1.5 rounded-lg border border-neutral-200 whitespace-nowrap">
+              {cats.reduce((sum, c) => sum + c.services.length, 0)} послуг · {cats.length} категорій
+            </div>
           </div>
         </div>
-      </div>
 
       {cats.map((cat, ci) => (
         <SectionCard
@@ -82,9 +82,9 @@ export function AdminServices() {
           subtitle={`${cat.services.length} послуг`}
           index={ci + 1}
         >
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex gap-4 items-start flex-1">
-              <div className="w-32 h-24 rounded-xl overflow-hidden flex-shrink-0 bg-neutral-100">
+          <div className="flex items-start justify-between gap-3">
+            <div className="flex flex-col sm:flex-row gap-4 items-start flex-1 min-w-0">
+              <div className="w-full sm:w-32 h-32 sm:h-24 rounded-xl overflow-hidden flex-shrink-0 bg-neutral-100">
                 {cat.image ? (
                   <img src={cat.image} alt={cat.title} className="w-full h-full object-cover" />
                 ) : (
@@ -93,18 +93,17 @@ export function AdminServices() {
                   </div>
                 )}
               </div>
-              <div className="flex-1 space-y-3">
+              <div className="flex-1 w-full space-y-3">
                 <TextEditor
                   label="Назва категорії"
                   value={cat.title}
                   onChange={(v) => updateCatField(ci, 'title', v)}
                   icon={<Scissors className="w-3.5 h-3.5" />}
                 />
-                <TextEditor
-                  label="URL картинки"
+                <ImageUpload
+                  label="Фото категорії"
                   value={cat.image}
                   onChange={(v) => updateCatField(ci, 'image', v)}
-                  icon={<ImageIcon className="w-3 h-3" />}
                 />
               </div>
             </div>
@@ -141,7 +140,7 @@ export function AdminServices() {
                 <button
                   onClick={() => removeService(ci, si)}
                   disabled={cat.services.length <= 1}
-                  className="absolute top-2 right-2 p-1.5 rounded-lg text-red-400 hover:text-red-500 hover:bg-red-50 disabled:opacity-30 transition-colors opacity-0 group-hover:opacity-100"
+                  className="absolute top-2 right-2 p-2 sm:p-1.5 rounded-lg text-red-400 hover:text-red-500 hover:bg-red-50 disabled:opacity-30 transition-colors sm:opacity-0 sm:group-hover:opacity-100"
                   title="Видалити послугу"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
