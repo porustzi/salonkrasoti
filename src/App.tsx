@@ -53,8 +53,8 @@ function App() {
               <Route path="gallery" element={<AdminGallery />} />
               <Route path="about/about" element={<AdminAbout />} />
               <Route path="about/team" element={<AdminTeam />} />
-              <Route path="about/reviews" element={<AdminReviews />} />
-              <Route path="about/contacts" element={<AdminContacts />} />
+              <Route path="reviews" element={<AdminReviews />} />
+              <Route path="contacts" element={<AdminContacts />} />
             </Route>
             <Route path="*" element={<Layout><NotFoundPage /></Layout>} />
           </Routes>

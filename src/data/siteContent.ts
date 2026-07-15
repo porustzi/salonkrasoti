@@ -70,9 +70,22 @@ export interface AboutContent {
   cta: CTASectionContent
 }
 
+export interface BusinessInfoContent {
+  address: string
+  city: string
+  location: string
+  phone: string
+  email: string
+  instagram: string
+  workingHours: string
+  country: string
+  googleMapsUrl: string
+}
+
 export interface SiteContent {
   home: HomeContent
   about: AboutContent
+  businessInfo: BusinessInfoContent
 }
 
 export const defaultSiteContent: SiteContent = {
@@ -111,6 +124,17 @@ export const defaultSiteContent: SiteContent = {
       secondaryCtaText: 'Контакти',
       secondaryCtaLink: '/contacts',
     },
+  },
+  businessInfo: {
+    address: 'Проспект Миру 49',
+    city: 'Чернігів',
+    location: 'ЦУМ "Чернігів", 2 поверх',
+    phone: '+38 (063) 844-77-25',
+    email: 'maysternya.krasy@gmail.com',
+    instagram: 'https://instagram.com/maysternya_krasy1',
+    workingHours: '10:00 – 21:00 щодня',
+    country: 'Україна',
+    googleMapsUrl: 'https://maps.google.com/?q=ЦУМ+Чернігів,+проспект+Миру+49,+Чернігів',
   },
   about: {
     story: {

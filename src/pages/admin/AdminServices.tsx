@@ -1,6 +1,6 @@
 import { useData } from '../../context/DataContext'
 import { TextEditor, TextAreaEditor, SectionCard } from './AdminFormFields'
-import { Scissors, Clock, DollarSign } from 'lucide-react'
+import { Scissors, Clock, DollarSign, Image as ImageIcon } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 export function AdminServices() {
@@ -39,12 +39,31 @@ export function AdminServices() {
           subtitle={`${cat.services.length} послуг`}
           index={ci + 1}
         >
-          <TextEditor
-            label="Назва категорії"
-            value={cat.title}
-            onChange={(v) => updateCatField(ci, 'title', v)}
-            icon={<Scissors className="w-3.5 h-3.5" />}
-          />
+          <div className="flex gap-4 items-start">
+            <div className="w-32 h-24 rounded-xl overflow-hidden flex-shrink-0 bg-neutral-100">
+              {cat.image ? (
+                <img src={cat.image} alt={cat.title} className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center text-neutral-400">
+                  <ImageIcon className="w-6 h-6" />
+                </div>
+              )}
+            </div>
+            <div className="flex-1 space-y-3">
+              <TextEditor
+                label="Назва категорії"
+                value={cat.title}
+                onChange={(v) => updateCatField(ci, 'title', v)}
+                icon={<Scissors className="w-3.5 h-3.5" />}
+              />
+              <TextEditor
+                label="URL картинки"
+                value={cat.image}
+                onChange={(v) => updateCatField(ci, 'image', v)}
+                icon={<ImageIcon className="w-3 h-3" />}
+              />
+            </div>
+          </div>
           <TextAreaEditor
             label="Опис категорії"
             value={cat.description}

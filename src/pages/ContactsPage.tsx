@@ -1,12 +1,14 @@
 import { motion } from 'framer-motion';
 import { SEO, LocalBusinessSchema } from '../components/SEO';
 import { SectionHeading, Button, PageHero } from '../components/ui';
-import { BUSINESS_INFO } from '../config/constants';
 import { useBooking } from '../context/BookingContext';
+import { useData } from '../context/DataContext';
 import { MapPin, Phone, Mail, Clock, Instagram, Navigation } from 'lucide-react';
 
 export function ContactsPage() {
   const { openBooking } = useBooking();
+  const { data } = useData();
+  const c = data.content.businessInfo;
   return (
     <>
       <SEO
@@ -41,9 +43,9 @@ export function ContactsPage() {
                   <div>
                     <h3 className="font-medium text-neutral-900 mb-1">Адреса</h3>
                     <p className="text-neutral-600">
-                      {BUSINESS_INFO.address}<br />
-                      {BUSINESS_INFO.city}, {BUSINESS_INFO.country}<br />
-                      <span className="text-champagne">{BUSINESS_INFO.location}</span>
+                      {c.address}<br />
+                      {c.city}, {c.country}<br />
+                      <span className="text-champagne">{c.location}</span>
                     </p>
                   </div>
                 </div>
@@ -56,10 +58,10 @@ export function ContactsPage() {
                   <div>
                     <h3 className="font-medium text-neutral-900 mb-1">Телефон</h3>
                     <a
-                      href={`tel:${BUSINESS_INFO.phone}`}
+                      href={`tel:${c.phone}`}
                       className="text-neutral-600 hover:text-champagne transition-colors"
                     >
-                      {BUSINESS_INFO.phone}
+                      {c.phone}
                     </a>
                   </div>
                 </div>
@@ -72,10 +74,10 @@ export function ContactsPage() {
                   <div>
                     <h3 className="font-medium text-neutral-900 mb-1">Email</h3>
                     <a
-                      href={`mailto:${BUSINESS_INFO.email}`}
+                      href={`mailto:${c.email}`}
                       className="text-neutral-600 hover:text-champagne transition-colors"
                     >
-                      {BUSINESS_INFO.email}
+                      {c.email}
                     </a>
                   </div>
                 </div>
@@ -88,12 +90,7 @@ export function ContactsPage() {
                   <div>
                     <h3 className="font-medium text-neutral-900 mb-3">Години роботи</h3>
                     <ul className="space-y-1 text-sm">
-                      {BUSINESS_INFO.workingHours.map((wh) => (
-                        <li key={wh.day} className="flex gap-8">
-                          <span className="text-neutral-500 w-24">{wh.day}</span>
-                          <span className="text-neutral-700">{wh.hours}</span>
-                        </li>
-                      ))}
+                      <li className="text-neutral-700">{c.workingHours}</li>
                     </ul>
                   </div>
                 </div>
@@ -106,7 +103,7 @@ export function ContactsPage() {
                   <div>
                     <h3 className="font-medium text-neutral-900 mb-1">Instagram</h3>
                     <a
-                      href={BUSINESS_INFO.instagram}
+                      href={c.instagram}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-neutral-600 hover:text-champagne transition-colors"
@@ -123,7 +120,7 @@ export function ContactsPage() {
                   Записатися онлайн
                 </Button>
                 <Button
-                  href={BUSINESS_INFO.googleMapsUrl}
+                  href={c.googleMapsUrl}
                   external
                   variant="secondary"
                 >

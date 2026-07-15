@@ -1,11 +1,15 @@
 import { motion } from 'framer-motion'
 import { useData } from '../../context/DataContext'
-import { TextEditor, TextAreaEditor, SectionCard } from './AdminFormFields'
-import { BUSINESS_INFO } from '../../config/constants'
+import { TextEditor, SectionCard } from './AdminFormFields'
 import { MapPin, Smartphone, Mail, Clock, Globe } from 'lucide-react'
 
 export function AdminContacts() {
   const { data, updateContent } = useData()
+  const c = data.content.businessInfo
+
+  const setField = (field: string, value: string) => {
+    updateContent({ ...data.content, businessInfo: { ...c, [field]: value } })
+  }
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-5">
@@ -16,54 +20,29 @@ export function AdminContacts() {
         </div>
       </div>
 
-      <div className="bg-champagne/5 border border-champagne/20 rounded-2xl p-5 text-sm text-neutral-600">
-        Дані зберігаються в <code className="text-champagne font-mono text-xs">src/config/constants.ts</code>.
-        Для зміни телефону, email, Instagram або годин роботи — редагуйте файл constants.ts.
-      </div>
-
-      <SectionCard title="Телефон">
-        <div className="flex items-center gap-3 text-neutral-700">
-          <Smartphone className="w-4 h-4 text-champagne" />
-          {BUSINESS_INFO.phone}
-        </div>
+      <SectionCard title="Телефон" index={1}>
+        <TextEditor label="Номер телефону" value={c.phone} onChange={(v) => setField('phone', v)} icon={<Smartphone className="w-3.5 h-3.5" />} />
       </SectionCard>
 
-      <SectionCard title="Email">
-        <div className="flex items-center gap-3 text-neutral-700">
-          <Mail className="w-4 h-4 text-champagne" />
-          {BUSINESS_INFO.email}
-        </div>
+      <SectionCard title="Email" index={2}>
+        <TextEditor label="Електронна пошта" value={c.email} onChange={(v) => setField('email', v)} icon={<Mail className="w-3.5 h-3.5" />} />
       </SectionCard>
 
-      <SectionCard title="Адреса">
-        <div className="flex items-center gap-3 text-neutral-700">
-          <MapPin className="w-4 h-4 text-champagne" />
-          {BUSINESS_INFO.address}, {BUSINESS_INFO.city}, {BUSINESS_INFO.location}
+      <SectionCard title="Адреса" index={3}>
+        <TextEditor label="Вулиця, будинок" value={c.address} onChange={(v) => setField('address', v)} icon={<MapPin className="w-3.5 h-3.5" />} />
+        <div className="grid grid-cols-2 gap-3">
+          <TextEditor label="Місто" value={c.city} onChange={(v) => setField('city', v)} />
+          <TextEditor label="Локація (ТЦ, поверх)" value={c.location} onChange={(v) => setField('location', v)} />
         </div>
+        <TextEditor label="Google Maps URL" value={c.googleMapsUrl} onChange={(v) => setField('googleMapsUrl', v)} hint="Посилання на карту" />
       </SectionCard>
 
-      <SectionCard title="Години роботи">
-        <div className="flex items-center gap-3 text-neutral-700 mb-3">
-          <Clock className="w-4 h-4 text-champagne" />
-          Щодня 10:00 – 21:00
-        </div>
-        <div className="text-xs text-neutral-400 space-y-1">
-          {BUSINESS_INFO.workingHours.map((wh) => (
-            <div key={wh.day} className="flex gap-4">
-              <span className="w-24">{wh.day}</span>
-              <span>{wh.hours}</span>
-            </div>
-          ))}
-        </div>
+      <SectionCard title="Години роботи" index={4}>
+        <TextEditor label="Графік роботи" value={c.workingHours} onChange={(v) => setField('workingHours', v)} icon={<Clock className="w-3.5 h-3.5" />} hint="Наприклад: 10:00 – 21:00 щодня" />
       </SectionCard>
 
-      <SectionCard title="Instagram">
-        <div className="flex items-center gap-3 text-neutral-700">
-          <Globe className="w-4 h-4 text-champagne" />
-          <a href={BUSINESS_INFO.instagram} target="_blank" rel="noopener noreferrer" className="text-champagne hover:underline">
-            {BUSINESS_INFO.instagram}
-          </a>
-        </div>
+      <SectionCard title="Instagram" index={5}>
+        <TextEditor label="Посилання на Instagram" value={c.instagram} onChange={(v) => setField('instagram', v)} icon={<Globe className="w-3.5 h-3.5" />} />
       </SectionCard>
     </motion.div>
   )

@@ -3,7 +3,7 @@ import { Outlet, useNavigate, useLocation, Link } from 'react-router-dom'
 import { useData, SyncStatus } from '../../context/DataContext'
 import { BUSINESS_INFO } from '../../config/constants'
 import {
-  Scissors, Images, Users, MessageSquare, Home,
+  Scissors, Images, Users, MessageSquare, Home, MapPin,
   LogOut, LayoutDashboard, CheckCircle, AlertCircle, Loader2, Save,
   ChevronRight, Sparkles, Clock, Menu, Info, ChevronDown
 } from 'lucide-react'
@@ -31,10 +31,10 @@ const NAV_ITEMS = [
     children: [
       { path: '/admin/about/about', label: 'Про салон' },
       { path: '/admin/about/team', label: 'Команда' },
-      { path: '/admin/about/reviews', label: 'Відгуки' },
-      { path: '/admin/about/contacts', label: 'Контакти' },
     ],
   },
+  { path: '/admin/reviews', label: 'Відгуки', icon: MessageSquare },
+  { path: '/admin/contacts', label: 'Контакти', icon: MapPin },
 ]
 
 const PAGE_TITLES: Record<string, string> = {

@@ -1,7 +1,9 @@
 import { useData } from '../../context/DataContext'
 import { TextEditor, SectionCard } from './AdminFormFields'
 import { motion } from 'framer-motion'
-import { User } from 'lucide-react'
+import { User, Plus, Trash2, GripVertical } from 'lucide-react'
+
+let nextId = Date.now()
 
 export function AdminTeam() {
   const { data, updateTeam } = useData()
@@ -12,6 +14,27 @@ export function AdminTeam() {
     updateTeam(next)
   }
 
+  const addMember = () => {
+    updateTeam([
+      ...members,
+      {
+        id: String(nextId++),
+        name: '',
+        position: '',
+        experience: '',
+        specializations: [],
+        certificates: [],
+        instagram: '',
+        image: '',
+      },
+    ])
+  }
+
+  const removeMember = (idx: number) => {
+    if (members.length <= 1) return
+    updateTeam(members.filter((_, i) => i !== idx))
+  }
+
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-5">
       <div className="flex items-center justify-between">
@@ -19,8 +42,17 @@ export function AdminTeam() {
           <h2 className="text-lg font-heading font-semibold text-neutral-900">Команда</h2>
           <p className="text-sm text-neutral-500">Майстри та співробітники салону</p>
         </div>
-        <div className="text-xs text-neutral-400 bg-white px-3 py-1.5 rounded-lg border border-neutral-200">
-          {members.length} майстрів
+        <div className="flex items-center gap-3">
+          <button
+            onClick={addMember}
+            className="inline-flex items-center gap-2 px-4 py-2.5 bg-neutral-900 text-white rounded-xl text-sm font-medium hover:bg-neutral-800 transition-all shadow-sm"
+          >
+            <Plus className="w-4 h-4" />
+            Додати майстра
+          </button>
+          <div className="text-xs text-neutral-400 bg-white px-3 py-1.5 rounded-lg border border-neutral-200">
+            {members.length} майстрів
+          </div>
         </div>
       </div>
 
@@ -31,8 +63,9 @@ export function AdminTeam() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
+            layout
           >
-            <SectionCard title={m.name} subtitle={m.position}>
+            <SectionCard title={m.name || 'Новий майстер'} subtitle={m.position}>
               <div className="flex items-start gap-4">
                 <div className="w-16 h-16 rounded-xl overflow-hidden bg-neutral-100 flex-shrink-0">
                   {m.image ? (
@@ -53,6 +86,16 @@ export function AdminTeam() {
                 <TextEditor label="Instagram" value={m.instagram} onChange={(v) => updateMember(i, 'instagram', v)} />
               </div>
               <TextEditor label="Фото URL" value={m.image} onChange={(v) => updateMember(i, 'image', v)} />
+              <div className="flex justify-end pt-2">
+                <button
+                  onClick={() => removeMember(i)}
+                  disabled={members.length <= 1}
+                  className="flex items-center gap-1.5 text-xs text-red-400 hover:text-red-500 disabled:opacity-30 transition-colors"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                  Видалити
+                </button>
+              </div>
             </SectionCard>
           </motion.div>
         ))}
