@@ -21,7 +21,10 @@ export async function loadSiteData() {
 
 export async function saveSiteData(payload: Record<string, unknown>) {
   if (!supabase) return false
-  const { error } = await supabase.rpc('update_site_data', payload)
+  const { error } = await supabase
+    .from('site_data')
+    .update({ payload })
+    .eq('id', 'main')
   if (error) {
     console.error('Error saving site data:', error)
     return false
