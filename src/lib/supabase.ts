@@ -2,16 +2,9 @@ import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = 'https://cisirgtkbixhhbwqfbix.supabase.co'
 
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || ''
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpc2lyZ3RrYml4aGhid3FmYml4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQxMTY1NzYsImV4cCI6MjA5OTY5MjU3Nn0.qvRj3f55N1ha_EAlmx4xRL0KcYiGuCjtukvkNT26qSo'
 
-if (!supabaseAnonKey) {
-  console.warn(
-    'Supabase anon key not set. Admin save will use localStorage only. ' +
-    'Set VITE_SUPABASE_ANON_KEY in .env or directly in this file.'
-  )
-}
-
-export const supabase = supabaseAnonKey ? createClient(supabaseUrl, supabaseAnonKey) : null
+export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 export async function loadSiteData() {
   if (!supabase) return null

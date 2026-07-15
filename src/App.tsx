@@ -1,7 +1,9 @@
+import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Layout } from './components/layout';
 import { DataProvider } from './context/DataContext';
-import { AdminPage } from './pages/admin/AdminPage';
+
+const AdminPage = lazy(() => import('./pages/admin/AdminPage').then(m => ({ default: m.AdminPage })));
 import {
   HomePage,
   PricingPage,
@@ -36,7 +38,7 @@ function App() {
           <Route path="/book" element={<Layout><BookPage /></Layout>} />
           <Route path="/privacy" element={<Layout><PrivacyPage /></Layout>} />
           <Route path="/terms" element={<Layout><TermsPage /></Layout>} />
-          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/admin" element={<Suspense fallback={<div className="min-h-screen flex items-center justify-center text-neutral-500">Завантаження...</div>}><AdminPage /></Suspense>} />
           <Route path="*" element={<Layout><NotFoundPage /></Layout>} />
         </Routes>
       </BrowserRouter>
