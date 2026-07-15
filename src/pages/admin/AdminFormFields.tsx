@@ -26,7 +26,7 @@ export function TextEditor({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full px-3.5 py-2.5 bg-white border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 focus:border-champagne/40 focus:ring-2 focus:ring-champagne/10 outline-none transition-all hover:border-neutral-300"
+        className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 focus:border-champagne/40 focus:ring-2 focus:ring-champagne/10 outline-none transition-all hover:border-neutral-300"
       />
       {hint && <p className="text-[11px] text-neutral-400">{hint}</p>}
     </div>
@@ -54,7 +54,7 @@ export function TextAreaEditor({
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         rows={rows}
-        className="w-full px-3.5 py-2.5 bg-white border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 focus:border-champagne/40 focus:ring-2 focus:ring-champagne/10 outline-none transition-all hover:border-neutral-300 resize-y"
+        className="w-full px-3.5 py-2.5 bg-neutral-50 border border-neutral-200 rounded-xl text-sm text-neutral-900 placeholder-neutral-400 focus:border-champagne/40 focus:ring-2 focus:ring-champagne/10 outline-none transition-all hover:border-neutral-300 resize-y"
       />
     </div>
   )
@@ -79,12 +79,12 @@ export function SectionCard({
     >
       <div className="px-5 py-4 border-b border-neutral-50 flex items-center gap-3">
         {index !== undefined && (
-          <span className="w-7 h-7 rounded-lg bg-neutral-100 text-neutral-500 text-xs font-semibold flex items-center justify-center flex-shrink-0">
+          <span className="w-7 h-7 rounded-lg bg-champagne/10 text-champagne text-xs font-semibold flex items-center justify-center flex-shrink-0">
             {index}
           </span>
         )}
         <div>
-          <h3 className="text-sm font-semibold text-neutral-900">{title}</h3>
+          <h3 className="text-sm font-heading font-semibold text-neutral-900">{title}</h3>
           {subtitle && <p className="text-[11px] text-neutral-400">{subtitle}</p>}
         </div>
       </div>
@@ -101,7 +101,7 @@ export function EmptyState({ icon, title, description }: { icon: React.ReactNode
       <div className="w-14 h-14 rounded-2xl bg-neutral-100 flex items-center justify-center mb-4 text-neutral-400">
         {icon}
       </div>
-      <h3 className="text-sm font-semibold text-neutral-700 mb-1">{title}</h3>
+      <h3 className="text-sm font-heading font-semibold text-neutral-700 mb-1">{title}</h3>
       <p className="text-xs text-neutral-400 max-w-xs">{description}</p>
     </div>
   )
