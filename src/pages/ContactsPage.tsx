@@ -109,7 +109,7 @@ export function ContactsPage() {
                       rel="noopener noreferrer"
                       className="text-neutral-600 hover:text-champagne transition-colors"
                     >
-                      @{BUSINESS_INFO.name.replace(/\s+/g, '_').toLowerCase()}
+                      @maysternya_krasy1
                     </a>
                   </div>
                 </div>
@@ -139,7 +139,7 @@ export function ContactsPage() {
               className="h-[300px] sm:h-[400px] lg:h-full min-h-[300px] rounded-2xl overflow-hidden shadow-medium bg-neutral-100"
             >
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.5!2d31.3!3d51.5!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTHCsDMwJzAwLjAiTiMzMcKwMTgnMDAuMCJF!5e0!3m2!1sen!2sua!4v1"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2428.3037495782415!2d31.293044077279!3d51.49787561060903!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x412a6cfd2d0c7c17%3A0xd4a5c0a5c5a5c5a5!2z0KbQo9CcICLQp9C10YDQvdGW0LPRltCyIg!5e0!3m2!1suk!2sua!4v1"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -169,15 +169,15 @@ export function ContactsPage() {
               },
               {
                 q: 'Чи працюєте ви у вихідні?',
-                a: 'Ми працюємо з понеділка по суботу з 9:00 до 19:00. Неділя — вихідний день.',
+                a: 'Ми працюємо щодня з 10:00 до 21:00, включаючи суботу та неділю.',
               },
               {
                 q: 'Чи потрібна передоплата?',
-                a: 'Для складних процедур (blondage, airtouch) необхідна передоплата 50%.',
+                a: 'Для складних процедур (фарбування, нарощування) необхідна передоплата 30%.',
               },
               {
                 q: 'Які бренди косметики ви використовуєте?',
-                a: 'Ми використовуємо преміум матеріали від Wella, L\'Oreal, Olaplex, Schwarzkopf Professional.',
+                a: 'Ми використовуємо професійну косметику від провідних світових брендів.',
               },
             ].map((faq, index) => (
               <motion.div

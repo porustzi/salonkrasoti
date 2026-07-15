@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { SEO } from '../components/SEO';
 import { GalleryGrid, PageHero } from '../components/ui';
 import { galleryImages, galleryCategories } from '../data/services';
+import { BUSINESS_INFO } from '../config/constants';
 import { Images } from 'lucide-react';
 
 export function GalleryPage() {
@@ -46,7 +47,7 @@ export function GalleryPage() {
               Ще більше робіт дивіться в нашому Instagram
             </p>
             <a
-              href="https://instagram.com/"
+              href={BUSINESS_INFO.instagram}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-4 bg-neutral-900 text-white rounded-full font-medium uppercase tracking-wider hover:bg-neutral-800 transition-colors"
