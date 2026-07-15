@@ -516,7 +516,7 @@ export const teamMembers = [
     specializations: ['Макіяж', 'Брови', 'Вії'],
     certificates: ['Makeup Artistry', 'Brow Design'],
     instagram: 'https://instagram.com/maysternya_krasy1',
-    image: 'https://images.pexels.com/photos/2866931/pexels-photo-2866931.jpeg?auto=compress&cs=tinysrgb&w=400',
+    image: 'https://images.pexels.com/photos/1476835/pexels-photo-1476835.jpeg?auto=compress&cs=tinysrgb&w=400',
   },
   {
     id: '3',
