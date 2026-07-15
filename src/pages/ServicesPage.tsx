@@ -2,11 +2,12 @@ import { motion } from 'framer-motion';
 import { SEO, LocalBusinessSchema } from '../components/SEO';
 import { Button, PageHero } from '../components/ui';
 import { useBooking } from '../context/BookingContext';
-import { serviceCategories } from '../data/services';
+import { useData } from '../context/DataContext';
 import { Clock, Scissors } from 'lucide-react';
 
 export function ServicesPage() {
   const { openBooking } = useBooking();
+  const { data } = useData();
   return (
     <>
       <SEO
@@ -27,7 +28,7 @@ export function ServicesPage() {
         <div className="container-custom">
           {/* Quick Navigation */}
           <nav className="flex flex-wrap justify-center gap-3 mb-16">
-            {serviceCategories.map((cat) => (
+            {data.services.map((cat) => (
               <a
                 key={cat.id}
                 href={`#${cat.id}`}
@@ -39,7 +40,7 @@ export function ServicesPage() {
           </nav>
 
           {/* Service Categories */}
-          {serviceCategories.map((category, catIndex) => (
+          {data.services.map((category, catIndex) => (
             <motion.section
               key={category.id}
               id={category.id}

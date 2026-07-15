@@ -151,8 +151,7 @@ export function Footer() {
                 <div className="flex items-start gap-3 text-neutral-400">
                   <Clock className="w-5 h-5 flex-shrink-0 mt-0.5" />
                   <span className="text-sm">
-                    Пн-Пт: 9:00-19:00<br />
-                    Сб: 10:00-18:00
+                    Щодня: 10:00 – 21:00
                   </span>
                 </div>
               </li>

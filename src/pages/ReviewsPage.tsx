@@ -4,7 +4,7 @@ import { SEO, LocalBusinessSchema } from '../components/SEO';
 import { ReviewCard, Button, PageHero } from '../components/ui';
 import { BUSINESS_INFO } from '../config/constants';
 import { useBooking } from '../context/BookingContext';
-import { reviews } from '../data/services';
+import { useData } from '../context/DataContext';
 import { Star } from 'lucide-react';
 
 const filterOptions = [
@@ -15,12 +15,13 @@ const filterOptions = [
 
 export function ReviewsPage() {
   const { openBooking } = useBooking();
+  const { data } = useData();
   const [activeFilter, setActiveFilter] = useState('all');
 
   const filteredReviews =
     activeFilter === 'all'
-      ? reviews
-      : reviews.filter((r) => r.rating === parseInt(activeFilter));
+      ? data.reviews
+      : data.reviews.filter((r) => r.rating === parseInt(activeFilter));
 
   return (
     <>

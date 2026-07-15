@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { SEO } from '../components/SEO';
 import { GalleryGrid, PageHero } from '../components/ui';
-import { galleryImages, galleryCategories } from '../data/services';
+import { useData } from '../context/DataContext';
 import { BUSINESS_INFO } from '../config/constants';
 import { Images } from 'lucide-react';
 
 export function GalleryPage() {
+  const { data } = useData();
   const [activeCategory, setActiveCategory] = useState('all');
 
   return (
@@ -26,8 +27,8 @@ export function GalleryPage() {
       <section className="section-padding bg-white">
         <div className="container-custom">
           <GalleryGrid
-            images={galleryImages}
-            categories={galleryCategories}
+            images={data.gallery}
+            categories={['all', ...new Set(data.gallery.map(i => i.category))]}
             activeCategory={activeCategory}
             onCategoryChange={setActiveCategory}
           />

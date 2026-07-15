@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
 import { SEO, LocalBusinessSchema } from '../components/SEO';
 import { TeamCard, PageHero } from '../components/ui';
-import { teamMembers } from '../data/services';
+import { useData } from '../context/DataContext';
 import { Users } from 'lucide-react';
 
 export function TeamPage() {
+  const { data } = useData();
   return (
     <>
       <SEO
@@ -24,7 +25,7 @@ export function TeamPage() {
       <section className="section-padding bg-white">
         <div className="container-custom">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {teamMembers.map((member) => (
+            {data.team.map((member) => (
               <TeamCard
                 key={member.id}
                 name={member.name}

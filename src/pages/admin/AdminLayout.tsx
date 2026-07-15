@@ -23,13 +23,14 @@ const STATUS_ICONS: Record<SyncStatus, React.ReactNode> = {
 }
 
 const NAV_ITEMS = [
-  { path: '/admin', label: 'Головна', icon: Home },
+  { path: '/admin', label: 'Панель', icon: LayoutDashboard },
+  { path: '/admin/home', label: 'Головна сторінка', icon: Home },
   { path: '/admin/pricing', label: 'Ціни', icon: Scissors },
   { path: '/admin/gallery', label: 'Галерея', icon: Images },
   {
     label: 'Про нас', icon: Info,
     children: [
-      { path: '/admin/about/about', label: 'Про салон' },
+      { path: '/admin/about', label: 'Про салон' },
       { path: '/admin/about/team', label: 'Команда' },
     ],
   },
@@ -82,7 +83,7 @@ export function AdminLayout() {
     navigate('/admin/login')
   }
 
-  const isActive = (path: string) => location.pathname === path || location.pathname.startsWith(path + '/')
+  const isActive = (path: string) => location.pathname === path || (path !== '/admin' && location.pathname.startsWith(path + '/'))
   const isChildActive = (children: { path: string }[]) => children.some(c => location.pathname === c.path || location.pathname.startsWith(c.path + '/'))
 
   const sidebarContent = (

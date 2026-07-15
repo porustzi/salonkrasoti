@@ -49,9 +49,10 @@ function App() {
             <Route path="/admin/login" element={<SuspenseWrapper><AdminLogin /></SuspenseWrapper>} />
             <Route path="/admin" element={<SuspenseWrapper><AdminLayout /></SuspenseWrapper>}>
               <Route index element={<AdminDashboard />} />
+              <Route path="home" element={<AdminHome />} />
               <Route path="pricing" element={<AdminServices />} />
               <Route path="gallery" element={<AdminGallery />} />
-              <Route path="about/about" element={<AdminAbout />} />
+              <Route path="about" element={<AdminAbout />} />
               <Route path="about/team" element={<AdminTeam />} />
               <Route path="reviews" element={<AdminReviews />} />
               <Route path="contacts" element={<AdminContacts />} />

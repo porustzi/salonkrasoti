@@ -37,39 +37,13 @@ export function BookPage() {
             </h1>
 
             <p className="text-neutral-600 mb-8">
-              Ви будете перенаправлені на сторінку онлайн запису через кілька секунд.
-              Якщо перенаправлення не відбулося, натисніть кнопку нижче.
+              Натисніть кнопку нижче, щоб записатися на послугу онлайн.
             </p>
 
             <Button onClick={openBooking} showArrow>
               <ExternalLink className="w-4 h-4" />
-              Перейти до запису
+              Записатися онлайн
             </Button>
-
-            <p className="text-sm text-neutral-500 mt-6">
-              Автоматичне перенаправлення через 5 секунд...
-            </p>
-
-            {/* Loading animation */}
-            <div className="mt-8 flex justify-center">
-              <div className="flex gap-1">
-                {[0, 1, 2].map((i) => (
-                  <motion.div
-                    key={i}
-                    className="w-2 h-2 rounded-full bg-champagne"
-                    animate={{
-                      scale: [1, 1.5, 1],
-                      opacity: [0.5, 1, 0.5],
-                    }}
-                    transition={{
-                      duration: 0.8,
-                      repeat: Infinity,
-                      delay: i * 0.2,
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
           </motion.div>
         </div>
       </section>

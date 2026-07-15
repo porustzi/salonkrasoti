@@ -2,11 +2,12 @@ import { motion } from 'framer-motion';
 import { SEO, LocalBusinessSchema } from '../components/SEO';
 import { Button, PageHero } from '../components/ui';
 import { useBooking } from '../context/BookingContext';
-import { serviceCategories } from '../data/services';
+import { useData } from '../context/DataContext';
 import { Clock, Tag, Info } from 'lucide-react';
 
 export function PricingPage() {
   const { openBooking } = useBooking();
+  const { data } = useData();
   return (
     <>
       <SEO
@@ -26,7 +27,7 @@ export function PricingPage() {
       <section className="bg-cream border-b border-neutral-100">
         <div className="container-custom py-8">
           <nav className="flex flex-wrap justify-center gap-2.5">
-            {serviceCategories.map((cat) => (
+            {data.services.map((cat) => (
               <a
                 key={cat.id}
                 href={`#${cat.id}`}
@@ -42,7 +43,7 @@ export function PricingPage() {
       {/* Service Categories with Prices */}
       <section className="section-padding bg-white">
         <div className="container-custom">
-          {serviceCategories.map((category, catIndex) => (
+          {data.services.map((category, catIndex) => (
             <motion.section
               key={category.id}
               id={category.id}
