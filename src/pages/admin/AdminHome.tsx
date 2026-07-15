@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { useData } from '../../context/DataContext'
 import { TextEditor, TextAreaEditor, SectionCard } from './AdminFormFields'
-import { Home, Image, List, Type } from 'lucide-react'
+import { Image, Type, Plus, Trash2 } from 'lucide-react'
 
 export function AdminHome() {
   const { data, updateContent } = useData()
@@ -11,7 +11,7 @@ export function AdminHome() {
     updateContent({ ...data.content, home: { ...data.content.home, hero: { ...c.hero, [field]: value } } })
   }
 
-  const setAbout = (field: string, value: string) => {
+  const setAbout = (field: string, value: string | string[]) => {
     updateContent({ ...data.content, home: { ...data.content.home, aboutPreview: { ...c.aboutPreview, [field]: value } } })
   }
 
@@ -23,6 +23,15 @@ export function AdminHome() {
     const features = [...c.aboutPreview.features]
     features[idx] = value
     setAbout('features', features)
+  }
+
+  const addFeature = () => {
+    setAbout('features', [...c.aboutPreview.features, ''])
+  }
+
+  const removeFeature = (idx: number) => {
+    if (c.aboutPreview.features.length <= 1) return
+    setAbout('features', c.aboutPreview.features.filter((_, i) => i !== idx))
   }
 
   return (
@@ -56,8 +65,16 @@ export function AdminHome() {
         <div className="space-y-2">
           <label className="block text-xs font-medium text-neutral-500 uppercase tracking-wider">Переваги (список)</label>
           {c.aboutPreview.features.map((f, i) => (
-            <input key={i} type="text" value={f} onChange={(e) => updateFeature(i, e.target.value)} className="w-full px-3.5 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-sm focus:border-champagne/40 focus:ring-2 focus:ring-champagne/10 outline-none" />
+            <div key={i} className="flex items-center gap-2">
+              <input type="text" value={f} onChange={(e) => updateFeature(i, e.target.value)} className="flex-1 px-3.5 py-2 bg-neutral-50 border border-neutral-200 rounded-xl text-sm focus:border-champagne/40 focus:ring-2 focus:ring-champagne/10 outline-none" />
+              <button onClick={() => removeFeature(i)} disabled={c.aboutPreview.features.length <= 1} className="p-1.5 rounded-lg text-red-400 hover:text-red-500 hover:bg-red-50 disabled:opacity-30 transition-colors">
+                <Trash2 className="w-3.5 h-3.5" />
+              </button>
+            </div>
           ))}
+          <button onClick={addFeature} className="flex items-center gap-2 text-sm text-champagne hover:text-gold font-medium transition-colors">
+            <Plus className="w-4 h-4" /> Додати пункт
+          </button>
         </div>
         <div className="grid grid-cols-2 gap-3">
           <TextEditor label="Статистика: число" value={c.aboutPreview.statNumber} onChange={(v) => setAbout('statNumber', v)} />

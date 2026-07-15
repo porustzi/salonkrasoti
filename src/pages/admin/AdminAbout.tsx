@@ -1,9 +1,7 @@
 import { motion } from 'framer-motion'
 import { useData } from '../../context/DataContext'
 import { TextEditor, TextAreaEditor, SectionCard } from './AdminFormFields'
-import { Image, Type, Plus, Trash2 } from 'lucide-react'
-
-let nextId = 100
+import { Image, Plus, Trash2 } from 'lucide-react'
 
 export function AdminAbout() {
   const { data, updateContent } = useData()
@@ -22,9 +20,27 @@ export function AdminAbout() {
     updateContent({ ...data.content, about: { ...c, values } })
   }
 
+  const addValue = () => {
+    updateContent({ ...data.content, about: { ...c, values: [...c.values, { title: '', description: '' }] } })
+  }
+
+  const removeValue = (idx: number) => {
+    if (c.values.length <= 1) return
+    updateContent({ ...data.content, about: { ...c, values: c.values.filter((_, i) => i !== idx) } })
+  }
+
   const updateTimeline = (idx: number, field: string, value: string) => {
     const timeline = c.timeline.map((t, i) => i !== idx ? t : { ...t, [field]: value })
     updateContent({ ...data.content, about: { ...c, timeline } })
+  }
+
+  const addTimeline = () => {
+    updateContent({ ...data.content, about: { ...c, timeline: [...c.timeline, { year: '', title: '', description: '' }] } })
+  }
+
+  const removeTimeline = (idx: number) => {
+    if (c.timeline.length <= 1) return
+    updateContent({ ...data.content, about: { ...c, timeline: c.timeline.filter((_, i) => i !== idx) } })
   }
 
   const updateFeature = (idx: number, field: string, value: string) => {
@@ -32,12 +48,13 @@ export function AdminAbout() {
     updateContent({ ...data.content, about: { ...c, features } })
   }
 
-  const addValue = () => {
-    updateContent({ ...data.content, about: { ...c, values: [...c.values, { title: '', description: '' }] } })
+  const addFeature = () => {
+    updateContent({ ...data.content, about: { ...c, features: [...c.features, { title: '', description: '', image: '' }] } })
   }
 
-  const removeValue = (idx: number) => {
-    updateContent({ ...data.content, about: { ...c, values: c.values.filter((_, i) => i !== idx) } })
+  const removeFeature = (idx: number) => {
+    if (c.features.length <= 1) return
+    updateContent({ ...data.content, about: { ...c, features: c.features.filter((_, i) => i !== idx) } })
   }
 
   return (
@@ -66,10 +83,10 @@ export function AdminAbout() {
       {/* Values */}
       <SectionCard title="Цінності" index={2}>
         {c.values.map((v, i) => (
-          <div key={i} className="bg-neutral-50 rounded-xl p-4 space-y-2.5 border border-neutral-100/50">
+          <div key={i} className="bg-neutral-50 rounded-xl p-4 space-y-2.5 border border-neutral-100/50 relative group">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-medium text-neutral-400">Цінність #{i + 1}</span>
-              <button onClick={() => removeValue(i)} className="p-1 rounded-lg text-red-400 hover:text-red-500 hover:bg-red-50 transition-colors">
+              <span className="text-xs font-medium text-neutral-400">#{i + 1}</span>
+              <button onClick={() => removeValue(i)} disabled={c.values.length <= 1} className="p-1 rounded-lg text-red-400 hover:text-red-500 hover:bg-red-50 disabled:opacity-30 transition-colors">
                 <Trash2 className="w-3.5 h-3.5" />
               </button>
             </div>
@@ -85,26 +102,40 @@ export function AdminAbout() {
       {/* Timeline */}
       <SectionCard title="Етапи розвитку" index={3}>
         {c.timeline.map((t, i) => (
-          <div key={i} className="grid grid-cols-3 gap-3 bg-neutral-50 rounded-xl p-4 border border-neutral-100/50">
-            <TextEditor label="Рік" value={t.year} onChange={(v) => updateTimeline(i, 'year', v)} />
-            <TextEditor label="Назва" value={t.title} onChange={(v) => updateTimeline(i, 'title', v)} />
-            <TextEditor label="Опис" value={t.description} onChange={(v) => updateTimeline(i, 'description', v)} />
+          <div key={i} className="bg-neutral-50 rounded-xl p-4 border border-neutral-100/50 relative group">
+            <button onClick={() => removeTimeline(i)} disabled={c.timeline.length <= 1} className="absolute top-2 right-2 p-1.5 rounded-lg text-red-400 hover:text-red-500 hover:bg-red-50 disabled:opacity-30 transition-colors opacity-0 group-hover:opacity-100">
+              <Trash2 className="w-3.5 h-3.5" />
+            </button>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <TextEditor label="Рік" value={t.year} onChange={(v) => updateTimeline(i, 'year', v)} />
+              <TextEditor label="Назва" value={t.title} onChange={(v) => updateTimeline(i, 'title', v)} />
+              <TextEditor label="Опис" value={t.description} onChange={(v) => updateTimeline(i, 'description', v)} />
+            </div>
           </div>
         ))}
+        <button onClick={addTimeline} className="flex items-center gap-2 text-sm text-champagne hover:text-gold font-medium transition-colors">
+          <Plus className="w-4 h-4" /> Додати етап
+        </button>
       </SectionCard>
 
       {/* Features */}
       <SectionCard title="Переваги (картки з фото)" index={4}>
         {c.features.map((f, i) => (
-          <div key={i} className="bg-neutral-50 rounded-xl p-4 space-y-2.5 border border-neutral-100/50">
+          <div key={i} className="bg-neutral-50 rounded-xl p-4 space-y-2.5 border border-neutral-100/50 relative group">
+            <button onClick={() => removeFeature(i)} disabled={c.features.length <= 1} className="absolute top-2 right-2 p-1.5 rounded-lg text-red-400 hover:text-red-500 hover:bg-red-50 disabled:opacity-30 transition-colors opacity-0 group-hover:opacity-100">
+              <Trash2 className="w-3.5 h-3.5" />
+            </button>
             <span className="text-xs font-medium text-neutral-400">Картка #{i + 1}</span>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <TextEditor label="Заголовок" value={f.title} onChange={(v) => updateFeature(i, 'title', v)} />
               <TextEditor label="URL фото" value={f.image} onChange={(v) => updateFeature(i, 'image', v)} icon={<Image className="w-3 h-3" />} />
             </div>
             <TextAreaEditor label="Опис" value={f.description} onChange={(v) => updateFeature(i, 'description', v)} rows={2} />
           </div>
         ))}
+        <button onClick={addFeature} className="flex items-center gap-2 text-sm text-champagne hover:text-gold font-medium transition-colors">
+          <Plus className="w-4 h-4" /> Додати картку переваги
+        </button>
       </SectionCard>
 
       {/* CTA */}
