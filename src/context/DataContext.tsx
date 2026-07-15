@@ -78,7 +78,15 @@ export function DataProvider({ children }: { children: ReactNode }) {
         }
         setData(merged)
         saveToStorage(merged)
+      } else {
+        // Якщо дані не завантажено — використовуємо default
+        setData(defaultData)
+        saveToStorage(defaultData)
       }
+    }).catch(() => {
+      // Якщо помилка завантаження — використовуємо default
+      setData(defaultData)
+      saveToStorage(defaultData)
     })
   }, [])
 
