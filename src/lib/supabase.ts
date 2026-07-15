@@ -23,7 +23,7 @@ export async function saveSiteData(payload: Record<string, unknown>) {
   if (!supabase) return false
   const { error } = await supabase
     .from('site_data')
-    .update({ payload })
+    .update({ data: payload })
     .eq('id', 'main')
   if (error) {
     console.error('Error saving site data:', error)
