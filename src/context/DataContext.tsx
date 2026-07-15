@@ -69,12 +69,20 @@ export function DataProvider({ children }: { children: ReactNode }) {
     loadSiteData().then((remote) => {
       if (remote?.data) {
         const { services, gallery, team, reviews, content } = remote.data
+        // Deep merge with defaults
+        const mergedContent = { ...defaultSiteContent }
+        if (content) {
+          if (content.home) mergedContent.home = { ...defaultSiteContent.home, ...content.home }
+          if (content.about) mergedContent.about = { ...defaultSiteContent.about, ...content.about }
+          if (content.businessInfo) mergedContent.businessInfo = { ...defaultSiteContent.businessInfo, ...content.businessInfo }
+        }
+        
         const merged = {
           services: services || defaultServices,
           gallery: gallery || defaultGallery,
           team: team || defaultTeam,
           reviews: reviews || defaultReviews,
-          content: content || defaultSiteContent,
+          content: mergedContent,
         }
         setData(merged)
         saveToStorage(merged)
