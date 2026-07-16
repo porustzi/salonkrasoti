@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { ChevronRight, Home } from 'lucide-react';
-import { BUSINESS_INFO } from '../../config/constants';
+import { useBusinessInfo } from '../../lib/businessStore';
 
 interface BreadcrumbItem {
   label: string;
@@ -23,10 +23,11 @@ const routeLabels: Record<string, string> = {
 
 export function Breadcrumbs({ variant = 'dark' }: { variant?: 'dark' | 'light' }) {
   const location = useLocation();
+  const bi = useBusinessInfo();
   const pathnames = location.pathname.split('/').filter((x) => x);
 
   const breadcrumbs: BreadcrumbItem[] = [
-    { label: BUSINESS_INFO.name, path: '/' },
+    { label: bi.name, path: '/' },
   ];
 
   let currentPath = '';

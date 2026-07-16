@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ChevronRight, Home } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { BUSINESS_INFO } from '../../config/constants';
+import { useBusinessInfo } from '../../lib/businessStore';
 
 const routeLabels: Record<string, string> = {
   '/services': 'Послуги',
@@ -21,7 +21,8 @@ const routeLabels: Record<string, string> = {
 interface PageHeroProps {
   title: string;
   subtitle?: string;
-  image: string;
+  image?: string;
+  eyebrow?: string;
   icon?: LucideIcon;
 }
 
@@ -30,11 +31,12 @@ interface BreadcrumbItem {
   path?: string;
 }
 
-export function PageHero({ title, subtitle, image, icon: Icon }: PageHeroProps) {
+export function PageHero({ title, subtitle, image, eyebrow, icon: Icon }: PageHeroProps) {
+  const bi = useBusinessInfo();
   const pathnames = window.location.pathname.split('/').filter((x) => x);
 
   const breadcrumbs: BreadcrumbItem[] = [
-    { label: BUSINESS_INFO.name, path: '/' },
+    { label: bi.name, path: '/' },
   ];
   let currentPath = '';
   pathnames.forEach((pathname) => {
@@ -48,7 +50,7 @@ export function PageHero({ title, subtitle, image, icon: Icon }: PageHeroProps) 
       {/* Background image */}
       <div className="absolute inset-0 z-0">
         <img
-          src={image}
+          src={image || 'https://images.pexels.com/photos/2552130/pexels-photo-2552130.jpeg?auto=compress&cs=tinysrgb&w=1920'}
           alt=""
           aria-hidden="true"
           className="w-full h-full object-cover"
@@ -108,6 +110,18 @@ export function PageHero({ title, subtitle, image, icon: Icon }: PageHeroProps) 
             >
               <Icon className="w-7 h-7 text-champagne" />
             </motion.div>
+          )}
+
+          {/* Eyebrow */}
+          {eyebrow && (
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="text-sm font-medium uppercase tracking-[0.2em] text-champagne mb-4"
+            >
+              {eyebrow}
+            </motion.p>
           )}
 
           {/* Title */}

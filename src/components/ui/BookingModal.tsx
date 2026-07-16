@@ -1,9 +1,10 @@
 import { useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
-import { BOOKING_URL } from '../../config/constants'
+import { useBookingUrl } from '../../lib/businessStore'
 
 export function BookingModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  const bookingUrl = useBookingUrl()
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') onClose()
   }, [onClose])
@@ -44,7 +45,7 @@ export function BookingModal({ isOpen, onClose }: { isOpen: boolean; onClose: ()
               <X className="w-5 h-5 text-neutral-700" />
             </button>
             <iframe
-              src={BOOKING_URL}
+              src={bookingUrl}
               className="w-full h-full"
               title="Онлайн запис"
               allow="payment"

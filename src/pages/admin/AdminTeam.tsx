@@ -128,6 +128,7 @@ export function AdminTeam() {
           <TextEditor label="Текст кнопки join" value={data.content.pages.team.joinCtaText} onChange={(v) => setPage('joinCtaText', v)} />
         </div>
         <TextAreaEditor label="Текст join-секції" value={data.content.pages.team.joinText} onChange={(v) => setPage('joinText', v)} rows={2} />
+        <ImageUpload label="Hero: фонове зображення" value={data.content.pages.team.image} onChange={(v) => setPage('image', v)} />
       </SectionCard>
     </motion.div>
   )

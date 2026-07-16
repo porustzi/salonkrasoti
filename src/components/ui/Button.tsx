@@ -66,7 +66,7 @@ export function Button({
     transition: { duration: 0.2 },
   };
 
-  if (to) {
+  if (to && to.trim()) {
     return (
       <Link to={to} className={baseStyles}>
         <motion.span {...motionProps}>{content}</motion.span>

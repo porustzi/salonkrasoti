@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useCallback, useEffect, ReactNode } from 'react'
 import { writeContent, readContent } from '../lib/github'
+import { setBusinessInfo, setBookingUrl } from '../lib/businessStore'
 import {
   serviceCategories as defaultServices,
   galleryImages as defaultGallery,
@@ -57,7 +58,7 @@ async function loadFromGithub(): Promise<Partial<SiteData> | null> {
     if (reviews) parsed.reviews = JSON.parse(reviews)
     if (content) parsed.content = JSON.parse(content)
 
-    if (parsed.services || parsed.team) return parsed
+    if (Object.keys(parsed).length > 0) return parsed
     return null
   } catch {
     return null
@@ -78,6 +79,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
         const merged = { ...defaultData, ...remote }
         setData(merged)
         setSavedSnapshot(JSON.stringify(merged))
+        if (merged.content?.businessInfo) setBusinessInfo(merged.content.businessInfo)
+        if (merged.content?.businessInfo?.bookingUrl) setBookingUrl(merged.content.businessInfo.bookingUrl)
       }
       setSyncStatus('idle')
     })()
@@ -101,7 +104,11 @@ export function DataProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const updateContent = useCallback((content: SiteContent) => {
-    setData((prev) => ({ ...prev, content }))
+    setData((prev) => {
+      const next = { ...prev, content }
+      if (content?.businessInfo) setBusinessInfo(content.businessInfo)
+      return next
+    })
   }, [])
 
   const dirty = syncStatus !== 'loading' && JSON.stringify(data) !== savedSnapshot
@@ -111,17 +118,29 @@ export function DataProvider({ children }: { children: ReactNode }) {
     try {
       const { services, gallery, team, reviews, content } = data
 
-      const files: [string, string, string][] = [
-        ['content/services.json', JSON.stringify(services, null, 2), 'Оновлення послуг'],
-        ['content/gallery.json', JSON.stringify(gallery, null, 2), 'Оновлення галереї'],
-        ['content/team.json', JSON.stringify(team, null, 2), 'Оновлення команди'],
-        ['content/reviews.json', JSON.stringify(reviews, null, 2), 'Оновлення відгуків'],
-        ['content/site-content.json', JSON.stringify(content, null, 2), 'Оновлення контенту'],
+      const prev: Partial<SiteData> = savedSnapshot ? JSON.parse(savedSnapshot) : {}
+      const fileDefs: { path: string; data: unknown; msg: string }[] = [
+        { path: 'content/services.json', data: services, msg: 'Оновлення послуг' },
+        { path: 'content/gallery.json', data: gallery, msg: 'Оновлення галереї' },
+        { path: 'content/team.json', data: team, msg: 'Оновлення команди' },
+        { path: 'content/reviews.json', data: reviews, msg: 'Оновлення відгуків' },
+        { path: 'content/site-content.json', data: content, msg: 'Оновлення контенту' },
       ]
 
       const results = []
-      for (const [path, content, message] of files) {
-        results.push(await writeContent(path, content, message))
+      for (const f of fileDefs) {
+        const serialized = JSON.stringify(f.data, null, 2)
+        const prevSerialized = prev[f.path as keyof SiteData]
+          ? JSON.stringify(prev[f.path as keyof SiteData], null, 2)
+          : null
+        if (serialized === prevSerialized) continue
+        results.push(await writeContent(f.path, serialized, f.msg))
+      }
+
+      if (results.length === 0) {
+        setSyncStatus('saved')
+        setTimeout(() => setSyncStatus('idle'), 3000)
+        return
       }
 
       const failed = results.filter((r) => !r.ok)
@@ -133,8 +152,12 @@ export function DataProvider({ children }: { children: ReactNode }) {
           const merged = { ...defaultData, ...remote }
           setData(merged)
           setSavedSnapshot(JSON.stringify(merged))
+          if (merged.content?.businessInfo) setBusinessInfo(merged.content.businessInfo)
+          if (merged.content?.businessInfo?.bookingUrl) setBookingUrl(merged.content.businessInfo.bookingUrl)
         } else {
           setSavedSnapshot(JSON.stringify(data))
+          if (data.content?.businessInfo) setBusinessInfo(data.content.businessInfo)
+          if (data.content?.businessInfo?.bookingUrl) setBookingUrl(data.content.businessInfo.bookingUrl)
         }
         setSyncStatus('saved')
       }

@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+﻿import { useEffect, useState } from 'react'
 import { Outlet, useNavigate, useLocation, Link } from 'react-router-dom'
 import { useData, SyncStatus } from '../../context/DataContext'
-import { BUSINESS_INFO } from '../../config/constants'
+import { useBusinessInfo } from '../../lib/businessStore'
 import {
   Scissors, Images, MessageSquare, Home, MapPin,
   LogOut, LayoutDashboard, CheckCircle, AlertCircle, Loader2, Save,
@@ -9,11 +9,11 @@ import {
 } from 'lucide-react'
 
 const STATUS_LABELS: Record<SyncStatus, { label: string; color: string; bg: string }> = {
-  idle: { label: 'Збережено', color: 'text-neutral-400', bg: 'bg-neutral-100' },
-  loading: { label: 'Завантаження...', color: 'text-neutral-400', bg: 'bg-neutral-100' },
-  saving: { label: 'Збереження...', color: 'text-champagne', bg: 'bg-champagne/10' },
-  saved: { label: 'Збережено', color: 'text-green-600', bg: 'bg-green-50' },
-  error: { label: 'Помилка збереження', color: 'text-red-500', bg: 'bg-red-50' },
+  idle: { label: 'Р—Р±РµСЂРµР¶РµРЅРѕ', color: 'text-neutral-400', bg: 'bg-neutral-100' },
+  loading: { label: 'Р—Р°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ...', color: 'text-neutral-400', bg: 'bg-neutral-100' },
+  saving: { label: 'Р—Р±РµСЂРµР¶РµРЅРЅСЏ...', color: 'text-champagne', bg: 'bg-champagne/10' },
+  saved: { label: 'Р—Р±РµСЂРµР¶РµРЅРѕ', color: 'text-green-600', bg: 'bg-green-50' },
+  error: { label: 'РџРѕРјРёР»РєР° Р·Р±РµСЂРµР¶РµРЅРЅСЏ', color: 'text-red-500', bg: 'bg-red-50' },
 }
 
 const STATUS_ICONS: Record<SyncStatus, React.ReactNode> = {
@@ -28,29 +28,29 @@ type NavChild = { path: string; label: string }
 type NavItem = { path: string; label: string; icon: React.ComponentType<{ className?: string }> } | { label: string; icon: React.ComponentType<{ className?: string }>; children: NavChild[] }
 
 const NAV_ITEMS: NavItem[] = [
-  { path: '/admin', label: 'Панель', icon: LayoutDashboard },
-  { path: '/admin/home', label: 'Головна сторінка', icon: Home },
-  { path: '/admin/pricing', label: 'Ціни', icon: Scissors },
-  { path: '/admin/gallery', label: 'Галерея', icon: Images },
+  { path: '/admin', label: 'РџР°РЅРµР»СЊ', icon: LayoutDashboard },
+  { path: '/admin/home', label: 'Р“РѕР»РѕРІРЅР° СЃС‚РѕСЂС–РЅРєР°', icon: Home },
+  { path: '/admin/pricing', label: 'Р¦С–РЅРё', icon: Scissors },
+  { path: '/admin/gallery', label: 'Р“Р°Р»РµСЂРµСЏ', icon: Images },
   {
-    label: 'Про нас', icon: Info,
+    label: 'РџСЂРѕ РЅР°СЃ', icon: Info,
     children: [
-      { path: '/admin/about', label: 'Про салон' },
-      { path: '/admin/about/team', label: 'Команда' },
+      { path: '/admin/about', label: 'РџСЂРѕ СЃР°Р»РѕРЅ' },
+      { path: '/admin/about/team', label: 'РљРѕРјР°РЅРґР°' },
     ],
   },
-  { path: '/admin/reviews', label: 'Відгуки', icon: MessageSquare },
-  { path: '/admin/contacts', label: 'Контакти', icon: MapPin },
+  { path: '/admin/reviews', label: 'Р’С–РґРіСѓРєРё', icon: MessageSquare },
+  { path: '/admin/contacts', label: 'РљРѕРЅС‚Р°РєС‚Рё', icon: MapPin },
 ]
 
 const PAGE_TITLES: Record<string, string> = {
-  '': 'Головна',
-  pricing: 'Ціни та послуги',
-  gallery: 'Галерея',
-  about: 'Про салон',
-  team: 'Команда',
-  reviews: 'Відгуки',
-  contacts: 'Контакти',
+  '': 'Р“РѕР»РѕРІРЅР°',
+  pricing: 'Р¦С–РЅРё С‚Р° РїРѕСЃР»СѓРіРё',
+  gallery: 'Р“Р°Р»РµСЂРµСЏ',
+  about: 'РџСЂРѕ СЃР°Р»РѕРЅ',
+  team: 'РљРѕРјР°РЅРґР°',
+  reviews: 'Р’С–РґРіСѓРєРё',
+  contacts: 'РљРѕРЅС‚Р°РєС‚Рё',
 }
 
 function usePageTitle(): string {
@@ -64,6 +64,7 @@ function usePageTitle(): string {
 
 export function AdminLayout() {
   const navigate = useNavigate()
+  const bi = useBusinessInfo()
   const location = useLocation()
   const { syncStatus, dirty, saveToGithub } = useData()
   const [lastSaved, setLastSaved] = useState<string>('')
@@ -95,6 +96,7 @@ export function AdminLayout() {
   }, [dirty])
 
   const handleLogout = () => {
+    if (dirty && !window.confirm('Є незбережені зміни. Вийти без збереження?')) return
     sessionStorage.removeItem('admin_auth')
     navigate('/admin/login')
   }
@@ -110,8 +112,8 @@ export function AdminLayout() {
             <Sparkles className="w-4 h-4 text-white" />
           </div>
           <div className="min-w-0">
-            <h1 className="text-sm font-heading font-semibold text-neutral-900 truncate">Майстерня Краси</h1>
-            <p className="text-[10px] text-neutral-400 uppercase tracking-wider font-body">Адмін-панель</p>
+            <h1 className="text-sm font-heading font-semibold text-neutral-900 truncate">РњР°Р№СЃС‚РµСЂРЅСЏ РљСЂР°СЃРё</h1>
+            <p className="text-[10px] text-neutral-400 uppercase tracking-wider font-body">РђРґРјС–РЅ-РїР°РЅРµР»СЊ</p>
           </div>
         </div>
       </div>
@@ -181,11 +183,11 @@ export function AdminLayout() {
       <div className="p-3 border-t border-neutral-100 space-y-1">
         <Link to="/" className="flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 transition-all">
           <LayoutDashboard className="w-4 h-4" />
-          На сайт
+          РќР° СЃР°Р№С‚
         </Link>
         <button onClick={handleLogout} className="flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm text-red-400 hover:text-red-500 hover:bg-red-50 transition-all w-full">
           <LogOut className="w-4 h-4" />
-          Вийти
+          Р’РёР№С‚Рё
         </button>
       </div>
     </div>
@@ -217,7 +219,7 @@ export function AdminLayout() {
                 <h2 className="text-base sm:text-xl font-heading font-semibold text-neutral-900 truncate">{pageTitle}</h2>
                 <div className="hidden sm:flex items-center gap-1.5 text-xs text-neutral-400">
                   <ChevronRight className="w-3 h-3" />
-                  <span>{BUSINESS_INFO.name}</span>
+                  <span>{bi.name}</span>
                 </div>
               </div>
             </div>
@@ -232,7 +234,7 @@ export function AdminLayout() {
               {dirty && syncStatus !== 'loading' && (
                 <span className="hidden sm:flex items-center gap-1.5 text-xs text-amber-600 bg-amber-50 px-2.5 py-1.5 rounded-lg">
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-                  Є незбережені
+                  Р„ РЅРµР·Р±РµСЂРµР¶РµРЅС–
                 </span>
               )}
               <button
@@ -245,7 +247,7 @@ export function AdminLayout() {
                 }`}
               >
                 {syncStatus === 'saving' ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-                <span className="hidden sm:inline">Зберегти</span>
+                <span className="hidden sm:inline">Р—Р±РµСЂРµРіС‚Рё</span>
               </button>
             </div>
           </div>
@@ -255,7 +257,7 @@ export function AdminLayout() {
           {syncStatus === 'loading' ? (
             <div className="flex items-center justify-center py-32 text-neutral-400">
               <Loader2 className="w-6 h-6 animate-spin" />
-              <span className="ml-3 text-sm">Завантаження даних…</span>
+              <span className="ml-3 text-sm">Р—Р°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ РґР°РЅРёС…вЂ¦</span>
             </div>
           ) : (
             <Outlet />
@@ -265,3 +267,4 @@ export function AdminLayout() {
     </div>
   )
 }
+

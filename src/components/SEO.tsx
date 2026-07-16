@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { SEO_DEFAULTS, BUSINESS_INFO } from '../config/constants';
+import { SEO_DEFAULTS } from '../config/constants';
+import { useBusinessInfo } from '../lib/businessStore';
 
 interface SEOProps {
   title?: string;
@@ -78,37 +79,38 @@ export function SEO({
 
 // Schema.org LocalBusiness
 export function LocalBusinessSchema() {
+  const bi = useBusinessInfo();
   const schema = {
     "@context": "https://schema.org",
     "@type": "BeautySalon",
-    "name": BUSINESS_INFO.name,
-    "description": BUSINESS_INFO.tagline,
+    "name": bi.name,
+    "description": bi.tagline,
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": BUSINESS_INFO.address,
-      "addressLocality": BUSINESS_INFO.city,
-      "addressCountry": BUSINESS_INFO.country
+      "streetAddress": bi.address,
+      "addressLocality": bi.city,
+      "addressCountry": bi.country
     },
-    "telephone": BUSINESS_INFO.phone,
-    "email": BUSINESS_INFO.email,
+    "telephone": bi.phone,
+    "email": bi.email,
     "url": SEO_DEFAULTS.siteUrl,
     "priceRange": "$$",
-    "openingHoursSpecification": BUSINESS_INFO.workingHours.map(wh => {
-      const hours: string = wh.hours
-      return {
+    "openingHours": bi.workingHours,
+    "openingHoursSpecification": [
+      {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": wh.day,
-        "opens": hours !== 'Вихідний' ? hours.split(' - ')[0] : undefined,
-        "closes": hours !== 'Вихідний' ? hours.split(' - ')[1] : undefined,
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "opens": "10:00",
+        "closes": "21:00"
       }
-    }),
+    ],
     "aggregateRating": {
       "@type": "AggregateRating",
-      "ratingValue": BUSINESS_INFO.googleRating,
-      "reviewCount": BUSINESS_INFO.reviewCount
+      "ratingValue": bi.googleRating,
+      "reviewCount": bi.reviewCount
     },
     "sameAs": [
-      BUSINESS_INFO.instagram
+      bi.instagram
     ]
   };
 

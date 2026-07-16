@@ -32,7 +32,7 @@ async function call(action: string, payload: Record<string, unknown> = {}): Prom
   }
 }
 
-export async function login(password: string) {
+export async function login(password: string, _login?: string) {
   const res = await fetch(API_ENDPOINT, {
     method: 'POST',
     headers: {

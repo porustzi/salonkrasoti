@@ -1,5 +1,5 @@
 import { useData } from '../../context/DataContext'
-import { TextEditor, TextAreaEditor, SectionCard } from './AdminFormFields'
+import { TextEditor, TextAreaEditor, SectionCard, ImageUpload } from './AdminFormFields'
 import { motion } from 'framer-motion'
 import { Star, Plus, Trash2 } from 'lucide-react'
 
@@ -138,6 +138,7 @@ export function AdminReviews() {
         <TextEditor label="Hero: мітка" value={data.content.pages.reviews.eyebrow} onChange={(v) => setPage('eyebrow', v)} />
         <TextEditor label="Hero: заголовок" value={data.content.pages.reviews.title} onChange={(v) => setPage('title', v)} />
         <TextAreaEditor label="Hero: підзаголовок" value={data.content.pages.reviews.subtitle} onChange={(v) => setPage('subtitle', v)} rows={2} />
+        <ImageUpload label="Hero: фонове зображення" value={data.content.pages.reviews.image} onChange={(v) => setPage('image', v)} />
       </SectionCard>
     </motion.div>
   )

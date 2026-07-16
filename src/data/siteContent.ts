@@ -73,6 +73,8 @@ export interface AboutContent {
 }
 
 export interface BusinessInfoContent {
+  name: string
+  tagline: string
   address: string
   city: string
   location: string
@@ -86,6 +88,7 @@ export interface BusinessInfoContent {
   googleRating: string
   reviewCount: string
   recommendPercent: string
+  bookingUrl: string
 }
 
 export interface ReviewsSectionContent {

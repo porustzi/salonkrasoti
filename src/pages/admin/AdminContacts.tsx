@@ -23,8 +23,11 @@ export function AdminContacts() {
         </div>
       </div>
 
-      <SectionCard title="Телефон" index={1}>
+      <SectionCard title="Основне" index={1}>
+        <TextEditor label="Назва салону" value={c.name} onChange={(v) => setField('name', v)} />
+        <TextEditor label="Слоган (tagline)" value={c.tagline} onChange={(v) => setField('tagline', v)} />
         <TextEditor label="Номер телефону" value={c.phone} onChange={(v) => setField('phone', v)} icon={<Smartphone className="w-3.5 h-3.5" />} />
+        <TextEditor label="Посилання для запису (booking)" value={c.bookingUrl} onChange={(v) => setField('bookingUrl', v)} hint="BeautyPro або інше" />
       </SectionCard>
 
       <SectionCard title="Email" index={2}>
@@ -85,6 +88,7 @@ export function AdminContacts() {
         <TextEditor label="Hero: заголовок" value={data.content.pages.contacts.title} onChange={(v) => setPage('title', v)} />
         <TextAreaEditor label="Hero: підзаголовок" value={data.content.pages.contacts.subtitle} onChange={(v) => setPage('subtitle', v)} rows={2} />
         <TextEditor label="Заголовок FAQ-секції" value={data.content.pages.contacts.faqHeading} onChange={(v) => setPage('faqHeading', v)} />
+        <ImageUpload label="Hero: фонове зображення" value={data.content.pages.contacts.image} onChange={(v) => setPage('image', v)} />
       </SectionCard>
     </motion.div>
   )

@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+﻿import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Phone, Calendar, ChevronDown } from 'lucide-react';
-import { BUSINESS_INFO } from '../../config/constants';
+import { useBusinessInfo } from '../../lib/businessStore';
 import { useBooking } from '../../context/BookingContext';
 
 interface NavItem {
@@ -20,18 +20,18 @@ type NavEntry = NavItem | NavGroup;
 const isGroup = (e: NavEntry): e is NavGroup => 'children' in e;
 
 const navEntries: NavEntry[] = [
-  { path: '/', label: 'Головна' },
-  { path: '/pricing', label: 'Ціни' },
-  { path: '/gallery', label: 'Галерея' },
+  { path: '/', label: 'Р“РѕР»РѕРІРЅР°' },
+  { path: '/pricing', label: 'Р¦С–РЅРё' },
+  { path: '/gallery', label: 'Р“Р°Р»РµСЂРµСЏ' },
   {
-    label: 'Про нас',
+    label: 'РџСЂРѕ РЅР°СЃ',
     children: [
-      { path: '/about', label: 'Про салон' },
-      { path: '/team', label: 'Команда' },
-      { path: '/reviews', label: 'Відгуки' },
+      { path: '/about', label: 'РџСЂРѕ СЃР°Р»РѕРЅ' },
+      { path: '/team', label: 'РљРѕРјР°РЅРґР°' },
+      { path: '/reviews', label: 'Р’С–РґРіСѓРєРё' },
     ],
   },
-  { path: '/contacts', label: 'Контакти' },
+  { path: '/contacts', label: 'РљРѕРЅС‚Р°РєС‚Рё' },
 ];
 
 export function Header() {
@@ -39,6 +39,7 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const { openBooking } = useBooking();
+  const bi = useBusinessInfo();
   const location = useLocation();
   const dropdownTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -101,10 +102,10 @@ export function Header() {
                 className="flex flex-col"
               >
                 <span className="font-heading text-2xl font-bold tracking-tight text-neutral-900 leading-none">
-                  {BUSINESS_INFO.name}
+                  {bi.name}
                 </span>
                 <span className="text-[0.65rem] tracking-[0.25em] uppercase text-champagne mt-1.5 font-medium">
-                  Салон краси
+                  РЎР°Р»РѕРЅ РєСЂР°СЃРё
                 </span>
               </motion.div>
             </Link>
@@ -197,18 +198,18 @@ export function Header() {
             {/* Actions */}
             <div className="hidden lg:flex items-center gap-4">
               <a
-                href={`tel:${BUSINESS_INFO.phone}`}
+                href={`tel:${bi.phone}`}
                 className="flex items-center gap-2 text-sm text-neutral-600 hover:text-champagne transition-colors"
               >
                 <Phone className="w-4 h-4" />
-                <span>{BUSINESS_INFO.phone}</span>
+                <span>{bi.phone}</span>
               </a>
               <button
                 onClick={openBooking}
                 className="btn-primary text-sm py-3.5"
               >
                 <Calendar className="w-4 h-4" />
-                Запис онлайн
+                Р—Р°РїРёСЃ РѕРЅР»Р°Р№РЅ
               </button>
             </div>
 
@@ -293,11 +294,11 @@ export function Header() {
 
               <div className="mt-auto space-y-4 pt-8">
                 <a
-                  href={`tel:${BUSINESS_INFO.phone}`}
+                  href={`tel:${bi.phone}`}
                   className="flex items-center gap-2 text-neutral-600 py-3"
                 >
                   <Phone className="w-5 h-5" />
-                  <span>{BUSINESS_INFO.phone}</span>
+                  <span>{bi.phone}</span>
                 </a>
 
                 <button
@@ -305,7 +306,7 @@ export function Header() {
                   className="btn-primary w-full justify-center"
                 >
                   <Calendar className="w-4 h-4" />
-                  Записатися онлайн
+                  Р—Р°РїРёСЃР°С‚РёСЃСЏ РѕРЅР»Р°Р№РЅ
                 </button>
               </div>
             </div>
@@ -316,3 +317,4 @@ export function Header() {
     </>
   );
 }
+

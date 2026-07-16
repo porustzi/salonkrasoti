@@ -194,6 +194,7 @@ export function AdminServices() {
         <TextEditor label="Hero: мітка" value={data.content.pages.pricing.eyebrow} onChange={(v) => setPage('eyebrow', v)} />
         <TextEditor label="Hero: заголовок" value={data.content.pages.pricing.title} onChange={(v) => setPage('title', v)} />
         <TextAreaEditor label="Hero: підзаголовок" value={data.content.pages.pricing.subtitle} onChange={(v) => setPage('subtitle', v)} rows={2} />
+        <ImageUpload label="Hero: фонове зображення" value={data.content.pages.pricing.image} onChange={(v) => setPage('image', v)} />
       </SectionCard>
     </motion.div>
   )

@@ -16,6 +16,7 @@ export function AdminGallery() {
   }
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [uploading, setUploading] = useState(false)
+  const [error, setError] = useState('')
 
   const updateImage = (idx: number, field: string, value: string) => {
     const next = images.map((img, i) => i !== idx ? img : { ...img, [field]: value })
@@ -40,9 +41,15 @@ export function AdminGallery() {
     if (!files?.length) return
 
     setUploading(true)
+    setError('')
     const newImages: typeof images = []
+    let failed = 0
 
     for (const file of files) {
+      if (file.size > 25 * 1024 * 1024) {
+        failed++
+        continue
+      }
       const base64 = await new Promise<string>((resolve) => {
         const reader = new FileReader()
         reader.onload = () => {
@@ -62,14 +69,20 @@ export function AdminGallery() {
             alt: name,
             category: 'uploaded',
           })
+        } else {
+          failed++
         }
       } catch (err) {
+        failed++
         console.error('Upload failed:', err)
       }
     }
 
     if (newImages.length > 0) {
       updateGallery([...images, ...newImages])
+    }
+    if (failed > 0) {
+      setError(`Не вдалося завантажити ${failed} файл(ів). Перевірте розмір (до 25 МБ) та формат.`)
     }
     setUploading(false)
     if (fileInputRef.current) {
@@ -110,6 +123,12 @@ export function AdminGallery() {
           </div>
         </div>
       </div>
+
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-500 text-sm rounded-xl px-4 py-3">
+          {error}
+        </div>
+      )}
 
       {images.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center bg-white rounded-2xl border border-neutral-100">
@@ -206,6 +225,7 @@ export function AdminGallery() {
         <TextEditor label="Instagram CTA: заголовок" value={data.content.pages.gallery.instagramHeading} onChange={(v) => setPage('instagramHeading', v)} />
         <TextEditor label="Instagram CTA: нік" value={data.content.pages.gallery.instagramHandle} onChange={(v) => setPage('instagramHandle', v)} />
         <TextEditor label="Instagram CTA: кнопка" value={data.content.pages.gallery.instagramCtaText} onChange={(v) => setPage('instagramCtaText', v)} />
+        <ImageUpload label="Hero: фонове зображення" value={data.content.pages.gallery.image} onChange={(v) => setPage('image', v)} />
       </SectionCard>
     </motion.div>
   )

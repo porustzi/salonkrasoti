@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router-dom'
+﻿import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useData } from '../../context/DataContext'
-import { BUSINESS_INFO } from '../../config/constants'
+import { useBusinessInfo } from '../../lib/businessStore'
 import {
   Scissors, Images, Users, MessageSquare,
   ArrowRight, Sparkles, Smartphone, MapPin, Clock, Globe
@@ -11,8 +11,8 @@ const SECTIONS = [
   {
     path: '/admin/pricing',
     icon: Scissors,
-    title: 'Послуги та ціни',
-    desc: 'Редагуйте перелік послуг, ціни, тривалість та описи',
+    title: 'РџРѕСЃР»СѓРіРё С‚Р° С†С–РЅРё',
+    desc: 'Р РµРґР°РіСѓР№С‚Рµ РїРµСЂРµР»С–Рє РїРѕСЃР»СѓРі, С†С–РЅРё, С‚СЂРёРІР°Р»С–СЃС‚СЊ С‚Р° РѕРїРёСЃРё',
     color: 'text-champagne',
     bg: 'bg-champagne/5',
     border: 'border-champagne/10',
@@ -20,8 +20,8 @@ const SECTIONS = [
   {
     path: '/admin/gallery',
     icon: Images,
-    title: 'Галерея',
-    desc: 'Додавайте та редагуйте фотографії робіт салону',
+    title: 'Р“Р°Р»РµСЂРµСЏ',
+    desc: 'Р”РѕРґР°РІР°Р№С‚Рµ С‚Р° СЂРµРґР°РіСѓР№С‚Рµ С„РѕС‚РѕРіСЂР°С„С–С— СЂРѕР±С–С‚ СЃР°Р»РѕРЅСѓ',
     color: 'text-neutral-900',
     bg: 'bg-neutral-50',
     border: 'border-neutral-200',
@@ -29,8 +29,8 @@ const SECTIONS = [
   {
     path: '/admin/about/team',
     icon: Users,
-    title: 'Команда',
-    desc: 'Керуйте інформацією про майстрів та співробітників',
+    title: 'РљРѕРјР°РЅРґР°',
+    desc: 'РљРµСЂСѓР№С‚Рµ С–РЅС„РѕСЂРјР°С†С–С”СЋ РїСЂРѕ РјР°Р№СЃС‚СЂС–РІ С‚Р° СЃРїС–РІСЂРѕР±С–С‚РЅРёРєС–РІ',
     color: 'text-neutral-900',
     bg: 'bg-neutral-50',
     border: 'border-neutral-200',
@@ -38,8 +38,8 @@ const SECTIONS = [
   {
     path: '/admin/reviews',
     icon: MessageSquare,
-    title: 'Відгуки',
-    desc: 'Переглядайте та редагуйте відгуки клієнтів',
+    title: 'Р’С–РґРіСѓРєРё',
+    desc: 'РџРµСЂРµРіР»СЏРґР°Р№С‚Рµ С‚Р° СЂРµРґР°РіСѓР№С‚Рµ РІС–РґРіСѓРєРё РєР»С–С”РЅС‚С–РІ',
     color: 'text-neutral-900',
     bg: 'bg-neutral-50',
     border: 'border-neutral-200',
@@ -48,6 +48,7 @@ const SECTIONS = [
 
 export function AdminDashboard() {
   const navigate = useNavigate()
+  const bi = useBusinessInfo()
   const { data } = useData()
   const cats = data.services
   const totalServices = cats.reduce((s, c) => s + c.services.length, 0)
@@ -64,34 +65,34 @@ export function AdminDashboard() {
             <Sparkles className="w-6 h-6 text-white" />
           </div>
           <div>
-            <h1 className="text-2xl font-heading font-semibold text-neutral-900">Вітаємо в адмін-панелі!</h1>
-            <p className="text-sm text-neutral-400">{BUSINESS_INFO.name}</p>
+            <h1 className="text-2xl font-heading font-semibold text-neutral-900">Р’С–С‚Р°С”РјРѕ РІ Р°РґРјС–РЅ-РїР°РЅРµР»С–!</h1>
+            <p className="text-sm text-neutral-400">{bi.name}</p>
           </div>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
           <div className="bg-neutral-50 rounded-xl p-4 text-center">
             <div className="text-2xl font-heading font-bold text-neutral-900">{totalServices}</div>
-            <div className="text-xs text-neutral-400 mt-0.5">Послуг</div>
+            <div className="text-xs text-neutral-400 mt-0.5">РџРѕСЃР»СѓРі</div>
           </div>
           <div className="bg-neutral-50 rounded-xl p-4 text-center">
             <div className="text-2xl font-heading font-bold text-neutral-900">{totalGallery}</div>
-            <div className="text-xs text-neutral-400 mt-0.5">Фото</div>
+            <div className="text-xs text-neutral-400 mt-0.5">Р¤РѕС‚Рѕ</div>
           </div>
           <div className="bg-neutral-50 rounded-xl p-4 text-center">
             <div className="text-2xl font-heading font-bold text-neutral-900">{totalTeam}</div>
-            <div className="text-xs text-neutral-400 mt-0.5">Майстрів</div>
+            <div className="text-xs text-neutral-400 mt-0.5">РњР°Р№СЃС‚СЂС–РІ</div>
           </div>
           <div className="bg-neutral-50 rounded-xl p-4 text-center">
             <div className="text-2xl font-heading font-bold text-neutral-900">{totalReviews}</div>
-            <div className="text-xs text-neutral-400 mt-0.5">Відгуків</div>
+            <div className="text-xs text-neutral-400 mt-0.5">Р’С–РґРіСѓРєС–РІ</div>
           </div>
         </div>
       </div>
 
       {/* Quick links */}
       <div>
-        <h2 className="text-sm font-medium text-neutral-400 uppercase tracking-wider mb-4 font-body">Розділи для редагування</h2>
+        <h2 className="text-sm font-medium text-neutral-400 uppercase tracking-wider mb-4 font-body">Р РѕР·РґС–Р»Рё РґР»СЏ СЂРµРґР°РіСѓРІР°РЅРЅСЏ</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {SECTIONS.map((s, i) => {
             const Icon = s.icon
@@ -120,26 +121,27 @@ export function AdminDashboard() {
 
       {/* Salon info quick view */}
       <div className="bg-white rounded-2xl border border-neutral-100 shadow-sm p-6">
-        <h3 className="text-sm font-heading font-semibold text-neutral-900 mb-4">Інформація про салон</h3>
+        <h3 className="text-sm font-heading font-semibold text-neutral-900 mb-4">Р†РЅС„РѕСЂРјР°С†С–СЏ РїСЂРѕ СЃР°Р»РѕРЅ</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
           <div className="flex items-center gap-3 text-neutral-500">
             <MapPin className="w-4 h-4 text-champagne" />
-            {BUSINESS_INFO.address}
+            {bi.address}
           </div>
           <div className="flex items-center gap-3 text-neutral-500">
             <Smartphone className="w-4 h-4 text-champagne" />
-            {BUSINESS_INFO.phone}
+            {bi.phone}
           </div>
           <div className="flex items-center gap-3 text-neutral-500">
             <Clock className="w-4 h-4 text-champagne" />
-            Щодня 10:00 – 21:00
+            Р©РѕРґРЅСЏ 10:00 вЂ“ 21:00
           </div>
           <div className="flex items-center gap-3 text-neutral-500">
             <Globe className="w-4 h-4 text-champagne" />
-            {BUSINESS_INFO.instagram}
+            {bi.instagram}
           </div>
         </div>
       </div>
     </motion.div>
   )
 }
+

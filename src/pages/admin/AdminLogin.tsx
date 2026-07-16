@@ -4,11 +4,6 @@ import { motion } from 'framer-motion'
 import { Eye, EyeOff, Lock, Info, Copy, Loader2 } from 'lucide-react'
 import { login as loginApi } from '../../lib/github'
 
-const ADMIN_CREDENTIALS = {
-  login: 'admin',
-  password: 'admin@salon2024!',
-}
-
 export function AdminLogin() {
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
@@ -21,17 +16,17 @@ export function AdminLogin() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
-    if (login !== ADMIN_CREDENTIALS.login) {
-      setError('Невірний логін або пароль')
+    if (!login || !password) {
+      setError('Введіть логін та пароль')
       return
     }
     setLoading(true)
     try {
-      const result = await loginApi(password)
+      const result = await loginApi(password, login)
       if (result?.ok) {
         navigate('/admin')
       } else {
-        setError('Невірний пароль або помилка сервера')
+        setError('Невірний логін або пароль')
       }
     } catch {
       setError('Помилка зʼєднання з сервером')
@@ -41,8 +36,8 @@ export function AdminLogin() {
   }
 
   const fillCredentials = () => {
-    setLogin(ADMIN_CREDENTIALS.login)
-    setPassword(ADMIN_CREDENTIALS.password)
+    setLogin('admin')
+    setPassword('')
   }
 
   return (
@@ -149,9 +144,9 @@ export function AdminLogin() {
                 className="bg-champagne/5 border border-champagne/20 rounded-xl p-4 text-center space-y-2"
               >
                 <p className="text-xs text-neutral-600 font-body">
-                  <span className="font-semibold">Логін:</span> admin
+                  Дані для входу надаються адміністратором сайту.
                   <br />
-                  <span className="font-semibold">Пароль:</span> admin@salon2024!
+                  Якщо ви їх забули — зверніться до розробника.
                 </p>
                 <button
                   type="button"
