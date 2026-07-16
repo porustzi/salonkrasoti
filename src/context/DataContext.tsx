@@ -8,7 +8,7 @@ import {
 import { reviews as defaultReviews } from '../data/services'
 import { SiteContent, defaultSiteContent } from '../data/siteContent'
 
-export type SyncStatus = 'idle' | 'saving' | 'saved' | 'error'
+export type SyncStatus = 'idle' | 'loading' | 'saving' | 'saved' | 'error'
 
 interface SiteData {
   services: typeof defaultServices
@@ -21,6 +21,7 @@ interface SiteData {
 interface DataContextType {
   data: SiteData
   syncStatus: SyncStatus
+  dirty: boolean
   updateServices: (services: SiteData['services']) => void
   updateGallery: (gallery: SiteData['gallery']) => void
   updateTeam: (team: SiteData['team']) => void
@@ -65,7 +66,8 @@ async function loadFromGithub(): Promise<Partial<SiteData> | null> {
 
 export function DataProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<SiteData>(defaultData)
-  const [syncStatus, setSyncStatus] = useState<SyncStatus>('idle')
+  const [syncStatus, setSyncStatus] = useState<SyncStatus>('loading')
+  const [savedSnapshot, setSavedSnapshot] = useState<string>('')
 
   useEffect(() => {
     let cancelled = false
@@ -73,8 +75,11 @@ export function DataProvider({ children }: { children: ReactNode }) {
       const remote = await loadFromGithub()
       if (cancelled) return
       if (remote) {
-        setData((prev) => ({ ...prev, ...remote }))
+        const merged = { ...defaultData, ...remote }
+        setData(merged)
+        setSavedSnapshot(JSON.stringify(merged))
       }
+      setSyncStatus('idle')
     })()
     return () => { cancelled = true }
   }, [])
@@ -99,12 +104,14 @@ export function DataProvider({ children }: { children: ReactNode }) {
     setData((prev) => ({ ...prev, content }))
   }, [])
 
+  const dirty = syncStatus !== 'loading' && JSON.stringify(data) !== savedSnapshot
+
   const saveToGithub = useCallback(async () => {
     setSyncStatus('saving')
     try {
       const { services, gallery, team, reviews, content } = data
 
-      await Promise.all([
+      const results = await Promise.all([
         writeContent('content/services.json', JSON.stringify(services, null, 2), 'Оновлення послуг'),
         writeContent('content/gallery.json', JSON.stringify(gallery, null, 2), 'Оновлення галереї'),
         writeContent('content/team.json', JSON.stringify(team, null, 2), 'Оновлення команди'),
@@ -112,7 +119,13 @@ export function DataProvider({ children }: { children: ReactNode }) {
         writeContent('content/site-content.json', JSON.stringify(content, null, 2), 'Оновлення контенту'),
       ])
 
-      setSyncStatus('saved')
+      const failed = results.filter((r) => !r.ok)
+      if (failed.length > 0) {
+        setSyncStatus('error')
+      } else {
+        setSavedSnapshot(JSON.stringify(data))
+        setSyncStatus('saved')
+      }
     } catch {
       setSyncStatus('error')
     }
@@ -124,6 +137,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
       value={{
         data,
         syncStatus,
+        dirty,
         updateServices,
         updateGallery,
         updateTeam,

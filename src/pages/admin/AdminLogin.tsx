@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Eye, EyeOff, Lock, Info, Copy } from 'lucide-react'
+import { Eye, EyeOff, Lock, Info, Copy, Loader2 } from 'lucide-react'
+import { login as loginApi } from '../../lib/github'
 
 const ADMIN_CREDENTIALS = {
   login: 'admin',
@@ -14,17 +15,28 @@ export function AdminLogin() {
   const [error, setError] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [showHint, setShowHint] = useState(false)
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
-
-    if (login === ADMIN_CREDENTIALS.login && password === ADMIN_CREDENTIALS.password) {
-      sessionStorage.setItem('admin_auth', ADMIN_CREDENTIALS.password)
-      navigate('/admin')
-    } else {
+    if (login !== ADMIN_CREDENTIALS.login) {
       setError('Невірний логін або пароль')
+      return
+    }
+    setLoading(true)
+    try {
+      const result = await loginApi(password)
+      if (result?.ok) {
+        navigate('/admin')
+      } else {
+        setError('Невірний пароль або помилка сервера')
+      }
+    } catch {
+      setError('Помилка зʼєднання з сервером')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -112,9 +124,11 @@ export function AdminLogin() {
 
             <button
               type="submit"
-              className="w-full py-3 bg-neutral-900 text-white font-medium rounded-xl text-sm hover:bg-neutral-800 transition-all duration-300 shadow-sm font-body"
+              disabled={loading}
+              className="w-full py-3 bg-neutral-900 text-white font-medium rounded-xl text-sm hover:bg-neutral-800 disabled:opacity-60 transition-all duration-300 shadow-sm font-body flex items-center justify-center gap-2"
             >
-              Увійти в адмін-панель
+              {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
+              {loading ? 'Перевірка…' : 'Увійти в адмін-панель'}
             </button>
           </motion.form>
 

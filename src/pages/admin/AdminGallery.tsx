@@ -50,11 +50,11 @@ export function AdminGallery() {
 
       try {
         const result = await uploadImage(file.name, base64)
-        if (result?.url) {
+        if (result?.ok && result.data?.url) {
           const name = file.name.replace(/\.[^/.]+$/, '')
           newImages.push({
             id: String(nextId++),
-            src: result.url,
+            src: result.data.url,
             alt: name,
             category: 'uploaded',
           })

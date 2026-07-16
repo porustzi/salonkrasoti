@@ -121,8 +121,8 @@ export function ImageUpload({ value, onChange, label }: { value: string; onChang
       const { uploadImage } = await import('../../lib/github')
       const result = await uploadImage(file.name, base64)
 
-      if (result?.url) {
-        onChange(result.url)
+      if (result?.ok && result.data?.url) {
+        onChange(result.data.url)
       } else {
         setError('Помилка завантаження')
       }
