@@ -111,13 +111,18 @@ export function DataProvider({ children }: { children: ReactNode }) {
     try {
       const { services, gallery, team, reviews, content } = data
 
-      const results = await Promise.all([
-        writeContent('content/services.json', JSON.stringify(services, null, 2), 'Оновлення послуг'),
-        writeContent('content/gallery.json', JSON.stringify(gallery, null, 2), 'Оновлення галереї'),
-        writeContent('content/team.json', JSON.stringify(team, null, 2), 'Оновлення команди'),
-        writeContent('content/reviews.json', JSON.stringify(reviews, null, 2), 'Оновлення відгуків'),
-        writeContent('content/site-content.json', JSON.stringify(content, null, 2), 'Оновлення контенту'),
-      ])
+      const files: [string, string, string][] = [
+        ['content/services.json', JSON.stringify(services, null, 2), 'Оновлення послуг'],
+        ['content/gallery.json', JSON.stringify(gallery, null, 2), 'Оновлення галереї'],
+        ['content/team.json', JSON.stringify(team, null, 2), 'Оновлення команди'],
+        ['content/reviews.json', JSON.stringify(reviews, null, 2), 'Оновлення відгуків'],
+        ['content/site-content.json', JSON.stringify(content, null, 2), 'Оновлення контенту'],
+      ]
+
+      const results = []
+      for (const [path, content, message] of files) {
+        results.push(await writeContent(path, content, message))
+      }
 
       const failed = results.filter((r) => !r.ok)
       if (failed.length > 0) {

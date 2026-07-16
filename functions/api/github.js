@@ -63,21 +63,38 @@ export async function onRequest(context) {
         const { path, content, message } = body;
         if (!path || content === undefined) return json({ error: 'path and content required' }, 400);
 
-        const existing = await fetch(`${BASE}/${encodeURIComponent(path)}`, { headers });
-        const payload = {
-          message: message || `Оновлення ${path}`,
-          content: btoa(unescape(encodeURIComponent(content))),
-          branch: BRANCH,
-        };
+        const encoded = btoa(unescape(encodeURIComponent(content)));
 
-        if (existing.ok) {
-          const ex = await existing.json();
-          payload.sha = ex.sha;
+        async function attempt(attemptSha) {
+          const payload = {
+            message: message || `Оновлення ${path}`,
+            content: encoded,
+            branch: BRANCH,
+          };
+          if (attemptSha) payload.sha = attemptSha;
+
+          const res = await fetch(`${BASE}/${encodeURIComponent(path)}`, {
+            method: 'PUT', headers, body: JSON.stringify(payload)
+          });
+          return res;
         }
 
-        const res = await fetch(`${BASE}/${encodeURIComponent(path)}`, {
-          method: 'PUT', headers, body: JSON.stringify(payload)
-        });
+        // Re-fetch current sha and retry once on conflict (409)
+        const current = await fetch(`${BASE}/${encodeURIComponent(path)}`, { headers });
+        let sha = null;
+        if (current.ok) {
+          const cj = await current.json();
+          sha = cj.sha;
+        }
+
+        let res = await attempt(sha);
+        if (res.status === 409) {
+          const fresh = await fetch(`${BASE}/${encodeURIComponent(path)}`, { headers });
+          if (fresh.ok) {
+            const fj = await fresh.json();
+            res = await attempt(fj.sha);
+          }
+        }
 
         if (!res.ok) return proxyError(res);
         return json({ ok: true, sha: res.sha });
