@@ -148,7 +148,7 @@ export function AdminLayout() {
               key={item.path}
               to={item.path}
               onClick={() => setMobileOpen(false)}
-              className={`flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group ${
+              className={`flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm font-medium transition-all duration-200 group ${
                 active
                   ? 'bg-champagne/10 text-champagne shadow-sm'
                   : 'text-neutral-500 hover:text-neutral-700 hover:bg-neutral-100'
@@ -163,11 +163,11 @@ export function AdminLayout() {
       </nav>
 
       <div className="p-3 border-t border-neutral-100 space-y-1">
-        <Link to="/" className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 transition-all">
+        <Link to="/" className="flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 transition-all">
           <LayoutDashboard className="w-4 h-4" />
           На сайт
         </Link>
-        <button onClick={handleLogout} className="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm text-red-400 hover:text-red-500 hover:bg-red-50 transition-all w-full">
+        <button onClick={handleLogout} className="flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm text-red-400 hover:text-red-500 hover:bg-red-50 transition-all w-full">
           <LogOut className="w-4 h-4" />
           Вийти
         </button>
@@ -194,7 +194,7 @@ export function AdminLayout() {
         <header className="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-neutral-200/60">
           <div className="px-3 sm:px-6 py-2 sm:py-4 flex items-center justify-between gap-2">
             <div className="flex items-center gap-2 min-w-0">
-              <button onClick={() => setMobileOpen(true)} className="lg:hidden w-9 h-9 rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-500 hover:bg-neutral-200 transition-colors flex-shrink-0">
+              <button onClick={() => setMobileOpen(true)} className="lg:hidden w-11 h-11 rounded-xl bg-neutral-100 flex items-center justify-center text-neutral-500 hover:bg-neutral-200 transition-colors flex-shrink-0">
                 <Menu className="w-4 h-4" />
               </button>
               <div className="min-w-0">

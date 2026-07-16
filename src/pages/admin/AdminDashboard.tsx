@@ -9,7 +9,7 @@ import {
 
 const SECTIONS = [
   {
-    path: '/admin/services',
+    path: '/admin/pricing',
     icon: Scissors,
     title: 'Послуги та ціни',
     desc: 'Редагуйте перелік послуг, ціни, тривалість та описи',
@@ -27,7 +27,7 @@ const SECTIONS = [
     border: 'border-neutral-200',
   },
   {
-    path: '/admin/team',
+    path: '/admin/about/team',
     icon: Users,
     title: 'Команда',
     desc: 'Керуйте інформацією про майстрів та співробітників',

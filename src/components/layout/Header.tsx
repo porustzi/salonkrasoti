@@ -205,7 +205,7 @@ export function Header() {
               </a>
               <button
                 onClick={openBooking}
-                className="btn-primary text-xs py-3"
+                className="btn-primary text-sm py-3.5"
               >
                 <Calendar className="w-4 h-4" />
                 Запис онлайн
@@ -215,7 +215,7 @@ export function Header() {
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 relative z-10"
+              className="lg:hidden p-3 relative z-10"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? (
@@ -256,7 +256,7 @@ export function Header() {
                           >
                             <Link
                               to={child.path}
-                              className={`block py-2.5 text-base font-medium transition-colors ${
+                              className={`block py-3.5 text-base font-medium transition-colors ${
                                 isActive(child.path)
                                   ? 'text-champagne'
                                   : 'text-neutral-700'
@@ -278,7 +278,7 @@ export function Header() {
                     >
                       <Link
                         to={entry.path}
-                        className={`block py-3 text-lg font-medium transition-colors ${
+                          className={`block py-4 text-lg font-medium transition-colors ${
                           isActive(entry.path)
                             ? 'text-champagne'
                             : 'text-neutral-700'
@@ -294,7 +294,7 @@ export function Header() {
               <div className="mt-auto space-y-4 pt-8">
                 <a
                   href={`tel:${BUSINESS_INFO.phone}`}
-                  className="flex items-center gap-2 text-neutral-600"
+                  className="flex items-center gap-2 text-neutral-600 py-3"
                 >
                   <Phone className="w-5 h-5" />
                   <span>{BUSINESS_INFO.phone}</span>

@@ -31,12 +31,30 @@ export function TeamCard({
       transition={{ duration: 0.5 }}
       className="group bg-white rounded-2xl shadow-soft overflow-hidden hover:shadow-medium transition-all duration-300"
     >
-      <div className="relative aspect-[3/4] overflow-hidden">
+      <div className="relative aspect-[3/4] overflow-hidden bg-neutral-100">
         <img
           src={image}
           alt={name}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none'
+            const parent = e.currentTarget.parentElement
+            if (parent) {
+              const fallback = parent.querySelector('.team-fallback') as HTMLElement
+              if (fallback) fallback.style.display = 'flex'
+            }
+          }}
         />
+        <div className="team-fallback hidden absolute inset-0 items-center justify-center text-neutral-400">
+          <div className="text-center">
+            <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-neutral-200 flex items-center justify-center">
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+            <span className="text-xs">{name}</span>
+          </div>
+        </div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         {instagram && (
@@ -86,7 +104,7 @@ export function TeamCard({
           </div>
         )}
 
-        <Button onClick={openBooking} size="sm" className="w-full">
+        <Button onClick={openBooking} className="w-full">
           Записатися
         </Button>
       </div>

@@ -68,11 +68,11 @@
     "id": "airtouch",
     "title": "Airtouch",
     "icon": "wind",
-    "description": "Воздушная техника airtouch для безпроблемного виростання",
+    "description": "Повітряна техніка airtouch для безпроблемного виростання",
     "image": "https://images.pexels.com/photos/1390130/pexels-photo-1390130.jpeg?auto=compress&cs=tinysrgb&w=800",
     "services": [
       { "name": "Airtouch (коротке волосся)", "duration": "180-240 хв", "price": "2400", "description": "Airtouch техніка на коротке волосся" },
-      { "name": "Airtouch (середні волосся)", "duration": "240-300 хв", "price": "3200", "description": "Airtouch техніка на середні волосся" },
+      { "name": "Airtouch (середнє волосся)", "duration": "240-300 хв", "price": "3200", "description": "Airtouch техніка на середнє волосся" },
       { "name": "Airtouch (довге волосся)", "duration": "300-360 хв", "price": "4200", "description": "Airtouch техніка на довге волосся" },
       { "name": "Корекція airtouch", "duration": "120-150 хв", "price": "1600", "description": "Оновлення airtouch" }
     ]

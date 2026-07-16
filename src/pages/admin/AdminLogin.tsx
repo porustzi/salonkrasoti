@@ -21,7 +21,7 @@ export function AdminLogin() {
     setError('')
 
     if (login === ADMIN_CREDENTIALS.login && password === ADMIN_CREDENTIALS.password) {
-      sessionStorage.setItem('admin_auth', 'true')
+      sessionStorage.setItem('admin_auth', ADMIN_CREDENTIALS.password)
       navigate('/admin')
     } else {
       setError('Невірний логін або пароль')

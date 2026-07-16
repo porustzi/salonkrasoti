@@ -2,6 +2,31 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 
+const CATEGORY_LABELS: Record<string, string> = {
+  'all': 'Всі',
+  'coloring': 'Фарбування',
+  'blonde': 'Блонд',
+  'haircuts': 'Стрижки',
+  'styling': 'Укладки',
+  'long-hair': 'Довге волосся',
+  'short-hair': 'Коротке волосся',
+  'balayage': 'Баяж',
+  'airtouch': 'AirTouch',
+  'manicure': 'Манікюр',
+  'pedicure': 'Педикюр',
+  'makeup': 'Візаж',
+  'massage': 'Масаж',
+  'laminating': 'Ламінування',
+  'keratin': 'Кератин',
+  'nail-extensions': 'Наращування нігтів',
+  'eyelashes': 'Вії',
+  'brows': 'Брови',
+  'wedding': 'Весільні зачіски',
+  'evening': 'Вечірні зачіски',
+  'children': 'Дитячі',
+  'other': 'Інше',
+}
+
 export interface GalleryImage {
   id: string;
   src: string;
@@ -65,7 +90,7 @@ export function GalleryGrid({
               }
             `}
           >
-            {category === 'all' ? 'Всі' : category}
+            {CATEGORY_LABELS[category] || category}
           </button>
         ))}
       </div>
@@ -93,7 +118,19 @@ export function GalleryGrid({
                   alt={image.alt}
                   className="w-full transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
+                  onError={(e) => {
+                    const target = e.currentTarget
+                    target.style.display = 'none'
+                    const parent = target.parentElement
+                    if (parent) {
+                      const fallback = parent.querySelector('.gallery-fallback') as HTMLElement
+                      if (fallback) fallback.style.display = 'flex'
+                    }
+                  }}
                 />
+                <div className="gallery-fallback hidden absolute inset-0 bg-neutral-100 rounded-xl items-center justify-center text-neutral-400 text-sm">
+                  {image.alt || 'Фото'}
+                </div>
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
               </div>
             </motion.div>
