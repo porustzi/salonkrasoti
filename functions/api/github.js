@@ -13,8 +13,13 @@ export async function onRequest(context) {
   try { body = await request.json(); } catch { return json({ error: 'invalid json' }, 400); }
 
   const auth = request.headers.get('Authorization');
-  if (!auth || auth !== `Bearer ${env.ADMIN_PASSWORD}`) {
-    return json({ error: 'Unauthorized' }, 401);
+  const authed = auth && auth === `Bearer ${env.ADMIN_PASSWORD}`;
+
+  if (!authed) {
+    const readOnly = ['login', 'list', 'read'];
+    if (!readOnly.includes(body.action)) {
+      return json({ error: 'Unauthorized' }, 401);
+    }
   }
 
   const headers = {

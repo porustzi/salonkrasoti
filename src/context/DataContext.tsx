@@ -41,13 +41,11 @@ const DataContext = createContext<DataContextType | null>(null)
 
 const STORAGE_KEY = 'salonkrasoti_cache'
 
-function loadFromCache(): SiteData | null {
+function loadFromCache(): Partial<SiteData> | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (!raw) return null
-    const cached = JSON.parse(raw)
-    if (cached?.services?.length) return cached
-    return null
+    return JSON.parse(raw)
   } catch {
     return null
   }
@@ -61,15 +59,57 @@ function saveToCache(data: SiteData) {
   }
 }
 
+async function loadFromGithub(): Promise<Partial<SiteData> | null> {
+  try {
+    const [services, gallery, team, reviews, content] = await Promise.all([
+      readContent('content/services.json'),
+      readContent('content/gallery.json'),
+      readContent('content/team.json'),
+      readContent('content/reviews.json'),
+      readContent('content/site-content.json'),
+    ])
+
+    const parsed: Partial<SiteData> = {}
+    if (services) parsed.services = JSON.parse(services)
+    if (gallery) parsed.gallery = JSON.parse(gallery)
+    if (team) parsed.team = JSON.parse(team)
+    if (reviews) parsed.reviews = JSON.parse(reviews)
+    if (content) parsed.content = JSON.parse(content)
+
+    if (parsed.services || parsed.team) return parsed
+    return null
+  } catch {
+    return null
+  }
+}
+
 export function DataProvider({ children }: { children: ReactNode }) {
-  const [data, setData] = useState<SiteData>(() => {
-    return loadFromCache() ?? defaultData
-  })
+  const [data, setData] = useState<SiteData>(defaultData)
   const [syncStatus, setSyncStatus] = useState<SyncStatus>('idle')
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    let cancelled = false
+    ;(async () => {
+      const cache = loadFromCache()
+      if (cache) {
+        setData((prev) => ({ ...prev, ...cache }))
+      }
+      const remote = await loadFromGithub()
+      if (cancelled) return
+      if (remote) {
+        setData((prev) => ({ ...prev, ...remote }))
+        saveToCache({ ...defaultData, ...remote } as SiteData)
+      }
+      setLoading(false)
+    })()
+    return () => { cancelled = true }
+  }, [])
+
+  useEffect(() => {
+    if (loading) return
     saveToCache(data)
-  }, [data])
+  }, [data, loading])
 
   const updateServices = useCallback((services: SiteData['services']) => {
     setData((prev) => ({ ...prev, services }))
@@ -104,6 +144,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
         writeContent('content/site-content.json', JSON.stringify(content, null, 2), 'Оновлення контенту'),
       ])
 
+      saveToCache(data)
       setSyncStatus('saved')
     } catch {
       setSyncStatus('error')
