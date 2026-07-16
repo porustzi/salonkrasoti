@@ -1,12 +1,12 @@
 import services from '../../content/services.json'
 import gallery from '../../content/gallery.json'
 import team from '../../content/team.json'
-import reviews from '../../content/reviews.json'
+import reviewsData from '../../content/reviews.json'
 
 export const serviceCategories = services
 export const galleryImages = gallery
 export const teamMembers = team
-export const reviews = reviews as Review[]
+export const reviews = reviewsData as Review[]
 
 export interface GalleryImage {
   id: string
