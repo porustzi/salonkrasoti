@@ -20,18 +20,18 @@ type NavEntry = NavItem | NavGroup;
 const isGroup = (e: NavEntry): e is NavGroup => 'children' in e;
 
 const navEntries: NavEntry[] = [
-  { path: '/', label: 'Р“РѕР»РѕРІРЅР°' },
-  { path: '/pricing', label: 'Р¦С–РЅРё' },
-  { path: '/gallery', label: 'Р“Р°Р»РµСЂРµСЏ' },
+  { path: '/', label: 'Головна' },
+  { path: '/pricing', label: 'Ціни' },
+  { path: '/gallery', label: 'Галерея' },
   {
-    label: 'РџСЂРѕ РЅР°СЃ',
+    label: 'Про нас',
     children: [
-      { path: '/about', label: 'РџСЂРѕ СЃР°Р»РѕРЅ' },
-      { path: '/team', label: 'РљРѕРјР°РЅРґР°' },
-      { path: '/reviews', label: 'Р’С–РґРіСѓРєРё' },
+      { path: '/about', label: 'Про салон' },
+      { path: '/team', label: 'Команда' },
+      { path: '/reviews', label: 'Відгуки' },
     ],
   },
-  { path: '/contacts', label: 'РљРѕРЅС‚Р°РєС‚Рё' },
+  { path: '/contacts', label: 'Контакти' },
 ];
 
 export function Header() {
@@ -105,7 +105,7 @@ export function Header() {
                   {bi.name}
                 </span>
                 <span className="text-[0.65rem] tracking-[0.25em] uppercase text-champagne mt-1.5 font-medium">
-                  РЎР°Р»РѕРЅ РєСЂР°СЃРё
+                  Салон краси
                 </span>
               </motion.div>
             </Link>
@@ -208,9 +208,9 @@ export function Header() {
                 onClick={openBooking}
                 className="btn-primary text-sm py-3.5"
               >
-                <Calendar className="w-4 h-4" />
-                Р—Р°РїРёСЃ РѕРЅР»Р°Р№РЅ
-              </button>
+                  <Calendar className="w-4 h-4" />
+                  Запис онлайн
+                </button>
             </div>
 
             {/* Mobile Menu Toggle */}
@@ -306,7 +306,7 @@ export function Header() {
                   className="btn-primary w-full justify-center"
                 >
                   <Calendar className="w-4 h-4" />
-                  Р—Р°РїРёСЃР°С‚РёСЃСЏ РѕРЅР»Р°Р№РЅ
+                  Записатися онлайн
                 </button>
               </div>
             </div>

@@ -3,54 +3,49 @@ import { Outlet, useNavigate, useLocation, Link } from 'react-router-dom'
 import { useData, SyncStatus } from '../../context/DataContext'
 import { useBusinessInfo } from '../../lib/businessStore'
 import {
-  Scissors, Images, MessageSquare, Home, MapPin,
+  Scissors, Images, Users, MessageSquare, Home, MapPin,
   LogOut, LayoutDashboard, CheckCircle, AlertCircle, Loader2, Save,
   ChevronRight, Sparkles, Clock, Menu, Info, ChevronDown
 } from 'lucide-react'
 
 const STATUS_LABELS: Record<SyncStatus, { label: string; color: string; bg: string }> = {
-  idle: { label: 'Р—Р±РµСЂРµР¶РµРЅРѕ', color: 'text-neutral-400', bg: 'bg-neutral-100' },
-  loading: { label: 'Р—Р°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ...', color: 'text-neutral-400', bg: 'bg-neutral-100' },
-  saving: { label: 'Р—Р±РµСЂРµР¶РµРЅРЅСЏ...', color: 'text-champagne', bg: 'bg-champagne/10' },
-  saved: { label: 'Р—Р±РµСЂРµР¶РµРЅРѕ', color: 'text-green-600', bg: 'bg-green-50' },
-  error: { label: 'РџРѕРјРёР»РєР° Р·Р±РµСЂРµР¶РµРЅРЅСЏ', color: 'text-red-500', bg: 'bg-red-50' },
+  idle: { label: '—', color: 'text-neutral-400', bg: 'bg-neutral-100' },
+  saving: { label: 'Збереження...', color: 'text-champagne', bg: 'bg-champagne/10' },
+  saved: { label: 'Збережено', color: 'text-green-600', bg: 'bg-green-50' },
+  error: { label: 'Помилка', color: 'text-red-500', bg: 'bg-red-50' },
 }
 
 const STATUS_ICONS: Record<SyncStatus, React.ReactNode> = {
   idle: null,
-  loading: <Loader2 className="w-3.5 h-3.5 animate-spin" />,
   saving: <Loader2 className="w-3.5 h-3.5 animate-spin" />,
   saved: <CheckCircle className="w-3.5 h-3.5" />,
   error: <AlertCircle className="w-3.5 h-3.5" />,
 }
 
-type NavChild = { path: string; label: string }
-type NavItem = { path: string; label: string; icon: React.ComponentType<{ className?: string }> } | { label: string; icon: React.ComponentType<{ className?: string }>; children: NavChild[] }
-
-const NAV_ITEMS: NavItem[] = [
-  { path: '/admin', label: 'РџР°РЅРµР»СЊ', icon: LayoutDashboard },
-  { path: '/admin/home', label: 'Р“РѕР»РѕРІРЅР° СЃС‚РѕСЂС–РЅРєР°', icon: Home },
-  { path: '/admin/pricing', label: 'Р¦С–РЅРё', icon: Scissors },
-  { path: '/admin/gallery', label: 'Р“Р°Р»РµСЂРµСЏ', icon: Images },
+const NAV_ITEMS = [
+  { path: '/admin', label: 'Панель', icon: LayoutDashboard },
+  { path: '/admin/home', label: 'Головна сторінка', icon: Home },
+  { path: '/admin/pricing', label: 'Ціни', icon: Scissors },
+  { path: '/admin/gallery', label: 'Галерея', icon: Images },
   {
-    label: 'РџСЂРѕ РЅР°СЃ', icon: Info,
+    label: 'Про нас', icon: Info,
     children: [
-      { path: '/admin/about', label: 'РџСЂРѕ СЃР°Р»РѕРЅ' },
-      { path: '/admin/about/team', label: 'РљРѕРјР°РЅРґР°' },
+      { path: '/admin/about', label: 'Про салон' },
+      { path: '/admin/about/team', label: 'Команда' },
     ],
   },
-  { path: '/admin/reviews', label: 'Р’С–РґРіСѓРєРё', icon: MessageSquare },
-  { path: '/admin/contacts', label: 'РљРѕРЅС‚Р°РєС‚Рё', icon: MapPin },
+  { path: '/admin/reviews', label: 'Відгуки', icon: MessageSquare },
+  { path: '/admin/contacts', label: 'Контакти', icon: MapPin },
 ]
 
 const PAGE_TITLES: Record<string, string> = {
-  '': 'Р“РѕР»РѕРІРЅР°',
-  pricing: 'Р¦С–РЅРё С‚Р° РїРѕСЃР»СѓРіРё',
-  gallery: 'Р“Р°Р»РµСЂРµСЏ',
-  about: 'РџСЂРѕ СЃР°Р»РѕРЅ',
-  team: 'РљРѕРјР°РЅРґР°',
-  reviews: 'Р’С–РґРіСѓРєРё',
-  contacts: 'РљРѕРЅС‚Р°РєС‚Рё',
+  '': 'Головна',
+  pricing: 'Ціни та послуги',
+  gallery: 'Галерея',
+  about: 'Про салон',
+  team: 'Команда',
+  reviews: 'Відгуки',
+  contacts: 'Контакти',
 }
 
 function usePageTitle(): string {
@@ -63,10 +58,10 @@ function usePageTitle(): string {
 }
 
 export function AdminLayout() {
+  const bi = useBusinessInfo();
   const navigate = useNavigate()
-  const bi = useBusinessInfo()
   const location = useLocation()
-  const { syncStatus, dirty, saveToGithub } = useData()
+  const { syncStatus, saveToGithub } = useData()
   const [lastSaved, setLastSaved] = useState<string>('')
   const [mobileOpen, setMobileOpen] = useState(false)
   const [aboutOpen, setAboutOpen] = useState(true)
@@ -84,25 +79,13 @@ export function AdminLayout() {
     }
   }, [syncStatus])
 
-  useEffect(() => {
-    const handler = (e: BeforeUnloadEvent) => {
-      if (dirty) {
-        e.preventDefault()
-        e.returnValue = ''
-      }
-    }
-    window.addEventListener('beforeunload', handler)
-    return () => window.removeEventListener('beforeunload', handler)
-  }, [dirty])
-
   const handleLogout = () => {
-    if (dirty && !window.confirm('Є незбережені зміни. Вийти без збереження?')) return
     sessionStorage.removeItem('admin_auth')
     navigate('/admin/login')
   }
 
   const isActive = (path: string) => location.pathname === path || (path !== '/admin' && location.pathname.startsWith(path + '/'))
-  const isChildActive = (children?: { path: string }[]) => children?.some(c => location.pathname === c.path || location.pathname.startsWith(c.path + '/')) ?? false
+  const isChildActive = (children: { path: string }[]) => children.some(c => location.pathname === c.path || location.pathname.startsWith(c.path + '/'))
 
   const sidebarContent = (
     <div className="flex flex-col h-full">
@@ -112,8 +95,8 @@ export function AdminLayout() {
             <Sparkles className="w-4 h-4 text-white" />
           </div>
           <div className="min-w-0">
-            <h1 className="text-sm font-heading font-semibold text-neutral-900 truncate">РњР°Р№СЃС‚РµСЂРЅСЏ РљСЂР°СЃРё</h1>
-            <p className="text-[10px] text-neutral-400 uppercase tracking-wider font-body">РђРґРјС–РЅ-РїР°РЅРµР»СЊ</p>
+            <h1 className="text-sm font-heading font-semibold text-neutral-900 truncate">Майстерня Краси</h1>
+            <p className="text-[10px] text-neutral-400 uppercase tracking-wider font-body">Адмін-панель</p>
           </div>
         </div>
       </div>
@@ -183,11 +166,11 @@ export function AdminLayout() {
       <div className="p-3 border-t border-neutral-100 space-y-1">
         <Link to="/" className="flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 transition-all">
           <LayoutDashboard className="w-4 h-4" />
-          РќР° СЃР°Р№С‚
+          На сайт
         </Link>
         <button onClick={handleLogout} className="flex items-center gap-3 px-3.5 py-3 rounded-xl text-sm text-red-400 hover:text-red-500 hover:bg-red-50 transition-all w-full">
           <LogOut className="w-4 h-4" />
-          Р’РёР№С‚Рё
+          Вийти
         </button>
       </div>
     </div>
@@ -223,7 +206,7 @@ export function AdminLayout() {
                 </div>
               </div>
             </div>
-              <div className="flex items-center gap-2 flex-shrink-0">
+            <div className="flex items-center gap-2 flex-shrink-0">
               <div className={`hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium ${STATUS_LABELS[syncStatus].bg} ${STATUS_LABELS[syncStatus].color}`}>
                 {STATUS_ICONS[syncStatus]}
                 <span>{STATUS_LABELS[syncStatus].label}</span>
@@ -231,37 +214,16 @@ export function AdminLayout() {
                   <span className="text-neutral-400 flex items-center gap-1 ml-1"><Clock className="w-3 h-3" />{lastSaved}</span>
                 )}
               </div>
-              {dirty && syncStatus !== 'loading' && (
-                <span className="hidden sm:flex items-center gap-1.5 text-xs text-amber-600 bg-amber-50 px-2.5 py-1.5 rounded-lg">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
-                  Р„ РЅРµР·Р±РµСЂРµР¶РµРЅС–
-                </span>
-              )}
-              <button
-                onClick={saveToGithub}
-                disabled={syncStatus === 'saving' || syncStatus === 'loading'}
-                className={`inline-flex items-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl text-sm font-medium transition-all shadow-sm ${
-                  dirty
-                    ? 'bg-neutral-900 text-white hover:bg-neutral-800'
-                    : 'bg-neutral-900 text-white hover:bg-neutral-800 opacity-70'
-                }`}
-              >
+              <button onClick={saveToGithub} disabled={syncStatus === 'saving'} className="inline-flex items-center gap-2 px-3 sm:px-4 py-2.5 bg-neutral-900 text-white rounded-xl text-sm font-medium hover:bg-neutral-800 disabled:opacity-50 transition-all shadow-sm">
                 {syncStatus === 'saving' ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-                <span className="hidden sm:inline">Р—Р±РµСЂРµРіС‚Рё</span>
+                <span className="hidden sm:inline">Зберегти</span>
               </button>
             </div>
           </div>
         </header>
 
         <main className="flex-1 p-3 sm:p-6 lg:p-8">
-          {syncStatus === 'loading' ? (
-            <div className="flex items-center justify-center py-32 text-neutral-400">
-              <Loader2 className="w-6 h-6 animate-spin" />
-              <span className="ml-3 text-sm">Р—Р°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ РґР°РЅРёС…вЂ¦</span>
-            </div>
-          ) : (
-            <Outlet />
-          )}
+          <Outlet />
         </main>
       </div>
     </div>
