@@ -53,9 +53,13 @@ export async function onRequest(context) {
         if (res.status === 404) return json({ content: null });
         if (!res.ok) return proxyError(res);
         const data = await res.json();
-        const text = data.content
-          ? decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))))
-          : '';
+        let text = '';
+        if (data.content) {
+          const binary = atob(data.content.replace(/\n/g, ''));
+          const bytes = new Uint8Array(binary.length);
+          for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+          text = new TextDecoder('utf-8').decode(bytes);
+        }
         return json({ content: text });
       }
 
@@ -63,7 +67,10 @@ export async function onRequest(context) {
         const { path, content, message } = body;
         if (!path || content === undefined) return json({ error: 'path and content required' }, 400);
 
-        const encoded = btoa(unescape(encodeURIComponent(content)));
+        const bytes = new TextEncoder().encode(content);
+        let binary = '';
+        bytes.forEach(b => binary += String.fromCharCode(b));
+        const encoded = btoa(binary);
 
         async function attempt(attemptSha) {
           const payload = {
