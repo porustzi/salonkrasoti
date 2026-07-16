@@ -36,9 +36,18 @@ export const SOCIAL_LINKS = {
 export const SEO_DEFAULTS = {
   siteName: BUSINESS_INFO.name,
   siteUrl: 'https://salonkrasoti.pages.dev',
-  defaultTitle: 'Майстерня Краси - Салон краси в Чернігові | Стрижки, фарбування, манікюр',
-  defaultDescription: 'Майстерня Краси - салон краси в Чернігові. 14 майстрів, 10 років досвіду. Професійні послуги: стрижки, фарбування, манікюр, педикюр, візаж, масаж. Запишіться онлайн!',
+  defaultTitle: 'Майстерня Краси — салон краси в Чернігові (ЦУМ) | Стрижки, манікюр, фарбування',
+  defaultDescription: 'Салон краси «Майстерня Краси» у Чернігові, ЦУМ, 2 поверх. Професійні стрижки, фарбування, манікюр, педикюр, візаж та масаж. 14 майстрів, 10 років досвіду. Запис онлайн ☎ +38 (063) 844-77-25.',
   defaultImage: '/images/og-image.jpg',
+  defaultImageAlt: 'Салон краси Майстерня Краси у Чернігові, ЦУМ',
+  robots: 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+  language: 'uk-UA',
+  geoRegion: 'UA',
+  geoPlacename: 'Chernihiv',
+  geoPosition: '51.4982;31.2893',
+  icbm: '51.4982, 31.2893',
+  themeColor: '#C9A77C',
+  twitterSite: '@maysternya_krasy1',
 } as const;
 
 // Animation durations

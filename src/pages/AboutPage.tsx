@@ -13,7 +13,7 @@ export function AboutPage() {
 
   return (
     <>
-      <SEO title="Про салон" description="Майстерня Краси - преміум салон краси в Чернігові. Історія, місія, цінності, команда професіоналів." />
+      <SEO title="Про салон краси Майстерня Краси — Чернігів" description="Салон краси Майстерня Краси в Чернігові (ЦУМ): 10 років досвіду, 14 майстрів, понад 17000 клієнтів щороку. Наша історія, місія та цінності." />
       <LocalBusinessSchema />
 
       <PageHero title={pa.title || "Про нашу майстерню"} subtitle={pa.subtitle} image={pa.image} eyebrow={pa.eyebrow} icon={Sparkles} />

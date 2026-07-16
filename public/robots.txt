@@ -1,15 +1,14 @@
-# Robots.txt for Майстерня Краси
-# https://maisternya-krasy.ua
+# Robots.txt for Майстерня Краси (салон краси, Чернігів)
+# https://salonkrasoti.pages.dev
 
 User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://maisternya-krasy.ua/sitemap.xml
+Sitemap: https://salonkrasoti.pages.dev/sitemap.xml
 
 # Disallow admin and private areas
 Disallow: /api/
-Disallow: /_next/
 Disallow: /admin/
 
 # Allow all crawlers to access public resources

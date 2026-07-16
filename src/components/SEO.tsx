@@ -56,6 +56,14 @@ export function SEO({
     // Standard meta
     updateMeta('description', pageDescription);
     updateMeta('canonical', pageUrl);
+    updateMeta('robots', SEO_DEFAULTS.robots);
+    updateMeta('language', SEO_DEFAULTS.language);
+    updateMeta('geo.region', SEO_DEFAULTS.geoRegion);
+    updateMeta('geo.placename', SEO_DEFAULTS.geoPlacename);
+    updateMeta('geo.position', SEO_DEFAULTS.geoPosition);
+    updateMeta('ICBM', SEO_DEFAULTS.icbm);
+    updateMeta('theme-color', SEO_DEFAULTS.themeColor);
+    updateMeta('format-detection', 'telephone=no');
 
     // Open Graph
     updateProperty('og:title', pageTitle);
@@ -68,6 +76,7 @@ export function SEO({
 
     // Twitter Cards
     updateMeta('twitter:card', 'summary_large_image');
+    updateMeta('twitter:site', SEO_DEFAULTS.twitterSite);
     updateMeta('twitter:title', pageTitle);
     updateMeta('twitter:description', pageDescription);
     updateMeta('twitter:image', pageImage);
@@ -85,16 +94,31 @@ export function LocalBusinessSchema() {
     "@type": "BeautySalon",
     "name": bi.name,
     "description": bi.tagline,
+    "url": SEO_DEFAULTS.siteUrl,
+    "image": SEO_DEFAULTS.defaultImage,
+    "logo": SEO_DEFAULTS.defaultImage,
+    "telephone": bi.phone,
+    "email": bi.email,
+    "priceRange": "$$",
+    "currenciesAccepted": "UAH",
+    "paymentAccepted": ["Cash", "Credit Card", "Debit Card"],
     "address": {
       "@type": "PostalAddress",
       "streetAddress": bi.address,
       "addressLocality": bi.city,
+      "addressRegion": "Чернігівська область",
+      "postalCode": bi.postalCode || "14000",
       "addressCountry": bi.country
     },
-    "telephone": bi.phone,
-    "email": bi.email,
-    "url": SEO_DEFAULTS.siteUrl,
-    "priceRange": "$$",
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": bi.latitude || "51.4982",
+      "longitude": bi.longitude || "31.2893"
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": bi.city
+    },
     "openingHours": bi.workingHours,
     "openingHoursSpecification": [
       {
