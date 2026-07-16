@@ -8,6 +8,8 @@ import { Clock, Tag, Info } from 'lucide-react';
 export function PricingPage() {
   const { openBooking } = useBooking();
   const { data } = useData();
+  const pp = data.content.pages.pricing;
+  const pn = data.content.pricingNotes;
   return (
     <>
       <SEO
@@ -17,9 +19,10 @@ export function PricingPage() {
       <LocalBusinessSchema />
 
       <PageHero
-        title="Ціни на послуги"
-        subtitle="Прозорі ціни на всі наші послуги. Ціна залежить від довжини та складності роботи."
-        image="https://images.pexels.com/photos/3622614/pexels-photo-3622614.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        title={pp.title || "Ціни на послуги"}
+        subtitle={pp.subtitle}
+        image={pp.image}
+        eyebrow={pp.eyebrow}
         icon={Tag}
       />
 
@@ -141,26 +144,16 @@ export function PricingPage() {
                 <Info className="w-5 h-5 text-champagne" />
               </div>
               <h3 className="font-heading font-semibold text-xl text-neutral-900">
-                Важливо знати
+                {pn.heading}
               </h3>
             </div>
             <ul className="space-y-3 text-sm text-neutral-600">
-              <li className="flex items-start gap-3">
-                <span className="text-champagne mt-0.5">•</span>
-                Ціни вказані за стандартні послуги та можуть змінюватися залежно від складності
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-champagne mt-0.5">•</span>
-                Попередній запис на консультацію безкоштовний
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-champagne mt-0.5">•</span>
-                При собі необхідно мати 50% передоплати для складних процедур
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="text-champagne mt-0.5">•</span>
-                Для нових клієнтів діє знижка 10% на перший візит
-              </li>
+              {pn.items.map((item, index) => (
+                <li key={index} className="flex items-start gap-3">
+                  <span className="text-champagne mt-0.5">•</span>
+                  {item}
+                </li>
+              ))}
             </ul>
           </motion.div>
         </div>
@@ -176,13 +169,13 @@ export function PricingPage() {
             className="text-center"
           >
             <h2 className="text-2xl md:text-3xl font-heading font-bold text-neutral-900 mb-4">
-              Не знаєте, що обрати?
+              {pn.ctaHeading}
             </h2>
             <p className="text-neutral-700 mb-6 max-w-md mx-auto">
-              Запишіться на безкоштовну консультацію, і наш майстер допоможе визначитися
+              {pn.ctaSubtext}
             </p>
             <Button onClick={openBooking} variant="primary" showArrow>
-              Записатися на консультацію
+              {pn.ctaText}
             </Button>
           </motion.div>
         </div>

@@ -6,8 +6,19 @@ import { motion } from 'framer-motion'
 let nextId = Date.now()
 
 export function AdminServices() {
-  const { data, updateServices } = useData()
+  const { data, updateServices, updateContent } = useData()
   const cats = data.services
+  const pn = data.content.pricingNotes
+
+  const setPn = (field: string, value: string | string[]) => {
+    updateContent({ ...data.content, pricingNotes: { ...pn, [field]: value } })
+  }
+  const setPnItem = (idx: number, value: string) => {
+    setPn('items', pn.items.map((it, i) => i !== idx ? it : value))
+  }
+  const setPage = (field: string, value: string) => {
+    updateContent({ ...data.content, pages: { ...data.content.pages, pricing: { ...data.content.pages.pricing, [field]: value } } })
+  }
 
   const updateService = (catIdx: number, svcIdx: number, field: string, value: string) => {
     const next = cats.map((cat, ci) => {
@@ -164,6 +175,26 @@ export function AdminServices() {
           </div>
         </SectionCard>
       ))}
+
+      <SectionCard title="Блок «Важливо знати»" index={99}>
+        <TextEditor label="Заголовок" value={pn.heading} onChange={(v) => setPn('heading', v)} />
+        <div className="space-y-2">
+          {pn.items.map((it, i) => (
+            <TextAreaEditor key={i} label={`Пункт ${i + 1}`} value={it} onChange={(v) => setPnItem(i, v)} />
+          ))}
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+          <TextEditor label="CTA заголовок" value={pn.ctaHeading} onChange={(v) => setPn('ctaHeading', v)} />
+          <TextEditor label="CTA текст" value={pn.ctaSubtext} onChange={(v) => setPn('ctaSubtext', v)} />
+          <TextEditor label="CTA кнопка" value={pn.ctaText} onChange={(v) => setPn('ctaText', v)} />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Сторінка «Ціни»" index={100}>
+        <TextEditor label="Hero: мітка" value={data.content.pages.pricing.eyebrow} onChange={(v) => setPage('eyebrow', v)} />
+        <TextEditor label="Hero: заголовок" value={data.content.pages.pricing.title} onChange={(v) => setPage('title', v)} />
+        <TextAreaEditor label="Hero: підзаголовок" value={data.content.pages.pricing.subtitle} onChange={(v) => setPage('subtitle', v)} rows={2} />
+      </SectionCard>
     </motion.div>
   )
 }

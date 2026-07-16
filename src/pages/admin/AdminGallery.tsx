@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useData } from '../../context/DataContext'
-import { TextEditor, SectionCard } from './AdminFormFields'
+import { TextEditor, TextAreaEditor, SectionCard } from './AdminFormFields'
 import { motion } from 'framer-motion'
 import { Image as ImageIcon, Upload, Trash2, GripVertical } from 'lucide-react'
 import { uploadImage } from '../../lib/github'
@@ -8,8 +8,12 @@ import { uploadImage } from '../../lib/github'
 let nextId = Date.now()
 
 export function AdminGallery() {
-  const { data, updateGallery } = useData()
+  const { data, updateGallery, updateContent } = useData()
   const images = data.gallery
+
+  const setPage = (field: string, value: string) => {
+    updateContent({ ...data.content, pages: { ...data.content.pages, gallery: { ...data.content.pages.gallery, [field]: value } } })
+  }
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [uploading, setUploading] = useState(false)
 
@@ -194,6 +198,15 @@ export function AdminGallery() {
           ))}
         </div>
       )}
+
+      <SectionCard title="Сторінка «Галерея»" index={99}>
+        <TextEditor label="Hero: мітка" value={data.content.pages.gallery.eyebrow} onChange={(v) => setPage('eyebrow', v)} />
+        <TextEditor label="Hero: заголовок" value={data.content.pages.gallery.title} onChange={(v) => setPage('title', v)} />
+        <TextAreaEditor label="Hero: підзаголовок" value={data.content.pages.gallery.subtitle} onChange={(v) => setPage('subtitle', v)} rows={2} />
+        <TextEditor label="Instagram CTA: заголовок" value={data.content.pages.gallery.instagramHeading} onChange={(v) => setPage('instagramHeading', v)} />
+        <TextEditor label="Instagram CTA: нік" value={data.content.pages.gallery.instagramHandle} onChange={(v) => setPage('instagramHandle', v)} />
+        <TextEditor label="Instagram CTA: кнопка" value={data.content.pages.gallery.instagramCtaText} onChange={(v) => setPage('instagramCtaText', v)} />
+      </SectionCard>
     </motion.div>
   )
 }

@@ -79,15 +79,84 @@ export interface BusinessInfoContent {
   phone: string
   email: string
   instagram: string
+  instagramUsername: string
   workingHours: string
   country: string
   googleMapsUrl: string
+  googleRating: string
+  reviewCount: string
+  recommendPercent: string
+}
+
+export interface ReviewsSectionContent {
+  heading: string
+  subheading: string
+  googleRatingText: string
+  ctaText: string
+  ctaHeading: string
+  ctaSubtext: string
+}
+
+export interface PricingNotesContent {
+  heading: string
+  items: string[]
+  ctaHeading: string
+  ctaText: string
+  ctaSubtext: string
+}
+
+export interface FaqItemContent {
+  question: string
+  answer: string
+}
+
+export interface PageHeroContent {
+  eyebrow: string
+  title: string
+  subtitle: string
+  image: string
+  storyHeading?: string
+  valuesHeading?: string
+  timelineHeading?: string
+  featuresHeading?: string
+  joinHeading?: string
+  joinText?: string
+  joinCtaText?: string
+  joinEmail?: string
+  instagramHeading?: string
+  instagramHandle?: string
+  instagramCtaText?: string
+  faqHeading?: string
+}
+
+export interface PagesContent {
+  about: PageHeroContent
+  team: PageHeroContent
+  gallery: PageHeroContent
+  pricing: PageHeroContent
+  reviews: PageHeroContent
+  contacts: PageHeroContent
+}
+
+export interface HomeSectionsContent {
+  servicesLabel: string
+  servicesHeading: string
+  galleryLabel: string
+  galleryHeading: string
+  reviewsLabel: string
+  reviewsHeading: string
+  instagramHeading: string
 }
 
 export interface SiteContent {
   home: HomeContent
   about: AboutContent
   businessInfo: BusinessInfoContent
+  reviewsSection: ReviewsSectionContent
+  pricingNotes: PricingNotesContent
+  faq: FaqItemContent[]
+  pages: PagesContent
+  homeSections: HomeSectionsContent
 }
 
 export const defaultSiteContent: SiteContent = siteContent

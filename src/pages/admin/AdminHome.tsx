@@ -19,6 +19,10 @@ export function AdminHome() {
     updateContent({ ...data.content, home: { ...data.content.home, cta: { ...c.cta, [field]: value } } })
   }
 
+  const setHomeSection = (field: string, value: string) => {
+    updateContent({ ...data.content, homeSections: { ...data.content.homeSections, [field]: value } })
+  }
+
   const updateFeature = (idx: number, value: string) => {
     const features = [...c.aboutPreview.features]
     features[idx] = value
@@ -91,6 +95,17 @@ export function AdminHome() {
           <TextEditor label="Текст кнопки" value={c.cta.ctaText} onChange={(v) => setCta('ctaText', v)} />
           <TextEditor label="Текст кнопки 2" value={c.cta.secondaryCtaText} onChange={(v) => setCta('secondaryCtaText', v)} />
         </div>
+      </SectionCard>
+
+      {/* Home sections headings */}
+      <SectionCard title="Заголовки секцій на головній" index={4}>
+        <TextEditor label="Секція послуг — мітка" value={data.content.homeSections.servicesLabel} onChange={(v) => setHomeSection('servicesLabel', v)} />
+        <TextEditor label="Секція послуг — заголовок" value={data.content.homeSections.servicesHeading} onChange={(v) => setHomeSection('servicesHeading', v)} />
+        <TextEditor label="Секція галереї — мітка" value={data.content.homeSections.galleryLabel} onChange={(v) => setHomeSection('galleryLabel', v)} />
+        <TextEditor label="Секція галереї — заголовок" value={data.content.homeSections.galleryHeading} onChange={(v) => setHomeSection('galleryHeading', v)} />
+        <TextEditor label="Секція відгуків — мітка" value={data.content.homeSections.reviewsLabel} onChange={(v) => setHomeSection('reviewsLabel', v)} />
+        <TextEditor label="Секція відгуків — заголовок" value={data.content.homeSections.reviewsHeading} onChange={(v) => setHomeSection('reviewsHeading', v)} />
+        <TextEditor label="Секція Instagram — заголовок" value={data.content.homeSections.instagramHeading} onChange={(v) => setHomeSection('instagramHeading', v)} />
       </SectionCard>
     </motion.div>
   )

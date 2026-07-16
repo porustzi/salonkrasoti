@@ -3,12 +3,12 @@ import { motion } from 'framer-motion';
 import { SEO } from '../components/SEO';
 import { GalleryGrid, PageHero } from '../components/ui';
 import { useData } from '../context/DataContext';
-import { BUSINESS_INFO } from '../config/constants';
 import { Images } from 'lucide-react';
 
 export function GalleryPage() {
   const { data } = useData();
   const [activeCategory, setActiveCategory] = useState('all');
+  const pg = data.content.pages.gallery;
 
   return (
     <>
@@ -18,9 +18,10 @@ export function GalleryPage() {
       />
 
       <PageHero
-        title="Галерея робіт"
-        subtitle="Портфоліо наших майстрів — кожна робота унікальна"
-        image="https://images.pexels.com/photos/3622615/pexels-photo-3622615.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        title={pg.title || "Галерея робіт"}
+        subtitle={pg.subtitle}
+        image={pg.image}
+        eyebrow={pg.eyebrow}
         icon={Images}
       />
 
@@ -45,15 +46,15 @@ export function GalleryPage() {
             className="text-center"
           >
             <p className="text-neutral-900 text-lg mb-4">
-              Ще більше робіт дивіться в нашому Instagram
+              {pg.instagramHeading}
             </p>
             <a
-              href={BUSINESS_INFO.instagram}
+              href={data.content.businessInfo.instagram}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-4 bg-neutral-900 text-white rounded-full font-medium uppercase tracking-wider hover:bg-neutral-800 transition-colors"
             >
-              Підписатися
+              {pg.instagramCtaText} {pg.instagramHandle}
             </a>
           </motion.div>
         </div>

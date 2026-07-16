@@ -9,6 +9,8 @@ export function ContactsPage() {
   const { openBooking } = useBooking();
   const { data } = useData();
   const c = data.content.businessInfo;
+  const pc = data.content.pages.contacts;
+  const faq = data.content.faq;
   return (
     <>
       <SEO
@@ -18,9 +20,10 @@ export function ContactsPage() {
       <LocalBusinessSchema />
 
       <PageHero
-        title="Контакти"
-        subtitle="Зв'яжіться з нами або відвідайте наш салон"
-        image="https://images.pexels.com/photos/8107441/pexels-photo-8107441.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        title={pc.title || "Контакти"}
+        subtitle={pc.subtitle}
+        image={pc.image}
+        eyebrow={pc.eyebrow}
         icon={MapPin}
       />
 
@@ -108,7 +111,7 @@ export function ContactsPage() {
                       rel="noopener noreferrer"
                       className="text-neutral-600 hover:text-champagne transition-colors"
                     >
-                      @maysternya_krasy1
+                      {c.instagramUsername}
                     </a>
                   </div>
                 </div>
@@ -138,7 +141,7 @@ export function ContactsPage() {
               className="h-[300px] sm:h-[400px] lg:h-full min-h-[300px] rounded-2xl overflow-hidden shadow-medium bg-neutral-100"
             >
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2428.3037495782415!2d31.293044077279!3d51.49787561060903!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x412a6cfd2d0c7c17%3A0xd4a5c0a5c5a5c5a5!2z0KbQo9CcICLQp9C10YDQvdGW0LPRltCyIg!5e0!3m2!1suk!2sua!4v1"
+                src={c.googleMapsUrl || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2428.3037495782415!2d31.293044077279!3d51.49787561060903!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x412a6cfd2d0c7c17%3A0xd4a5c0a5c5a5c5a5!2z0KbQo9CcICLQp9C10YDQvdGW0LPRltCyIg!5e0!3m2!1suk!2sua!4v1"}
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
@@ -156,29 +159,12 @@ export function ContactsPage() {
       <section className="section-padding bg-cream">
         <div className="container-custom">
           <SectionHeading
-            title="Часті питання"
+            title={pc.faqHeading || "Часті питання"}
             subtitle="Відповіді на популярні запитання"
           />
 
           <div className="max-w-3xl mx-auto space-y-4">
-            {[
-              {
-                q: 'Як записатися на процедуру?',
-                a: 'Ви можете записатися онлайн через наш сайт або зателефонувати за номером телефону салону.',
-              },
-              {
-                q: 'Чи працюєте ви у вихідні?',
-                a: 'Ми працюємо щодня з 10:00 до 21:00, включаючи суботу та неділю.',
-              },
-              {
-                q: 'Чи потрібна передоплата?',
-                a: 'Для складних процедур (фарбування, нарощування) необхідна передоплата 30%.',
-              },
-              {
-                q: 'Які бренди косметики ви використовуєте?',
-                a: 'Ми використовуємо професійну косметику від провідних світових брендів.',
-              },
-            ].map((faq, index) => (
+            {faq.map((item, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
@@ -187,8 +173,8 @@ export function ContactsPage() {
                 transition={{ delay: index * 0.1 }}
                 className="bg-white rounded-xl p-6"
               >
-                <h3 className="font-medium text-neutral-900 mb-2">{faq.q}</h3>
-                <p className="text-sm text-neutral-600">{faq.a}</p>
+                <h3 className="font-medium text-neutral-900 mb-2">{item.question}</h3>
+                <p className="text-sm text-neutral-600">{item.answer}</p>
               </motion.div>
             ))}
           </div>

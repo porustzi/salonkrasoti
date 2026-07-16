@@ -3,18 +3,18 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Star, Instagram, MapPin } from 'lucide-react';
 import { SEO, LocalBusinessSchema } from '../components/SEO';
 import { Button, SectionHeading } from '../components/ui';
-import { BUSINESS_INFO } from '../config/constants';
 import { useBooking } from '../context/BookingContext';
 import { useData } from '../context/DataContext';
-import { serviceCategories, galleryImages, reviews } from '../data/services';
 
 export function HomePage() {
   const { openBooking } = useBooking();
   const { data } = useData();
   const c = data.content.home;
-  const popularServices = serviceCategories.slice(0, 4);
-  const previewImages = galleryImages.slice(0, 8);
-  const previewReviews = reviews.slice(0, 3);
+  const sec = data.content.homeSections;
+  const popularServices = data.services.slice(0, 4);
+  const previewImages = data.gallery.slice(0, 8);
+  const previewReviews = data.reviews.slice(0, 3);
+  const bi = data.content.businessInfo;
 
   return (
     <>
@@ -70,13 +70,13 @@ export function HomePage() {
               >
                 <div className="flex items-center gap-2 text-white/70">
                   <MapPin className="w-4 h-4 text-champagne" />
-                  <span className="text-sm">{BUSINESS_INFO.address}, {BUSINESS_INFO.city}</span>
+                  <span className="text-sm">{bi.address}, {bi.city}</span>
                 </div>
                 <div className="w-px h-4 bg-white/20" />
                 <div className="flex items-center gap-1.5 text-white/70">
                   <Star className="w-4 h-4 text-champagne fill-champagne" />
-                  <span className="text-sm font-semibold text-white">{BUSINESS_INFO.googleRating}</span>
-                  <span className="text-sm">({BUSINESS_INFO.reviewCount}+ відгуків)</span>
+                  <span className="text-sm font-semibold text-white">{bi.googleRating}</span>
+                  <span className="text-sm">({bi.reviewCount}+ відгуків)</span>
                 </div>
               </motion.div>
             </motion.div>
@@ -133,7 +133,7 @@ export function HomePage() {
       {/* Popular Services */}
       <section className="section-padding bg-cream">
         <div className="container-custom">
-          <SectionHeading title="Популярні послуги" subtitle="Професійні послуги від наших досвідчених майстрів" />
+          <SectionHeading title={sec.servicesHeading} subtitle="Професійні послуги від наших досвідчених майстрів" />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {popularServices.map((category, index) => (
               <motion.div key={category.id}
@@ -167,7 +167,7 @@ export function HomePage() {
       {/* Gallery Preview */}
       <section className="section-padding bg-white">
         <div className="container-custom">
-          <SectionHeading title="Наше портфоліо" subtitle="Роботи наших майстрів говорять самі за себе" />
+          <SectionHeading title={sec.galleryHeading} subtitle="Роботи наших майстрів говорять самі за себе" />
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {previewImages.map((image, index) => (
               <motion.div key={image.id}
@@ -194,18 +194,18 @@ export function HomePage() {
       {/* Reviews Preview */}
       <section className="section-padding bg-beige">
         <div className="container-custom">
-          <SectionHeading title="Відгуки клієнтів" subtitle={`Більше ${BUSINESS_INFO.reviewCount} задоволених клієнтів`} />
+          <SectionHeading title={sec.reviewsHeading} subtitle={`Більше ${bi.reviewCount} задоволених клієнтів`} />
           <motion.div
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             className="bg-white rounded-2xl p-8 shadow-soft mb-8 max-w-md mx-auto text-center"
           >
             <div className="flex items-center justify-center gap-1 mb-3">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className={`w-8 h-8 ${i < Math.floor(BUSINESS_INFO.googleRating) ? 'text-champagne fill-champagne' : 'text-neutral-200'}`} />
+                <Star key={i} className={`w-8 h-8 ${i < Math.floor(Number(bi.googleRating)) ? 'text-champagne fill-champagne' : 'text-neutral-200'}`} />
               ))}
             </div>
-            <p className="text-4xl font-heading font-bold text-neutral-900">{BUSINESS_INFO.googleRating}</p>
-            <p className="text-neutral-600">на основі {BUSINESS_INFO.reviewCount}+ відгуків</p>
+            <p className="text-4xl font-heading font-bold text-neutral-900">{bi.googleRating}</p>
+            <p className="text-neutral-600">на основі {bi.reviewCount}+ відгуків</p>
             <p className="text-sm text-neutral-500 mt-2">Google Reviews</p>
           </motion.div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -243,11 +243,11 @@ export function HomePage() {
       {/* Instagram Preview */}
       <section className="section-padding bg-white">
         <div className="container-custom">
-          <SectionHeading title="Ми в Instagram" subtitle="Слідкуйте за нашими роботами та новинами" />
+          <SectionHeading title={sec.instagramHeading} subtitle="Слідкуйте за нашими роботами та новинами" />
           <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
-            {galleryImages.slice(0, 6).map((image, index) => (
+            {previewImages.slice(0, 6).map((image, index) => (
               <motion.a key={image.id}
-                href={BUSINESS_INFO.instagram} target="_blank" rel="noopener noreferrer"
+                href={bi.instagram} target="_blank" rel="noopener noreferrer"
                 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
                 transition={{ delay: index * 0.05 }}
                 className="aspect-square overflow-hidden rounded-lg group relative"
@@ -263,7 +263,7 @@ export function HomePage() {
             initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
             className="text-center mt-10"
           >
-            <Button href={BUSINESS_INFO.instagram} external variant="secondary">
+            <Button href={bi.instagram} external variant="secondary">
               <Instagram className="w-4 h-4" /> Підписатися
             </Button>
           </motion.div>

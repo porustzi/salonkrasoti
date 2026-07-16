@@ -9,13 +9,14 @@ export function AboutPage() {
   const { openBooking } = useBooking();
   const { data } = useData();
   const c = data.content.about;
+  const pa = data.content.pages.about;
 
   return (
     <>
       <SEO title="Про салон" description="Майстерня Краси - преміум салон краси в Чернігові. Історія, місія, цінності, команда професіоналів." />
       <LocalBusinessSchema />
 
-      <PageHero title="Про нашу майстерню" subtitle="Створюємо красу та задоволення вже понад 14 років" image={c.story.image} icon={Sparkles} />
+      <PageHero title={pa.title || "Про нашу майстерню"} subtitle={pa.subtitle} image={pa.image} eyebrow={pa.eyebrow} icon={Sparkles} />
 
       {/* Main Story */}
       <section className="section-padding bg-white">
@@ -49,7 +50,7 @@ export function AboutPage() {
       {/* Values */}
       <section className="section-padding bg-cream">
         <div className="container-custom">
-          <SectionHeading title="Наші цінності" subtitle="Те, що робить нас особливими" />
+          <SectionHeading title={pa.valuesHeading} subtitle="Те, що робить нас особливими" />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {c.values.map((value, index) => (
               <motion.div
@@ -71,7 +72,7 @@ export function AboutPage() {
       {/* Timeline */}
       <section className="section-padding bg-white">
         <div className="container-custom">
-          <SectionHeading title="Етапи розвитку" subtitle="Наш шлях до досконалості" />
+          <SectionHeading title={pa.timelineHeading} subtitle="Наш шлях до досконалості" />
           <div className="max-w-3xl mx-auto">
             {c.timeline.map((item, index) => (
               <motion.div
@@ -96,7 +97,7 @@ export function AboutPage() {
       {/* Features */}
       <section className="section-padding bg-cream">
         <div className="container-custom">
-          <SectionHeading title="Чому обирають нас" subtitle="Сучасне обладнання та преміум сервіс" />
+          <SectionHeading title={pa.featuresHeading} subtitle="Сучасне обладнання та преміум сервіс" />
           <div className="grid lg:grid-cols-3 gap-8">
             {c.features.map((item, index) => (
               <motion.div

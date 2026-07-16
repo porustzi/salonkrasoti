@@ -6,12 +6,20 @@ import { User, Plus, Trash2 } from 'lucide-react'
 let nextId = Date.now()
 
 export function AdminTeam() {
-  const { data, updateTeam } = useData()
+  const { data, updateTeam, updateContent } = useData()
   const members = data.team
 
-  const updateMember = (idx: number, field: string, value: string) => {
+  const setPage = (field: string, value: string) => {
+    updateContent({ ...data.content, pages: { ...data.content.pages, team: { ...data.content.pages.team, [field]: value } } })
+  }
+
+  const updateMember = (idx: number, field: string, value: string | string[]) => {
     const next = members.map((m, i) => i !== idx ? m : { ...m, [field]: value })
     updateTeam(next)
+  }
+
+  const updateList = (idx: number, field: 'specializations' | 'certificates', value: string) => {
+    updateMember(idx, field, value.split(',').map(s => s.trim()).filter(Boolean))
   }
 
   const addMember = () => {
@@ -86,6 +94,16 @@ export function AdminTeam() {
                 <TextEditor label="Instagram" value={m.instagram} onChange={(v) => updateMember(i, 'instagram', v)} />
               </div>
               <ImageUpload label="Фото" value={m.image} onChange={(v) => updateMember(i, 'image', v)} />
+              <TextEditor
+                label="Спеціалізації (через кому)"
+                value={(m.specializations || []).join(', ')}
+                onChange={(v) => updateList(i, 'specializations', v)}
+              />
+              <TextEditor
+                label="Сертифікати (через кому)"
+                value={(m.certificates || []).join(', ')}
+                onChange={(v) => updateList(i, 'certificates', v)}
+              />
               <div className="flex justify-end pt-2">
                 <button
                   onClick={() => removeMember(i)}
@@ -100,6 +118,17 @@ export function AdminTeam() {
           </motion.div>
         ))}
       </div>
+
+      <SectionCard title="Сторінка «Команда»" index={99}>
+        <TextEditor label="Hero: мітка" value={data.content.pages.team.eyebrow} onChange={(v) => setPage('eyebrow', v)} />
+        <TextEditor label="Hero: заголовок" value={data.content.pages.team.title} onChange={(v) => setPage('title', v)} />
+        <TextAreaEditor label="Hero: підзаголовок" value={data.content.pages.team.subtitle} onChange={(v) => setPage('subtitle', v)} rows={2} />
+        <div className="grid grid-cols-2 gap-3">
+          <TextEditor label="Заголовок join-секції" value={data.content.pages.team.joinHeading} onChange={(v) => setPage('joinHeading', v)} />
+          <TextEditor label="Текст кнопки join" value={data.content.pages.team.joinCtaText} onChange={(v) => setPage('joinCtaText', v)} />
+        </div>
+        <TextAreaEditor label="Текст join-секції" value={data.content.pages.team.joinText} onChange={(v) => setPage('joinText', v)} rows={2} />
+      </SectionCard>
     </motion.div>
   )
 }

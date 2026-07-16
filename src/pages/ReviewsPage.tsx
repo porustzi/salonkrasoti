@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { SEO, LocalBusinessSchema } from '../components/SEO';
 import { ReviewCard, Button, PageHero } from '../components/ui';
-import { BUSINESS_INFO } from '../config/constants';
 import { useBooking } from '../context/BookingContext';
 import { useData } from '../context/DataContext';
 import { Star } from 'lucide-react';
@@ -17,6 +16,8 @@ export function ReviewsPage() {
   const { openBooking } = useBooking();
   const { data } = useData();
   const [activeFilter, setActiveFilter] = useState('all');
+  const bi = data.content.businessInfo;
+  const rs = data.content.reviewsSection;
 
   const filteredReviews =
     activeFilter === 'all'
@@ -32,9 +33,10 @@ export function ReviewsPage() {
       <LocalBusinessSchema />
 
       <PageHero
-        title="Відгуки клієнтів"
-        subtitle="Думки наших клієнтів про роботу салону"
-        image="https://images.pexels.com/photos/1462630/pexels-photo-1462630.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        title={data.content.pages.reviews.title || rs.heading}
+        subtitle={data.content.pages.reviews.subtitle || rs.subtitle}
+        image={data.content.pages.reviews.image}
+        eyebrow={data.content.pages.reviews.eyebrow}
         icon={Star}
       />
 
@@ -54,7 +56,7 @@ export function ReviewsPage() {
                     <Star
                       key={i}
                       className={`w-8 h-8 ${
-                        i < Math.floor(BUSINESS_INFO.googleRating)
+                        i < Math.floor(Number(bi.googleRating))
                           ? 'text-champagne fill-champagne'
                           : 'text-neutral-200'
                       }`}
@@ -62,18 +64,18 @@ export function ReviewsPage() {
                   ))}
                 </div>
                 <p className="text-4xl sm:text-5xl font-heading font-bold text-neutral-900">
-                  {BUSINESS_INFO.googleRating}
+                  {bi.googleRating}
                 </p>
                 <p className="text-neutral-600 mt-1">Середній рейтинг</p>
               </div>
               <div className="md:border-l md:border-r border-neutral-200">
                 <p className="text-4xl sm:text-5xl font-heading font-bold text-champagne mb-2">
-                  {BUSINESS_INFO.reviewCount}+
+                  {bi.reviewCount}+
                 </p>
                 <p className="text-neutral-600">Відгуків на Google</p>
               </div>
               <div>
-                <p className="text-4xl sm:text-5xl font-heading font-bold text-neutral-900 mb-2">98%</p>
+                <p className="text-4xl sm:text-5xl font-heading font-bold text-neutral-900 mb-2">{bi.recommendPercent}</p>
                 <p className="text-neutral-600">Рекомендують нас</p>
               </div>
             </div>
@@ -135,10 +137,10 @@ export function ReviewsPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-2xl md:text-3xl font-heading font-bold text-neutral-900 mb-4">
-              Приєднуйтесь до наших щасливих клієнтів
+              {rs.ctaHeading}
             </h2>
             <p className="text-neutral-700 mb-6 max-w-md mx-auto">
-              Спробуйте наш сервіс і залиште свій відгук
+              {rs.ctaSubtext}
             </p>
             <Button onClick={openBooking} variant="primary" showArrow>
               Записатися на послугу

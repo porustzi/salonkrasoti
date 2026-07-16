@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useData } from '../../context/DataContext'
-import { TextEditor, SectionCard } from './AdminFormFields'
+import { TextEditor, TextAreaEditor, SectionCard } from './AdminFormFields'
 import { MapPin, Smartphone, Mail, Clock, Globe } from 'lucide-react'
 
 export function AdminContacts() {
@@ -9,6 +9,9 @@ export function AdminContacts() {
 
   const setField = (field: string, value: string) => {
     updateContent({ ...data.content, businessInfo: { ...c, [field]: value } })
+  }
+  const setPage = (field: string, value: string) => {
+    updateContent({ ...data.content, pages: { ...data.content.pages, contacts: { ...data.content.pages.contacts, [field]: value } } })
   }
 
   return (
@@ -43,6 +46,45 @@ export function AdminContacts() {
 
       <SectionCard title="Instagram" index={5}>
         <TextEditor label="Посилання на Instagram" value={c.instagram} onChange={(v) => setField('instagram', v)} icon={<Globe className="w-3.5 h-3.5" />} />
+        <TextEditor label="Нік (наприклад @maysternya_krasy1)" value={c.instagramUsername} onChange={(v) => setField('instagramUsername', v)} />
+      </SectionCard>
+
+      <SectionCard title="Рейтинг Google" index={6}>
+        <div className="grid grid-cols-3 gap-3">
+          <TextEditor label="Рейтинг (напр. 4.4)" value={c.googleRating} onChange={(v) => setField('googleRating', v)} />
+          <TextEditor label="Кількість відгуків" value={c.reviewCount} onChange={(v) => setField('reviewCount', v)} />
+          <TextEditor label="% рекомендують" value={c.recommendPercent} onChange={(v) => setField('recommendPercent', v)} />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Часті питання (FAQ)" index={7}>
+        {data.content.faq.map((item, i) => (
+          <div key={i} className="p-3 rounded-xl bg-neutral-50 border border-neutral-200 mb-3 space-y-2">
+            <TextEditor label="Питання" value={item.question} onChange={(v) => {
+              const next = data.content.faq.map((f, j) => j !== i ? f : { ...f, question: v })
+              updateContent({ ...data.content, faq: next })
+            }} />
+            <TextEditor label="Відповідь" value={item.answer} onChange={(v) => {
+              const next = data.content.faq.map((f, j) => j !== i ? f : { ...f, answer: v })
+              updateContent({ ...data.content, faq: next })
+            }} />
+            <button
+              onClick={() => updateContent({ ...data.content, faq: data.content.faq.filter((_, j) => j !== i) })}
+              className="text-xs text-red-400 hover:text-red-500"
+            >Видалити питання</button>
+          </div>
+        ))}
+        <button
+          onClick={() => updateContent({ ...data.content, faq: [...data.content.faq, { question: '', answer: '' }] })}
+          className="w-full px-4 py-2.5 border border-dashed border-neutral-300 rounded-xl text-sm text-neutral-600 hover:border-neutral-400 transition-colors"
+        >+ Додати питання</button>
+      </SectionCard>
+
+      <SectionCard title="Сторінка «Контакти»" index={8}>
+        <TextEditor label="Hero: мітка" value={data.content.pages.contacts.eyebrow} onChange={(v) => setPage('eyebrow', v)} />
+        <TextEditor label="Hero: заголовок" value={data.content.pages.contacts.title} onChange={(v) => setPage('title', v)} />
+        <TextAreaEditor label="Hero: підзаголовок" value={data.content.pages.contacts.subtitle} onChange={(v) => setPage('subtitle', v)} rows={2} />
+        <TextEditor label="Заголовок FAQ-секції" value={data.content.pages.contacts.faqHeading} onChange={(v) => setPage('faqHeading', v)} />
       </SectionCard>
     </motion.div>
   )

@@ -15,6 +15,10 @@ export function AdminAbout() {
     updateContent({ ...data.content, about: { ...c, cta: { ...c.cta, [field]: value } } })
   }
 
+  const setPage = (field: string, value: string) => {
+    updateContent({ ...data.content, pages: { ...data.content.pages, about: { ...data.content.pages.about, [field]: value } } })
+  }
+
   const updateValue = (idx: number, field: string, value: string) => {
     const values = c.values.map((v, i) => i !== idx ? v : { ...v, [field]: value })
     updateContent({ ...data.content, about: { ...c, values } })
@@ -143,6 +147,22 @@ export function AdminAbout() {
         <TextEditor label="Заголовок" value={c.cta.heading} onChange={(v) => setCta('heading', v)} />
         <TextAreaEditor label="Текст" value={c.cta.text} onChange={(v) => setCta('text', v)} rows={2} />
         <TextEditor label="Текст кнопки" value={c.cta.ctaText} onChange={(v) => setCta('ctaText', v)} />
+      </SectionCard>
+
+      {/* Page hero & section headings */}
+      <SectionCard title="Hero та заголовки сторінки" index={6}>
+        <TextEditor label="Hero: мітка" value={data.content.pages.about.eyebrow} onChange={(v) => setPage('eyebrow', v)} />
+        <TextEditor label="Hero: заголовок" value={data.content.pages.about.title} onChange={(v) => setPage('title', v)} />
+        <TextAreaEditor label="Hero: підзаголовок" value={data.content.pages.about.subtitle} onChange={(v) => setPage('subtitle', v)} rows={2} />
+        <TextEditor label="Hero: фон" value={data.content.pages.about.image} onChange={(v) => setPage('image', v)} />
+        <div className="grid grid-cols-2 gap-3 pt-2">
+          <TextEditor label="Заголовок секції «Історія»" value={data.content.pages.about.storyHeading} onChange={(v) => setPage('storyHeading', v)} />
+          <TextEditor label="Заголовок секції «Цінності»" value={data.content.pages.about.valuesHeading} onChange={(v) => setPage('valuesHeading', v)} />
+        </div>
+        <div className="grid grid-cols-2 gap-3">
+          <TextEditor label="Заголовок секції «Етапи»" value={data.content.pages.about.timelineHeading} onChange={(v) => setPage('timelineHeading', v)} />
+          <TextEditor label="Заголовок секції «Переваги»" value={data.content.pages.about.featuresHeading} onChange={(v) => setPage('featuresHeading', v)} />
+        </div>
       </SectionCard>
     </motion.div>
   )

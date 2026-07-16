@@ -6,6 +6,7 @@ import { Users } from 'lucide-react';
 
 export function TeamPage() {
   const { data } = useData();
+  const pt = data.content.pages.team;
   return (
     <>
       <SEO
@@ -15,9 +16,10 @@ export function TeamPage() {
       <LocalBusinessSchema />
 
       <PageHero
-        title="Наша команда"
-        subtitle="Професійні майстри, які створюють красу кожного дня"
-        image="https://images.pexels.com/photos/8105035/pexels-photo-8105035.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        title={pt.title || "Наша команда"}
+        subtitle={pt.subtitle}
+        image={pt.image}
+        eyebrow={pt.eyebrow}
         icon={Users}
       />
 
@@ -51,17 +53,16 @@ export function TeamPage() {
             className="bg-white rounded-2xl p-8 md:p-12 shadow-soft max-w-3xl mx-auto text-center"
           >
             <h2 className="text-2xl md:text-3xl font-heading font-bold text-neutral-900 mb-4">
-              Хочете приєднатися до команди?
+              {pt.joinHeading}
             </h2>
             <p className="text-neutral-600 mb-6">
-              Ми завжди раді талановитим майстрам. Якщо ви любите свою справу
-              та хочете розвиватися в premium-сегменті, напишіть нам.
+              {pt.joinText}
             </p>
             <a
-              href="mailto:info@maisternya-krasy.ua"
+              href={`mailto:${pt.joinEmail || data.content.businessInfo.email}`}
               className="inline-flex items-center gap-2 px-8 py-4 bg-neutral-900 text-white rounded-full font-medium uppercase tracking-wider hover:bg-neutral-800 transition-colors"
             >
-              Зв'язатися з нами
+              {pt.joinCtaText || "Зв'язатися з нами"}
             </a>
           </motion.div>
         </div>

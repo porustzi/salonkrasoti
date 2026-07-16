@@ -8,8 +8,16 @@ const SOURCES = ['google', 'instagram', 'facebook'] as const
 let nextId = Date.now()
 
 export function AdminReviews() {
-  const { data, updateReviews } = useData()
+  const { data, updateReviews, updateContent } = useData()
   const reviews = data.reviews
+  const rs = data.content.reviewsSection
+
+  const setRs = (field: string, value: string) => {
+    updateContent({ ...data.content, reviewsSection: { ...rs, [field]: value } })
+  }
+  const setPage = (field: string, value: string) => {
+    updateContent({ ...data.content, pages: { ...data.content.pages, reviews: { ...data.content.pages.reviews, [field]: value } } })
+  }
 
   const updateReview = (idx: number, field: string, value: string | number) => {
     const next = reviews.map((r, i) => i !== idx ? r : { ...r, [field]: value })
@@ -116,6 +124,21 @@ export function AdminReviews() {
           </motion.div>
         ))
       )}
+
+      <SectionCard title="Секція відгуків (CTA)" index={99}>
+        <TextEditor label="Заголовок" value={rs.heading} onChange={(v) => setRs('heading', v)} />
+        <TextAreaEditor label="Підзаголовок" value={rs.subheading} onChange={(v) => setRs('subheading', v)} />
+        <div className="flex flex-wrap gap-3">
+          <TextEditor label="Google рейтинг текст" value={rs.googleRatingText} onChange={(v) => setRs('googleRatingText', v)} />
+          <TextEditor label="Кнопка" value={rs.ctaText} onChange={(v) => setRs('ctaText', v)} />
+        </div>
+      </SectionCard>
+
+      <SectionCard title="Сторінка «Відгуки»" index={100}>
+        <TextEditor label="Hero: мітка" value={data.content.pages.reviews.eyebrow} onChange={(v) => setPage('eyebrow', v)} />
+        <TextEditor label="Hero: заголовок" value={data.content.pages.reviews.title} onChange={(v) => setPage('title', v)} />
+        <TextAreaEditor label="Hero: підзаголовок" value={data.content.pages.reviews.subtitle} onChange={(v) => setPage('subtitle', v)} rows={2} />
+      </SectionCard>
     </motion.div>
   )
 }
