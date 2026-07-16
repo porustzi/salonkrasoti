@@ -4,8 +4,15 @@
     "name": "Альона",
     "position": "Стиліст-колорист",
     "experience": "10+ років",
-    "specializations": ["Фарбування", "Корекція кольору", "Blonde"],
-    "certificates": ["Преміум фарбування", "Колористика"],
+    "specializations": [
+      "Фарбування",
+      "Корекція кольору",
+      "Blonde"
+    ],
+    "certificates": [
+      "Преміум фарбування",
+      "Колористика"
+    ],
     "instagram": "https://instagram.com/maysternya_krasy1",
     "image": "https://images.pexels.com/photos/3765174/pexels-photo-3765174.jpeg?auto=compress&cs=tinysrgb&w=400"
   },
@@ -14,8 +21,15 @@
     "name": "Оксана",
     "position": "Візажист",
     "experience": "8+ років",
-    "specializations": ["Макіяж", "Брови", "Вії"],
-    "certificates": ["Makeup Artistry", "Brow Design"],
+    "specializations": [
+      "Макіяж",
+      "Брови",
+      "Вії"
+    ],
+    "certificates": [
+      "Makeup Artistry",
+      "Brow Design"
+    ],
     "instagram": "https://instagram.com/maysternya_krasy1",
     "image": "https://images.pexels.com/photos/1476835/pexels-photo-1476835.jpeg?auto=compress&cs=tinysrgb&w=400"
   },
@@ -24,8 +38,15 @@
     "name": "Анастасія",
     "position": "Майстер манікюру та масажу",
     "experience": "7+ років",
-    "specializations": ["Манікюр", "Педикюр", "Масаж"],
-    "certificates": ["Nail Art", "Massage Therapy"],
+    "specializations": [
+      "Манікюр",
+      "Педикюр",
+      "Масаж"
+    ],
+    "certificates": [
+      "Nail Art",
+      "Massage Therapy"
+    ],
     "instagram": "https://instagram.com/maysternya_krasy1",
     "image": "https://images.pexels.com/photos/3293148/pexels-photo-3293148.jpeg?auto=compress&cs=tinysrgb&w=400"
   },
@@ -34,9 +55,26 @@
     "name": "Виолетта",
     "position": "Майстер-перукар",
     "experience": "6+ років",
-    "specializations": ["Стрижки", "Укладки", "Догляд"],
-    "certificates": ["Haircut Techniques", "Styling"],
+    "specializations": [
+      "Стрижки",
+      "Укладки",
+      "Догляд"
+    ],
+    "certificates": [
+      "Haircut Techniques",
+      "Styling"
+    ],
     "instagram": "https://instagram.com/maysternya_krasy1",
     "image": "https://images.pexels.com/photos/1644888/pexels-photo-1644888.jpeg?auto=compress&cs=tinysrgb&w=400"
+  },
+  {
+    "id": "1784199986354",
+    "name": "Тимур",
+    "position": "Веб-розробник",
+    "experience": "2+ роки",
+    "specializations": [],
+    "certificates": [],
+    "instagram": "",
+    "image": "https://raw.githubusercontent.com/porustzi/salonkrasoti/main/content/images/thread_nylon_light_raspberry_3_nv_713_1784200012280.jpg"
   }
 ]
