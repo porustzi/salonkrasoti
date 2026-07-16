@@ -130,6 +130,9 @@ export interface PageHeroContent {
   instagramHandle?: string
   instagramCtaText?: string
   faqHeading?: string
+  statRatingLabel?: string
+  statReviewsLabel?: string
+  statRecommendLabel?: string
 }
 
 export interface PagesContent {
@@ -139,6 +142,7 @@ export interface PagesContent {
   pricing: PageHeroContent
   reviews: PageHeroContent
   contacts: PageHeroContent
+  book: PageHeroContent
 }
 
 export interface HomeSectionsContent {

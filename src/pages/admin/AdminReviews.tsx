@@ -139,6 +139,11 @@ export function AdminReviews() {
         <TextEditor label="Hero: заголовок" value={data.content.pages.reviews.title} onChange={(v) => setPage('title', v)} />
         <TextAreaEditor label="Hero: підзаголовок" value={data.content.pages.reviews.subtitle} onChange={(v) => setPage('subtitle', v)} rows={2} />
         <ImageUpload label="Hero: фонове зображення" value={data.content.pages.reviews.image} onChange={(v) => setPage('image', v)} />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2">
+          <TextEditor label="Підпис: рейтинг" value={data.content.pages.reviews.statRatingLabel} onChange={(v) => setPage('statRatingLabel', v)} />
+          <TextEditor label="Підпис: відгуки" value={data.content.pages.reviews.statReviewsLabel} onChange={(v) => setPage('statReviewsLabel', v)} />
+          <TextEditor label="Підпис: рекомендують" value={data.content.pages.reviews.statRecommendLabel} onChange={(v) => setPage('statRecommendLabel', v)} />
+        </div>
       </SectionCard>
     </motion.div>
   )

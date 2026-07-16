@@ -10,9 +10,10 @@ export function AdminContacts() {
   const setField = (field: string, value: string) => {
     updateContent({ ...data.content, businessInfo: { ...c, [field]: value } })
   }
-  const setPage = (field: string, value: string) => {
-    updateContent({ ...data.content, pages: { ...data.content.pages, contacts: { ...data.content.pages.contacts, [field]: value } } })
+  const setPageFor = (page: string, field: string, value: string) => {
+    updateContent({ ...data.content, pages: { ...data.content.pages, [page]: { ...(data.content.pages as any)[page], [field]: value } } })
   }
+  const setPage = (field: string, value: string) => setPageFor('contacts', field, value)
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-5">
@@ -89,6 +90,13 @@ export function AdminContacts() {
         <TextAreaEditor label="Hero: підзаголовок" value={data.content.pages.contacts.subtitle} onChange={(v) => setPage('subtitle', v)} rows={2} />
         <TextEditor label="Заголовок FAQ-секції" value={data.content.pages.contacts.faqHeading} onChange={(v) => setPage('faqHeading', v)} />
         <ImageUpload label="Hero: фонове зображення" value={data.content.pages.contacts.image} onChange={(v) => setPage('image', v)} />
+      </SectionCard>
+
+      <SectionCard title="Сторінка «Онлайн запис»" index={9}>
+        <TextEditor label="Hero: мітка" value={data.content.pages.book.eyebrow} onChange={(v) => setPageFor('book', 'eyebrow', v)} />
+        <TextEditor label="Hero: заголовок" value={data.content.pages.book.title} onChange={(v) => setPageFor('book', 'title', v)} />
+        <TextAreaEditor label="Hero: підзаголовок" value={data.content.pages.book.subtitle} onChange={(v) => setPageFor('book', 'subtitle', v)} rows={2} />
+        <ImageUpload label="Hero: фонове зображення" value={data.content.pages.book.image} onChange={(v) => setPageFor('book', 'image', v)} />
       </SectionCard>
     </motion.div>
   )

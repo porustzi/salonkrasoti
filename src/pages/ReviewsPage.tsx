@@ -66,17 +66,17 @@ export function ReviewsPage() {
                 <p className="text-4xl sm:text-5xl font-heading font-bold text-neutral-900">
                   {bi.googleRating}
                 </p>
-                <p className="text-neutral-600 mt-1">Середній рейтинг</p>
+                <p className="text-neutral-600 mt-1">{data.content.pages.reviews.statRatingLabel || "Середній рейтинг"}</p>
               </div>
               <div className="md:border-l md:border-r border-neutral-200">
                 <p className="text-4xl sm:text-5xl font-heading font-bold text-champagne mb-2">
                   {bi.reviewCount}+
                 </p>
-                <p className="text-neutral-600">Відгуків на Google</p>
+                <p className="text-neutral-600">{data.content.pages.reviews.statReviewsLabel || "Відгуків на Google"}</p>
               </div>
               <div>
                 <p className="text-4xl sm:text-5xl font-heading font-bold text-neutral-900 mb-2">{bi.recommendPercent}</p>
-                <p className="text-neutral-600">Рекомендують нас</p>
+                <p className="text-neutral-600">{data.content.pages.reviews.statRecommendLabel || "Рекомендують нас"}</p>
               </div>
             </div>
           </motion.div>

@@ -2,10 +2,13 @@ import { motion } from 'framer-motion';
 import { SEO } from '../components/SEO';
 import { Button, PageHero } from '../components/ui';
 import { useBooking } from '../context/BookingContext';
+import { useData } from '../context/DataContext';
 import { Calendar, ExternalLink } from 'lucide-react';
 
 export function BookPage() {
   const { openBooking } = useBooking();
+  const { data } = useData();
+  const pb = data.content.pages.book;
 
   return (
     <>
@@ -15,9 +18,10 @@ export function BookPage() {
       />
 
       <PageHero
-        title="Онлайн запис"
-        subtitle="Запишіться на послугу в зручний для вас час"
-        image="https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=1920"
+        title={pb.title || "Онлайн запис"}
+        subtitle={pb.subtitle || "Запишіться на послугу в зручний для вас час"}
+        image={pb.image}
+        eyebrow={pb.eyebrow}
         icon={Calendar}
       />
 
