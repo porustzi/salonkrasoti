@@ -203,7 +203,10 @@
       "eyebrow": "Відгуки",
       "title": "Що кажуть наші клієнти",
       "subtitle": "Понад 17000 вдячних клієнтів щороку довіряють нам свою красу",
-      "image": "https://images.pexels.com/photos/3993448/pexels-photo-3993448.jpeg?auto=compress&cs=tinysrgb&w=1920"
+      "image": "https://images.pexels.com/photos/3993448/pexels-photo-3993448.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      "statRatingLabel": "Середній рейтинг",
+      "statReviewsLabel": "Відгуків на Google",
+      "statRecommendLabel": "Рекомендують нас"
     },
     "contacts": {
       "eyebrow": "Контакти",
@@ -211,6 +214,12 @@
       "subtitle": "Чернігів, проспект Миру 49, ЦУМ \"Чернігів\", 2 поверх",
       "image": "https://images.pexels.com/photos/3993444/pexels-photo-3993444.jpeg?auto=compress&cs=tinysrgb&w=1920",
       "faqHeading": "Часті питання"
+    },
+    "book": {
+      "eyebrow": "Онлайн запис",
+      "title": "Онлайн запис",
+      "subtitle": "Запишіться на послугу в зручний для вас час",
+      "image": "https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=1920"
     }
   },
   "homeSections": {
