@@ -1,7 +1,7 @@
 import { useData } from '../../context/DataContext'
 import { TextEditor, SectionCard, ImageUpload } from './AdminFormFields'
 import { motion } from 'framer-motion'
-import { User, Plus, Trash2, GripVertical } from 'lucide-react'
+import { User, Plus, Trash2 } from 'lucide-react'
 
 let nextId = Date.now()
 

@@ -5,7 +5,7 @@ import { ArrowRight } from 'lucide-react';
 type ButtonVariant = 'primary' | 'secondary' | 'gold' | 'ghost';
 type ButtonSize = 'sm' | 'md' | 'lg';
 
-interface ButtonProps {
+export interface ButtonProps {
   children: React.ReactNode;
   variant?: ButtonVariant;
   size?: ButtonSize;

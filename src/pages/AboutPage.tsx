@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 import { SEO, LocalBusinessSchema } from '../components/SEO';
 import { SectionHeading, Button, PageHero } from '../components/ui';
-import { BUSINESS_INFO } from '../config/constants';
 import { useData } from '../context/DataContext';
 import { useBooking } from '../context/BookingContext';
 import { Sparkles } from 'lucide-react';

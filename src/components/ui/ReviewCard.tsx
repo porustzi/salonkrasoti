@@ -6,7 +6,7 @@ interface ReviewCardProps {
   rating: number;
   text: string;
   date?: string;
-  source?: 'google' | 'instagram';
+  source?: string;
   avatar?: string;
 }
 

@@ -3,7 +3,7 @@ import { Outlet, useNavigate, useLocation, Link } from 'react-router-dom'
 import { useData, SyncStatus } from '../../context/DataContext'
 import { BUSINESS_INFO } from '../../config/constants'
 import {
-  Scissors, Images, Users, MessageSquare, Home, MapPin,
+  Scissors, Images, MessageSquare, Home, MapPin,
   LogOut, LayoutDashboard, CheckCircle, AlertCircle, Loader2, Save,
   ChevronRight, Sparkles, Clock, Menu, Info, ChevronDown
 } from 'lucide-react'
@@ -22,7 +22,10 @@ const STATUS_ICONS: Record<SyncStatus, React.ReactNode> = {
   error: <AlertCircle className="w-3.5 h-3.5" />,
 }
 
-const NAV_ITEMS = [
+type NavChild = { path: string; label: string }
+type NavItem = { path: string; label: string; icon: React.ComponentType<{ className?: string }> } | { label: string; icon: React.ComponentType<{ className?: string }>; children: NavChild[] }
+
+const NAV_ITEMS: NavItem[] = [
   { path: '/admin', label: 'Панель', icon: LayoutDashboard },
   { path: '/admin/home', label: 'Головна сторінка', icon: Home },
   { path: '/admin/pricing', label: 'Ціни', icon: Scissors },
@@ -84,7 +87,7 @@ export function AdminLayout() {
   }
 
   const isActive = (path: string) => location.pathname === path || (path !== '/admin' && location.pathname.startsWith(path + '/'))
-  const isChildActive = (children: { path: string }[]) => children.some(c => location.pathname === c.path || location.pathname.startsWith(c.path + '/'))
+  const isChildActive = (children?: { path: string }[]) => children?.some(c => location.pathname === c.path || location.pathname.startsWith(c.path + '/')) ?? false
 
   const sidebarContent = (
     <div className="flex flex-col h-full">

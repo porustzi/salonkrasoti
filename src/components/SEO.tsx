@@ -93,12 +93,15 @@ export function LocalBusinessSchema() {
     "email": BUSINESS_INFO.email,
     "url": SEO_DEFAULTS.siteUrl,
     "priceRange": "$$",
-    "openingHoursSpecification": BUSINESS_INFO.workingHours.map(wh => ({
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": wh.day,
-      "opens": wh.hours !== 'Вихідний' ? wh.hours.split(' - ')[0] : undefined,
-      "closes": wh.hours !== 'Вихідний' ? wh.hours.split(' - ')[1] : undefined
-    })),
+    "openingHoursSpecification": BUSINESS_INFO.workingHours.map(wh => {
+      const hours: string = wh.hours
+      return {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": wh.day,
+        "opens": hours !== 'Вихідний' ? hours.split(' - ')[0] : undefined,
+        "closes": hours !== 'Вихідний' ? hours.split(' - ')[1] : undefined,
+      }
+    }),
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": BUSINESS_INFO.googleRating,

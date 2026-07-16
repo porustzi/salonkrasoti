@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { Eye, EyeOff, Lock, Sparkles, Info, Copy } from 'lucide-react'
+import { Eye, EyeOff, Lock, Info, Copy } from 'lucide-react'
 
 const ADMIN_CREDENTIALS = {
   login: 'admin',
