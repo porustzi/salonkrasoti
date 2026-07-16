@@ -52,7 +52,9 @@ export async function login(password: string) {
 export async function readContent(path: string) {
   const result = await call('read', { path })
   if (!result.ok) return null
-  return result.data as string
+  const data = result.data as { content?: string | null } | string
+  if (typeof data === 'string') return data
+  return data?.content ?? null
 }
 
 export async function writeContent(path: string, content: string, message?: string) {

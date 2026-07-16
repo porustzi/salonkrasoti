@@ -50,13 +50,13 @@ export async function onRequest(context) {
         const path = body.path;
         if (!path) return json({ error: 'path required' }, 400);
         const res = await fetch(`${BASE}/${encodeURIComponent(path)}?ref=${BRANCH}`, { headers });
-        if (res.status === 404) return json(null);
+        if (res.status === 404) return json({ content: null });
         if (!res.ok) return proxyError(res);
         const data = await res.json();
         const text = data.content
           ? decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))))
           : '';
-        return json(text);
+        return json({ content: text });
       }
 
       case 'write': {
