@@ -9,7 +9,8 @@ import {
 } from 'lucide-react'
 
 const STATUS_LABELS: Record<SyncStatus, { label: string; color: string; bg: string }> = {
-  idle: { label: '—', color: 'text-neutral-400', bg: 'bg-neutral-100' },
+  idle: { label: '-', color: 'text-neutral-400', bg: 'bg-neutral-100' },
+  loading: { label: 'Завантаження...', color: 'text-neutral-400', bg: 'bg-neutral-100' },
   saving: { label: 'Збереження...', color: 'text-champagne', bg: 'bg-champagne/10' },
   saved: { label: 'Збережено', color: 'text-green-600', bg: 'bg-green-50' },
   error: { label: 'Помилка', color: 'text-red-500', bg: 'bg-red-50' },
