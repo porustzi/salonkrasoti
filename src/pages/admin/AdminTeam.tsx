@@ -1,5 +1,5 @@
 import { useData } from '../../context/DataContext'
-import { TextEditor, SectionCard, ImageUpload } from './AdminFormFields'
+import { TextEditor, TextAreaEditor, SectionCard, ImageUpload } from './AdminFormFields'
 import { motion } from 'framer-motion'
 import { User, Plus, Trash2 } from 'lucide-react'
 
