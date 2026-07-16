@@ -60,7 +60,7 @@ export async function onRequest(context) {
           for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
           text = new TextDecoder('utf-8').decode(bytes);
         }
-        return json({ content: text });
+        return json({ content: text, contentBase64: data.content ? data.content.replace(/\n/g, '') : null });
       }
 
       case 'write': {
@@ -155,7 +155,7 @@ export async function onRequest(context) {
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), {
     status,
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json; charset=utf-8' },
   });
 }
 

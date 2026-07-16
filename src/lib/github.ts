@@ -52,8 +52,18 @@ export async function login(password: string, _login?: string) {
 export async function readContent(path: string) {
   const result = await call('read', { path })
   if (!result.ok) return null
-  const data = result.data as { content?: string | null } | string
+  const data = result.data as { content?: string | null; contentBase64?: string | null } | string
   if (typeof data === 'string') return data
+  if (data?.contentBase64) {
+    try {
+      const binary = atob(data.contentBase64)
+      const bytes = new Uint8Array(binary.length)
+      for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i)
+      return new TextDecoder('utf-8').decode(bytes)
+    } catch {
+      return data?.content ?? null
+    }
+  }
   return data?.content ?? null
 }
 
