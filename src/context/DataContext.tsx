@@ -123,7 +123,14 @@ export function DataProvider({ children }: { children: ReactNode }) {
       if (failed.length > 0) {
         setSyncStatus('error')
       } else {
-        setSavedSnapshot(JSON.stringify(data))
+        const remote = await loadFromGithub()
+        if (remote) {
+          const merged = { ...defaultData, ...remote }
+          setData(merged)
+          setSavedSnapshot(JSON.stringify(merged))
+        } else {
+          setSavedSnapshot(JSON.stringify(data))
+        }
         setSyncStatus('saved')
       }
     } catch {

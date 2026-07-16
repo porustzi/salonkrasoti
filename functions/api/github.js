@@ -16,8 +16,11 @@ export async function onRequest(context) {
   const authed = auth && auth === `Bearer ${env.ADMIN_PASSWORD}`;
 
   if (!authed) {
-    const readOnly = ['login', 'list', 'read'];
+    const readOnly = ['list', 'read'];
     if (!readOnly.includes(body.action)) {
+      return json({ error: 'Unauthorized' }, 401);
+    }
+    if (body.action === 'login') {
       return json({ error: 'Unauthorized' }, 401);
     }
   }

@@ -23,6 +23,7 @@ async function call(action: string, payload: Record<string, unknown> = {}): Prom
 
     if (res.status === 401) {
       sessionStorage.removeItem('admin_auth')
+      window.location.href = '/admin/login'
     }
 
     return { ok: res.ok, status: res.status, data }
@@ -32,11 +33,20 @@ async function call(action: string, payload: Record<string, unknown> = {}): Prom
 }
 
 export async function login(password: string) {
-  const result = await call('login')
-  if (result.ok) {
+  const res = await fetch(API_ENDPOINT, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${password}`,
+    },
+    body: JSON.stringify({ action: 'login' }),
+  })
+  let data: any = null
+  try { data = await res.json() } catch { /* no body */ }
+  if (res.ok) {
     sessionStorage.setItem('admin_auth', password)
   }
-  return result
+  return { ok: res.ok, status: res.status, data }
 }
 
 export async function readContent(path: string) {

@@ -237,11 +237,11 @@ export function AdminLayout() {
               )}
               <button
                 onClick={saveToGithub}
-                disabled={syncStatus === 'saving' || syncStatus === 'loading' || !dirty}
+                disabled={syncStatus === 'saving' || syncStatus === 'loading'}
                 className={`inline-flex items-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl text-sm font-medium transition-all shadow-sm ${
                   dirty
                     ? 'bg-neutral-900 text-white hover:bg-neutral-800'
-                    : 'bg-neutral-100 text-neutral-400 cursor-not-allowed'
+                    : 'bg-neutral-900 text-white hover:bg-neutral-800 opacity-70'
                 }`}
               >
                 {syncStatus === 'saving' ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
