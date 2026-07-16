@@ -64,13 +64,15 @@ export async function onRequest(context) {
       }
 
       case 'write': {
-        const { path, content, message } = body;
-        if (!path || content === undefined) return json({ error: 'path and content required' }, 400);
+        const { path, content, contentBase64, message } = body;
+        if (!path || (content === undefined && contentBase64 === undefined)) return json({ error: 'path and content required' }, 400);
 
-        const bytes = new TextEncoder().encode(content);
-        let binary = '';
-        bytes.forEach(b => binary += String.fromCharCode(b));
-        const encoded = btoa(binary);
+        const encoded = contentBase64 || (() => {
+          const bytes = new TextEncoder().encode(content);
+          let binary = '';
+          bytes.forEach(b => binary += String.fromCharCode(b));
+          return btoa(binary);
+        })();
 
         async function attempt(attemptSha) {
           const payload = {
