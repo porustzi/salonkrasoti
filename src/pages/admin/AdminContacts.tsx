@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useData } from '../../context/DataContext'
-import { TextEditor, TextAreaEditor, SectionCard } from './AdminFormFields'
+import { TextEditor, TextAreaEditor, SectionCard, ImageUpload } from './AdminFormFields'
 import { MapPin, Smartphone, Mail, Clock, Globe } from 'lucide-react'
 
 export function AdminContacts() {
