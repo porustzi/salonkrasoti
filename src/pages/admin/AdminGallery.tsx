@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { useData } from '../../context/DataContext'
-import { TextEditor, TextAreaEditor, SectionCard } from './AdminFormFields'
+import { TextEditor, TextAreaEditor, SectionCard, ImageUpload } from './AdminFormFields'
 import { motion } from 'framer-motion'
 import { Image as ImageIcon, Upload, Trash2, GripVertical } from 'lucide-react'
 import { uploadImage } from '../../lib/github'
