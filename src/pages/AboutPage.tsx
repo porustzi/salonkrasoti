@@ -27,7 +27,7 @@ export function AboutPage() {
               className="relative"
             >
               <div className="aspect-[3/4] rounded-3xl overflow-hidden">
-                <img src={c.story.image} alt="" className="w-full h-full object-cover" />
+                <img src={c.story.image} alt="" loading="lazy" className="w-full h-full object-cover" />
               </div>
               <div className="absolute -bottom-6 -left-6 bg-champagne rounded-2xl p-6 shadow-lg">
                 <p className="text-4xl font-heading font-bold text-neutral-900">{c.story.statNumber}</p>
@@ -106,7 +106,7 @@ export function AboutPage() {
                 className="bg-white rounded-2xl overflow-hidden shadow-soft"
               >
                 <div className="aspect-[16/10] overflow-hidden">
-                  <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                  <img src={item.image} alt={item.title} loading="lazy" className="w-full h-full object-cover" />
                 </div>
                 <div className="p-6">
                   <h3 className="font-heading font-semibold text-lg text-neutral-900 mb-2">{item.title}</h3>

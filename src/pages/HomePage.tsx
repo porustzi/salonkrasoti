@@ -103,7 +103,7 @@ export function HomePage() {
               className="relative"
             >
               <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-large">
-                <img src={c.aboutPreview.image} alt="" className="w-full h-full object-cover" />
+                <img src={c.aboutPreview.image} alt="" loading="lazy" className="w-full h-full object-cover" />
               </div>
               <div className="absolute -bottom-6 -right-6 bg-champagne rounded-2xl p-6 shadow-lg hidden sm:block">
                 <p className="text-3xl font-heading font-bold text-neutral-900">{c.aboutPreview.statNumber}</p>
@@ -144,7 +144,7 @@ export function HomePage() {
                   className="group block bg-white rounded-2xl overflow-hidden shadow-soft hover:shadow-medium transition-all duration-300"
                 >
                   <div className="aspect-[4/3] overflow-hidden">
-                    <img src={category.image} alt={category.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <img src={category.image} alt={category.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                   </div>
                   <div className="p-5">
                     <h3 className="font-heading font-semibold text-lg text-neutral-900 mb-2 group-hover:text-champagne transition-colors">{category.title}</h3>
@@ -176,7 +176,7 @@ export function HomePage() {
                 className={`relative overflow-hidden rounded-xl ${index === 0 || index === 5 ? 'row-span-2' : ''}`}
               >
                 <Link to="/gallery">
-                  <img src={image.src} alt={image.alt} className="w-full h-full object-cover aspect-square transition-transform duration-500 hover:scale-105" />
+                  <img src={image.src} alt={image.alt} loading="lazy" className="w-full h-full object-cover aspect-square transition-transform duration-500 hover:scale-105" />
                   <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors duration-300" />
                 </Link>
               </motion.div>
@@ -252,7 +252,7 @@ export function HomePage() {
                 transition={{ delay: index * 0.05 }}
                 className="aspect-square overflow-hidden rounded-lg group relative"
               >
-                <img src={image.src} alt={image.alt} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                <img src={image.src} alt={image.alt} loading="lazy" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <Instagram className="w-8 h-8 text-white" />
                 </div>

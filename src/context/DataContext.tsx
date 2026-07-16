@@ -104,11 +104,11 @@ export function DataProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const updateContent = useCallback((content: SiteContent) => {
-    setData((prev) => {
-      const next = { ...prev, content }
-      if (content?.businessInfo) setBusinessInfo(content.businessInfo)
-      return next
-    })
+    setData((prev) => ({ ...prev, content }))
+    if (content?.businessInfo) {
+      setBusinessInfo(content.businessInfo)
+      if (content.businessInfo.bookingUrl) setBookingUrl(content.businessInfo.bookingUrl)
+    }
   }, [])
 
   const dirty = syncStatus !== 'loading' && JSON.stringify(data) !== savedSnapshot

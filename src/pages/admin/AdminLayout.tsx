@@ -2,6 +2,7 @@
 import { Outlet, useNavigate, useLocation, Link } from 'react-router-dom'
 import { useData, SyncStatus } from '../../context/DataContext'
 import { useBusinessInfo } from '../../lib/businessStore'
+import { ErrorBoundary } from '../../components/ErrorBoundary'
 import {
   Scissors, Images, Users, MessageSquare, Home, MapPin,
   LogOut, LayoutDashboard, CheckCircle, AlertCircle, Loader2, Save,
@@ -224,7 +225,9 @@ export function AdminLayout() {
         </header>
 
         <main className="flex-1 p-3 sm:p-6 lg:p-8">
-          <Outlet />
+          <ErrorBoundary>
+            <Outlet />
+          </ErrorBoundary>
         </main>
       </div>
     </div>

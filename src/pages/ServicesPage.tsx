@@ -57,6 +57,7 @@ export function ServicesPage() {
                     <img
                       src={category.image}
                       alt={category.title}
+                      loading="lazy"
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
