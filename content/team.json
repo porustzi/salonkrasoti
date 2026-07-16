@@ -4,8 +4,16 @@
     "name": "Даша",
     "position": "Стиліст-колорист",
     "experience": "10+ років",
-    "specializations": ["Фарбування", "Корекція кольору", "Blonde", "Airtouch"],
-    "certificates": ["Преміум фарбування Wella", "Колористика"],
+    "specializations": [
+      "Фарбування",
+      "Корекція кольору",
+      "Blonde",
+      "Airtouch"
+    ],
+    "certificates": [
+      "Преміум фарбування Wella",
+      "Колористика"
+    ],
     "instagram": "https://instagram.com/maysternya_krasy1",
     "image": "https://images.pexels.com/photos/3765174/pexels-photo-3765174.jpeg?auto=compress&cs=tinysrgb&w=400"
   },
@@ -14,8 +22,16 @@
     "name": "Оксана",
     "position": "Візажист",
     "experience": "8+ років",
-    "specializations": ["Макіяж", "Брови", "Вії", "Ламінування брів"],
-    "certificates": ["Makeup Artistry", "Brow Design"],
+    "specializations": [
+      "Макіяж",
+      "Брови",
+      "Вії",
+      "Ламінування брів"
+    ],
+    "certificates": [
+      "Makeup Artistry",
+      "Brow Design"
+    ],
     "instagram": "https://instagram.com/maysternya_krasy1",
     "image": "https://images.pexels.com/photos/1476835/pexels-photo-1476835.jpeg?auto=compress&cs=tinysrgb&w=400"
   },
@@ -24,8 +40,16 @@
     "name": "Настя",
     "position": "Майстер манікюру та масажу",
     "experience": "7+ років",
-    "specializations": ["Манікюр", "Педикюр", "Гель-лак", "Масаж"],
-    "certificates": ["Nail Art", "Massage Therapy"],
+    "specializations": [
+      "Манікюр",
+      "Педикюр",
+      "Гель-лак",
+      "Масаж"
+    ],
+    "certificates": [
+      "Nail Art",
+      "Massage Therapy"
+    ],
     "instagram": "https://instagram.com/maysternya_krasy1",
     "image": "https://images.pexels.com/photos/3293148/pexels-photo-3293148.jpeg?auto=compress&cs=tinysrgb&w=400"
   },
@@ -34,8 +58,16 @@
     "name": "Валерія",
     "position": "Майстер-перукар",
     "experience": "6+ років",
-    "specializations": ["Жіночі стрижки", "Укладки", "Чоловічі стрижки", "Догляд"],
-    "certificates": ["Haircut Techniques", "Styling"],
+    "specializations": [
+      "Жіночі стрижки",
+      "Укладки",
+      "Чоловічі стрижки",
+      "Догляд"
+    ],
+    "certificates": [
+      "Haircut Techniques",
+      "Styling"
+    ],
     "instagram": "https://instagram.com/maysternya_krasy1",
     "image": "https://images.pexels.com/photos/1644888/pexels-photo-1644888.jpeg?auto=compress&cs=tinysrgb&w=400"
   },
@@ -44,8 +76,15 @@
     "name": "Оля",
     "position": "Майстер універсал",
     "experience": "9+ років",
-    "specializations": ["Стрижки", "Фарбування", "Догляд за волоссям"],
-    "certificates": ["Goldwell Certification", "Balayage Master"],
+    "specializations": [
+      "Стрижки",
+      "Фарбування",
+      "Догляд за волоссям"
+    ],
+    "certificates": [
+      "Goldwell Certification",
+      "Balayage Master"
+    ],
     "instagram": "https://instagram.com/maysternya_krasy1",
     "image": "https://images.pexels.com/photos/2065200/pexels-photo-2065200.jpeg?auto=compress&cs=tinysrgb&w=400"
   },
@@ -54,8 +93,15 @@
     "name": "Людмила",
     "position": "Керівник салону та школи перукарів",
     "experience": "12+ років",
-    "specializations": ["Навчання майстрів", "Контроль якості", "Стрижки"],
-    "certificates": ["Викладач школи перукарів", "Міжнародні сертифікати"],
+    "specializations": [
+      "Навчання майстрів",
+      "Контроль якості",
+      "Стрижки"
+    ],
+    "certificates": [
+      "Викладач школи перукарів",
+      "Міжнародні сертифікати"
+    ],
     "instagram": "https://instagram.com/maysternya_krasy1",
     "image": ""
   }
