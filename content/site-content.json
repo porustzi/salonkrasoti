@@ -126,8 +126,97 @@
     "phone": "+38 (063) 844-77-25",
     "email": "maysternya.krasy@gmail.com",
     "instagram": "https://instagram.com/maysternya_krasy1",
+    "instagramUsername": "@maysternya_krasy1",
     "workingHours": "10:00 – 21:00 щодня",
     "country": "Україна",
-    "googleMapsUrl": "https://maps.google.com/?q=ЦУМ+Чернігів,+проспект+Миру+49,+Чернігів"
+    "googleMapsUrl": "https://maps.google.com/?q=ЦУМ+Чернігів,+проспект+Миру+49,+Чернігів",
+    "googleRating": "4.4",
+    "reviewCount": "76",
+    "recommendPercent": "86%"
+  },
+  "reviewsSection": {
+    "heading": "Відгуки наших клієнтів",
+    "subheading": "Понад 17000 вдячних клієнтів щороку довіряють нам свою красу",
+    "googleRatingText": "4.4 на Google за 76 відгуків — рекомендують 86%",
+    "ctaHeading": "Приєднуйтесь до наших клієнтів",
+    "ctaText": "Записатися на консультацію",
+    "ctaSubtext": "І відчуйте різницю професійного підходу"
+  },
+  "pricingNotes": {
+    "heading": "Важливо знати",
+    "items": [
+      "Точна вартість послуги визначається після консультації майстра та залежить від довжини та густоти волосся.",
+      "Ми використовуємо лише преміум-матеріали провідних брендів: Wella, L'Oreal, Olaplex.",
+      "Запис на складні послуги (фарбування, balayage) — за попереднім бронюванням.",
+      "При скасуванні візиту просимо попередити за 24 години."
+    ],
+    "ctaHeading": "Не знаєте, що обрати?",
+    "ctaText": "Отримати консультацію",
+    "ctaSubtext": "Наші майстри допоможуть підібрати ідеальний варіант"
+  },
+  "faq": [
+    { "question": "За якою адресою ви знаходитесь?", "answer": "Ми у Чернігові, проспект Миру 49, ЦУМ \"Чернігів\", 2 поверх. Зручне розташування у центрі міста." },
+    { "question": "Які години роботи?", "answer": "Ми працюємо щодня з 10:00 до 21:00 без вихідних." },
+    { "question": "Чи можна записатися онлайн?", "answer": "Так, ви можете залишити заявку онлайн або зателефонувати нам за номером +38 (063) 844-77-25." },
+    { "question": "Які матеріали ви використовуєте?", "answer": "Працюємо лише з преміум-брендами: Wella, L'Oreal, Olaplex, Schwarzkopf." },
+    { "question": "Чи є у вас школа перукарів?", "answer": "Так, ми проводимо навчання та майстер-класи для майбутніх майстрів." }
+  ],
+  "pages": {
+    "about": {
+      "eyebrow": "Про наш салон",
+      "title": "Майстерня Краси",
+      "subtitle": "Створюємо красу з 2014 року — понад 17000 клієнтів щороку",
+      "image": "https://images.pexels.com/photos/3993452/pexels-photo-3993452.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      "storyHeading": "Наша історія",
+      "valuesHeading": "Наші цінності",
+      "timelineHeading": "Етапи розвитку",
+      "featuresHeading": "Чому обирають нас"
+    },
+    "team": {
+      "eyebrow": "Наша команда",
+      "title": "Майстри краси",
+      "subtitle": "Команда з 14 майстрів із досвідом 5–10+ років",
+      "image": "https://images.pexels.com/photos/3993448/pexels-photo-3993448.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      "joinHeading": "Хочете приєднатися до команди?",
+      "joinText": "Ми завжди раді талановитим майстрам. Надсилайте портфоліо на пошту salon@maisternya-krasy.ua",
+      "joinCtaText": "Надіслати резюме"
+    },
+    "gallery": {
+      "eyebrow": "Наші роботи",
+      "title": "Галерея",
+      "subtitle": "Перукарське мистецтво у деталях",
+      "image": "https://images.pexels.com/photos/3993448/pexels-photo-3993448.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      "instagramHeading": "Ще більше наших робіт",
+      "instagramHandle": "@maysternya_krasy1",
+      "instagramCtaText": "Підписатися"
+    },
+    "pricing": {
+      "eyebrow": "Послуги та ціни",
+      "title": "Прайс-лист",
+      "subtitle": "Актуальні ціни на всі послуги салону",
+      "image": "https://images.pexels.com/photos/2552130/pexels-photo-2552130.jpeg?auto=compress&cs=tinysrgb&w=1920"
+    },
+    "reviews": {
+      "eyebrow": "Відгуки",
+      "title": "Що кажуть наші клієнти",
+      "subtitle": "Понад 17000 вдячних клієнтів щороку довіряють нам свою красу",
+      "image": "https://images.pexels.com/photos/3993448/pexels-photo-3993448.jpeg?auto=compress&cs=tinysrgb&w=1920"
+    },
+    "contacts": {
+      "eyebrow": "Контакти",
+      "title": "Ми завжди раді вас бачити",
+      "subtitle": "Чернігів, проспект Миру 49, ЦУМ \"Чернігів\", 2 поверх",
+      "image": "https://images.pexels.com/photos/3993444/pexels-photo-3993444.jpeg?auto=compress&cs=tinysrgb&w=1920",
+      "faqHeading": "Часті питання"
+    }
+  },
+  "homeSections": {
+    "servicesLabel": "Послуги",
+    "servicesHeading": "Популярні послуги",
+    "galleryLabel": "Галерея",
+    "galleryHeading": "Наше портфоліо",
+    "reviewsLabel": "Відгуки",
+    "reviewsHeading": "Що кажуть наші клієнти",
+    "instagramHeading": "Ми в Instagram"
   }
 }
