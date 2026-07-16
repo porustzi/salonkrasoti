@@ -138,6 +138,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
       }
 
       if (results.length === 0) {
+        setSavedSnapshot(JSON.stringify(data))
         setSyncStatus('saved')
         setTimeout(() => setSyncStatus('idle'), 3000)
         return
