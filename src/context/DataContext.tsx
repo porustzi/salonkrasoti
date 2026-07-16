@@ -1,11 +1,11 @@
-import { createContext, useContext, useState, useCallback, useEffect, useRef, ReactNode } from 'react'
-import { loadSiteData, saveSiteData } from '../lib/supabase'
+import { createContext, useContext, useState, useCallback, useEffect, ReactNode } from 'react'
+import { writeContent } from '../lib/github'
 import {
   serviceCategories as defaultServices,
   galleryImages as defaultGallery,
   teamMembers as defaultTeam,
-  reviews as defaultReviews,
 } from '../data/services'
+import { reviews as defaultReviews } from '../data/services'
 import { SiteContent, defaultSiteContent } from '../data/siteContent'
 
 type SyncStatus = 'idle' | 'saving' | 'saved' | 'error'
@@ -26,18 +26,7 @@ interface DataContextType {
   updateTeam: (team: SiteData['team']) => void
   updateReviews: (reviews: SiteData['reviews']) => void
   updateContent: (content: SiteContent) => void
-  saveToSupabase: () => Promise<void>
-}
-
-const STORAGE_KEY = 'salonkrasoti_data'
-
-function loadFromStorage(): SiteData | null {
-  return null // ❌ УДАЛИЛИ localStorage для production
-}
-
-function saveToStorage(data: SiteData) {
-  // ❌ УДАЛИЛИ localStorage для production
-  console.log('Saved to Supabase:', data)
+  saveToGithub: () => Promise<void>
 }
 
 const defaultData: SiteData = {
@@ -50,84 +39,75 @@ const defaultData: SiteData = {
 
 const DataContext = createContext<DataContextType | null>(null)
 
+const STORAGE_KEY = 'salonkrasoti_cache'
+
+function loadFromCache(): SiteData | null {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (!raw) return null
+    const cached = JSON.parse(raw)
+    if (cached?.services?.length) return cached
+    return null
+  } catch {
+    return null
+  }
+}
+
+function saveToCache(data: SiteData) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
+  } catch {
+    // ignore
+  }
+}
+
 export function DataProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<SiteData>(() => {
-    return loadFromStorage() ?? defaultData
+    return loadFromCache() ?? defaultData
   })
   const [syncStatus, setSyncStatus] = useState<SyncStatus>('idle')
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
-    console.log('Loading site data from Supabase...')
-    loadSiteData().then((remote) => {
-      console.log('Remote data:', remote)
-      if (remote?.data) {
-        const { services, gallery, team, reviews, content } = remote.data
-        // Deep merge with defaults
-        const mergedContent = { ...defaultSiteContent }
-        if (content) {
-          if (content.home) mergedContent.home = { ...defaultSiteContent.home, ...content.home }
-          if (content.about) mergedContent.about = { ...defaultSiteContent.about, ...content.about }
-          if (content.businessInfo) mergedContent.businessInfo = { ...defaultSiteContent.businessInfo, ...content.businessInfo }
-        }
-        
-        const merged = {
-          services: services || defaultServices,
-          gallery: gallery || defaultGallery,
-          team: team || defaultTeam,
-          reviews: reviews || defaultReviews,
-          content: mergedContent,
-        }
-        console.log('Merged data:', merged)
-        setData(merged)
-        // saveToStorage(merged) // ❌ Удалено localStorage
-      } else {
-        // Якщо дані не завантажено — використовуємо default
-        console.log('No remote data, using defaults')
-        setData(defaultData)
-        // saveToStorage(defaultData) // ❌ Удалено localStorage
-      }
-    }).catch((err) => {
-      // Якщо помилка завантаження — використовуємо default
-      console.error('Error loading site data:', err)
-      console.log('Using defaults')
-      setData(defaultData)
-      // saveToStorage(defaultData) // ❌ Удалено localStorage
-    })
-  }, [])
-
-  const debouncedSave = useCallback((newData: SiteData) => {
-    if (debounceRef.current) clearTimeout(debounceRef.current)
-    debounceRef.current = setTimeout(() => {
-      console.log('Debounced save to Supabase...')
-      // saveToStorage(newData) // ❌ Удалено localStorage
-    }, 2000)
-  }, [])
+    saveToCache(data)
+  }, [data])
 
   const updateServices = useCallback((services: SiteData['services']) => {
-    setData((prev) => { const next = { ...prev, services }; debouncedSave(next); return next })
-  }, [debouncedSave])
+    setData((prev) => ({ ...prev, services }))
+  }, [])
 
   const updateGallery = useCallback((gallery: SiteData['gallery']) => {
-    setData((prev) => { const next = { ...prev, gallery }; debouncedSave(next); return next })
-  }, [debouncedSave])
+    setData((prev) => ({ ...prev, gallery }))
+  }, [])
 
   const updateTeam = useCallback((team: SiteData['team']) => {
-    setData((prev) => { const next = { ...prev, team }; debouncedSave(next); return next })
-  }, [debouncedSave])
+    setData((prev) => ({ ...prev, team }))
+  }, [])
 
   const updateReviews = useCallback((reviews: SiteData['reviews']) => {
-    setData((prev) => { const next = { ...prev, reviews }; debouncedSave(next); return next })
-  }, [debouncedSave])
+    setData((prev) => ({ ...prev, reviews }))
+  }, [])
 
   const updateContent = useCallback((content: SiteContent) => {
-    setData((prev) => { const next = { ...prev, content }; debouncedSave(next); return next })
-  }, [debouncedSave])
+    setData((prev) => ({ ...prev, content }))
+  }, [])
 
-  const saveToSupabase = useCallback(async () => {
+  const saveToGithub = useCallback(async () => {
     setSyncStatus('saving')
-    const ok = await saveSiteData(data as unknown as Record<string, unknown>)
-    setSyncStatus(ok ? 'saved' : 'error')
+    try {
+      const { services, gallery, team, reviews, content } = data
+
+      await Promise.all([
+        writeContent('content/services.json', JSON.stringify(services, null, 2), 'Оновлення послуг'),
+        writeContent('content/gallery.json', JSON.stringify(gallery, null, 2), 'Оновлення галереї'),
+        writeContent('content/team.json', JSON.stringify(team, null, 2), 'Оновлення команди'),
+        writeContent('content/reviews.json', JSON.stringify(reviews, null, 2), 'Оновлення відгуків'),
+        writeContent('content/site-content.json', JSON.stringify(content, null, 2), 'Оновлення контенту'),
+      ])
+
+      setSyncStatus('saved')
+    } catch {
+      setSyncStatus('error')
+    }
     setTimeout(() => setSyncStatus('idle'), 3000)
   }, [data])
 
@@ -141,7 +121,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
         updateTeam,
         updateReviews,
         updateContent,
-        saveToSupabase,
+        saveToGithub,
       }}
     >
       {children}

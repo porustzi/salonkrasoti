@@ -100,17 +100,36 @@ export function SectionCard({
 export function ImageUpload({ value, onChange, label }: { value: string; onChange: (v: string) => void; label?: string }) {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [uploading, setUploading] = useState(false)
+  const [error, setError] = useState('')
 
   const handleFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
     setUploading(true)
-    const dataUrl = await new Promise<string>((resolve) => {
-      const reader = new FileReader()
-      reader.onload = () => resolve(reader.result as string)
-      reader.readAsDataURL(file)
-    })
-    onChange(dataUrl)
+    setError('')
+
+    try {
+      const base64 = await new Promise<string>((resolve) => {
+        const reader = new FileReader()
+        reader.onload = () => {
+          const result = reader.result as string
+          resolve(result.split(',')[1])
+        }
+        reader.readAsDataURL(file)
+      })
+
+      const { uploadImage } = await import('../../lib/github')
+      const result = await uploadImage(file.name, base64)
+
+      if (result?.url) {
+        onChange(result.url)
+      } else {
+        setError('Помилка завантаження')
+      }
+    } catch (err) {
+      setError('Помилка завантаження')
+    }
+
     setUploading(false)
     if (fileInputRef.current) fileInputRef.current.value = ''
   }
@@ -140,6 +159,7 @@ export function ImageUpload({ value, onChange, label }: { value: string; onChang
           )}
         </button>
       </div>
+      {error && <p className="text-xs text-red-500">{error}</p>}
     </div>
   )
 }

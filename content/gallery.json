@@ -1,0 +1,14 @@
+[
+  { "id": "1", "src": "https://images.pexels.com/photos/3993448/pexels-photo-3993448.jpeg?auto=compress&cs=tinysrgb&w=800", "alt": "Blonde coloring result", "category": "blonde" },
+  { "id": "2", "src": "https://images.pexels.com/photos/3993453/pexels-photo-3993453.jpeg?auto=compress&cs=tinysrgb&w=800", "alt": "Women haircut", "category": "haircuts" },
+  { "id": "3", "src": "https://images.pexels.com/photos/2681751/pexels-photo-2681751.jpeg?auto=compress&cs=tinysrgb&w=800", "alt": "Beautiful coloring", "category": "coloring" },
+  { "id": "4", "src": "https://images.pexels.com/photos/1762580/pexels-photo-1762580.jpeg?auto=compress&cs=tinysrgb&w=800", "alt": "Men haircut", "category": "haircuts" },
+  { "id": "5", "src": "https://images.pexels.com/photos/2552130/pexels-photo-2552130.jpeg?auto=compress&cs=tinysrgb&w=800", "alt": "Hair styling", "category": "styling" },
+  { "id": "6", "src": "https://images.pexels.com/photos/1390130/pexels-photo-1390130.jpeg?auto=compress&cs=tinysrgb&w=800", "alt": "Airtouch technique", "category": "blonde" },
+  { "id": "7", "src": "https://images.pexels.com/photos/3993446/pexels-photo-3993446.jpeg?auto=compress&cs=tinysrgb&w=800", "alt": "Balayage masterpiece", "category": "coloring" },
+  { "id": "8", "src": "https://images.pexels.com/photos/1769411/pexels-photo-1769411.jpeg?auto=compress&cs=tinysrgb&w=800", "alt": "Long hair styling", "category": "styling" },
+  { "id": "9", "src": "https://images.pexels.com/photos/3993448/pexels-photo-3993448.jpeg?auto=compress&cs=tinysrgb&w=800", "alt": "Blonde hair long", "category": "long-hair" },
+  { "id": "10", "src": "https://images.pexels.com/photos/3993454/pexels-photo-3993454.jpeg?auto=compress&cs=tinysrgb&w=800", "alt": "Short hair styling", "category": "short-hair" },
+  { "id": "11", "src": "https://images.pexels.com/photos/2529307/pexels-photo-2529307.jpeg?auto=compress&cs=tinysrgb&w=800", "alt": "Long haircut", "category": "long-hair" },
+  { "id": "12", "src": "https://images.pexels.com/photos/3992871/pexels-photo-3992871.jpeg?auto=compress&cs=tinysrgb&w=800", "alt": "Short blonde", "category": "short-hair" }
+]

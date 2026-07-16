@@ -60,7 +60,7 @@ function usePageTitle(): string {
 export function AdminLayout() {
   const navigate = useNavigate()
   const location = useLocation()
-  const { syncStatus, saveToSupabase } = useData()
+  const { syncStatus, saveToGithub } = useData()
   const [lastSaved, setLastSaved] = useState<string>('')
   const [mobileOpen, setMobileOpen] = useState(false)
   const [aboutOpen, setAboutOpen] = useState(true)
@@ -213,7 +213,7 @@ export function AdminLayout() {
                   <span className="text-neutral-400 flex items-center gap-1 ml-1"><Clock className="w-3 h-3" />{lastSaved}</span>
                 )}
               </div>
-              <button onClick={saveToSupabase} disabled={syncStatus === 'saving'} className="inline-flex items-center gap-2 px-3 sm:px-4 py-2.5 bg-neutral-900 text-white rounded-xl text-sm font-medium hover:bg-neutral-800 disabled:opacity-50 transition-all shadow-sm">
+              <button onClick={saveToGithub} disabled={syncStatus === 'saving'} className="inline-flex items-center gap-2 px-3 sm:px-4 py-2.5 bg-neutral-900 text-white rounded-xl text-sm font-medium hover:bg-neutral-800 disabled:opacity-50 transition-all shadow-sm">
                 {syncStatus === 'saving' ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
                 <span className="hidden sm:inline">Зберегти</span>
               </button>

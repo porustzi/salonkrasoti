@@ -1,3 +1,5 @@
+import siteContent from '../../content/site-content.json'
+
 export interface HeroContent {
   eyebrow: string
   title: string
@@ -88,92 +90,4 @@ export interface SiteContent {
   businessInfo: BusinessInfoContent
 }
 
-export const defaultSiteContent: SiteContent = {
-  home: {
-    hero: {
-      eyebrow: 'Преміум салон краси в Чернігові',
-      title: 'Майстерня Краси',
-      tagline: 'Салон краси без стереотипів. Професійні майстри, преміум матеріали, індивідуальний підхід до кожного клієнта.',
-      ctaText: 'Записатися онлайн',
-      ctaLink: '',
-      secondaryCtaText: 'Наші послуги',
-      secondaryCtaLink: '/pricing',
-      backgroundImage: 'https://images.pexels.com/photos/2552130/pexels-photo-2552130.jpeg?auto=compress&cs=tinysrgb&w=1920',
-    },
-    aboutPreview: {
-      label: 'Про наш салон',
-      heading: 'Створюємо красу з 2010 року',
-      text: 'Майстерня Краси — це преміум салон краси в Чернігові, де кожна клієнтка отримує персональну увагу та професійний догляд. Ми використовуємо тільки якісні матеріали від провідних світових брендів.',
-      features: [
-        'Професійні майстри з міжнародною підготовкою',
-        'Преміум косметика для волосся',
-        'Сучайне обладнання та затишна атмосфера',
-        'Гарантія якості на всі послуги',
-      ],
-      statNumber: '15+',
-      statLabel: 'років досвіду',
-      image: 'https://images.pexels.com/photos/3993444/pexels-photo-3993444.jpeg?auto=compress&cs=tinysrgb&w=800',
-      ctaText: 'Дізнатися більше',
-      ctaLink: '/about',
-    },
-    cta: {
-      heading: 'Готові до перетворення?',
-      text: 'Запишіться на консультацію або послугу прямо зараз. Наші майстри допоможуть створити ваш ідеальний образ.',
-      ctaText: 'Записатися онлайн',
-      ctaLink: '',
-      secondaryCtaText: 'Контакти',
-      secondaryCtaLink: '/contacts',
-    },
-  },
-  businessInfo: {
-    address: 'Проспект Миру 49',
-    city: 'Чернігів',
-    location: 'ЦУМ "Чернігів", 2 поверх',
-    phone: '+38 (063) 844-77-25',
-    email: 'maysternya.krasy@gmail.com',
-    instagram: 'https://instagram.com/maysternya_krasy1',
-    workingHours: '10:00 – 21:00 щодня',
-    country: 'Україна',
-    googleMapsUrl: 'https://maps.google.com/?q=ЦУМ+Чернігів,+проспект+Миру+49,+Чернігів',
-  },
-  about: {
-    story: {
-      label: 'Наша історія',
-      heading: 'Майстерня Краси',
-      paragraphs: [
-        'Майстерня Краси — це преміум салон краси в Чернігові, який працює з 2010 року. За цей час ми обслугували тисячі клієнток та створили безліч прекрасних образів.',
-        'Наша місія — допомогти кожній жінці відчути себе прекрасною. Ми віримо, що краса починається з турботи про себе, і ми раді бути частиною цього процесу.',
-        'У нашій команді — професійні майстри, які постійно вдосконалюють свої навички та слідкують за світовими тенденціями. Ми використовуємо тільки преміум матеріали від провідних брендів: Wella, L\'Oreal, Olapex, Schwarzkopf.',
-      ],
-      image: 'https://images.pexels.com/photos/3993452/pexels-photo-3993452.jpeg?auto=compress&cs=tinysrgb&w=800',
-      statNumber: '14+',
-      statLabel: 'років роботи',
-    },
-    values: [
-      { title: 'Індивідуальний підхід', description: 'Кожна клієнтка унікальна. Ми слухаємо ваші побажання та пропонуємо найкращі рішення.' },
-      { title: 'Професіоналізм', description: 'Наші майстри постійно навчаються та підвищують кваліфікацію.' },
-      { title: 'Якість', description: 'Преміум матеріали від провідних брендів: Wella, L\'Oreal, Olaplex.' },
-      { title: 'Комфорт', description: 'Затишна атмосфера, приємний сервіс, напої для клієнтів.' },
-    ],
-    timeline: [
-      { year: '2010', title: 'Заснування', description: 'Відкриття першого салону в Чернігові' },
-      { year: '2014', title: 'Розширення', description: 'Розширення спектру послуг та команди майстрів' },
-      { year: '2018', title: 'Новий рівень', description: 'Впровадження нових технік: airtouch, blondage' },
-      { year: '2021', title: 'Ребрединг', description: 'Оновлення інтер\'єру та сервісу' },
-      { year: '2024', title: 'Сьогодення', description: 'Лідер premium-сегменту в Чернігові' },
-    ],
-    features: [
-      { title: 'Сучасне обладнання', description: 'Ми використовуємо професійне обладнання від провідних виробників. Ультрасучасні фени, стайлери, крісла.', image: 'https://images.pexels.com/photos/3993445/pexels-photo-3993445.jpeg?auto=compress&cs=tinysrgb&w=600' },
-      { title: 'Преміум продукція', description: 'Тільки якісні фарби та доглядові засоби від Wella, L\'Oreal, Olapex, Schwarzkopf.', image: 'https://images.pexels.com/photos/3993443/pexels-photo-3993443.jpeg?auto=compress&cs=tinysrgb&w=600' },
-      { title: 'Професійне навчання', description: 'Наші майстри постійно навчаються, відвідують майстер-класи та семінари.', image: 'https://images.pexels.com/photos/3293148/pexels-photo-3293148.jpeg?auto=compress&cs=tinysrgb&w=600' },
-    ],
-    cta: {
-      heading: 'Запрошуємо на візит',
-      text: 'Переконайтеся особисто в якості нашого сервісу',
-      ctaText: 'Записатися онлайн',
-      ctaLink: '',
-      secondaryCtaText: '',
-      secondaryCtaLink: '',
-    },
-  },
-}
+export const defaultSiteContent: SiteContent = siteContent

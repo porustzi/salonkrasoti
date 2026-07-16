@@ -3,6 +3,7 @@ import { useData } from '../../context/DataContext'
 import { TextEditor, SectionCard } from './AdminFormFields'
 import { motion } from 'framer-motion'
 import { Image as ImageIcon, Upload, Trash2, GripVertical } from 'lucide-react'
+import { uploadImage } from '../../lib/github'
 
 let nextId = Date.now()
 
@@ -38,21 +39,34 @@ export function AdminGallery() {
     const newImages: typeof images = []
 
     for (const file of files) {
-      const dataUrl = await new Promise<string>((resolve) => {
+      const base64 = await new Promise<string>((resolve) => {
         const reader = new FileReader()
-        reader.onload = () => resolve(reader.result as string)
+        reader.onload = () => {
+          const result = reader.result as string
+          resolve(result.split(',')[1])
+        }
         reader.readAsDataURL(file)
       })
 
-      newImages.push({
-        id: String(nextId++),
-        src: dataUrl,
-        alt: file.name.replace(/\.[^/.]+$/, ''),
-        category: 'uploaded',
-      })
+      try {
+        const result = await uploadImage(file.name, base64)
+        if (result?.url) {
+          const name = file.name.replace(/\.[^/.]+$/, '')
+          newImages.push({
+            id: String(nextId++),
+            src: result.url,
+            alt: name,
+            category: 'uploaded',
+          })
+        }
+      } catch (err) {
+        console.error('Upload failed:', err)
+      }
     }
 
-    updateGallery([...images, ...newImages])
+    if (newImages.length > 0) {
+      updateGallery([...images, ...newImages])
+    }
     setUploading(false)
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
