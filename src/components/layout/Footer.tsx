@@ -161,6 +161,24 @@ export function Footer() {
         </div>
       </div>
 
+      {/* Credits badge */}
+      <div className="flex justify-center mt-4 mb-8 px-4">
+        <div className="relative overflow-hidden rounded-full w-full md:w-auto max-w-xs md:max-w-none mx-auto px-5 py-3 md:py-2.5 bg-white shadow-lg">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute -top-4 -right-3 w-16 h-16 bg-champagne/40 rounded-full blur-xl" />
+            <div className="absolute -bottom-4 -left-3 w-12 h-12 bg-champagne/30 rounded-full blur-lg" />
+          </div>
+          <a
+            href="https://krvtsv.netlify.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="relative block text-center text-neutral-900 font-bold text-[11px] md:text-[10px] uppercase tracking-widest whitespace-nowrap hover:text-champagne hover:scale-105 transition-all duration-200"
+          >
+            РОЗРОБЛЕНО KRVTSV CORP
+          </a>
+        </div>
+      </div>
+
       {/* Bottom */}
       <div className="border-t border-neutral-800">
         <div className="container-custom py-6">
